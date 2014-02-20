@@ -24,8 +24,12 @@ module ApplicationHelper
     FooterPage.footer 
   end
   
-  def get_marital_status
-    [["Select", ""]] + [["Never Married", "Never Married"]] + [["Married", "Married"]] + [["Widow/Widower", "Widow/Widower"]] + [["Separated but not divorced", "Separated but not divorced"]] + [["Divorced", "Divorced"]] + [["De facto", "De facto"]] + [["Unknow", "Unknow"]] 
+  def get_ticket_status
+    [["Select", ""]] + [["Open", "1"]] + [["Close", "2"]] 
+  end
+  
+  def get_ticket_priority
+    [["Select", ""]] + [["Normal", "1"]] + [["High", "2"]] 
   end
   
   def get_pager_numbers
