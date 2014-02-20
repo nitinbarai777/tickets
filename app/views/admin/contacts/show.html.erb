@@ -1,0 +1,27 @@
+<div class="page-header">
+	<h4>
+		<%= t("general.contacts") %>
+	</h4>
+</div>
+
+<div class="control-group">
+  <strong><%= t("general.name:") %></strong>
+    <%= @o_single.name %>
+</div>		
+	
+<div class="control-group">
+  <strong><%= t("general.email:") %></strong>
+    <%= @o_single.email %>
+</div>
+
+<div class="control-group">
+  <strong><%= t("general.message:") %></strong>
+    <%= @o_single.message %>
+</div>
+
+<div class="form-actions">
+   <%= link_to 'Back', admin_contacts_path, :class => "btn btn-primary" %>
+</div>
+
+
+

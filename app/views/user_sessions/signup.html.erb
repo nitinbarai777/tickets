@@ -1,0 +1,54 @@
+<div class="page-header">
+	<h4>
+		<%= t("general.sign_up") %>
+	</h4>
+</div>
+<%= form_for @o_single, :url => signup_path, :html => { :class => 'form-horizontal' } do |f| %>
+
+	<div class="control-group">
+      <div class="controls">
+        <%= f.text_field :email, :class => 'input-xlarge', :placeholder => 'Email' %>
+       	<% if @o_single.errors[:email].any? %>
+        	<span class="text-error text-message"><%= @o_single.errors[:email].first %></span>
+      	<% end %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <div class="controls">
+        <%= f.password_field :password, :class => 'input-xlarge', :placeholder => 'Password' %>
+       	<% if @o_single.errors[:password].any? %>
+        	<span class="text-error text-message"><%= @o_single.errors[:password].first %></span>
+      	<% end %>
+      </div>
+    </div>
+
+   
+    <div class="control-group">
+      <div class="controls">
+      	<div style="float:left;">
+      		<%= f.check_box :term, :class => 'check_box' %>
+  			<%= t("general.terms_and_conditions").html_safe %>
+  			<span class="text-error text-message"><%= t("general.term_error") if @o_single.errors[:term].first %></span>
+      	</div>
+      </div>
+    </div>	    
+    
+      <div class="form-actions">
+          <div class="row-fluid">
+              <div class="span12">
+                  <%= f.submit t("general.sign_up"), :class => 'btn btn-primary' %>
+              </div><!--/span-->
+          </div><!--/row-->
+      </div>
+    
+<% end %>
+
+<script type="text/javascript">
+
+$('#user_birth_date').datetimepicker({
+    language: 'en',
+    format: "dd/MM/yyyy"
+  });
+
+</script>  

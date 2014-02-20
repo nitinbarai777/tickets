@@ -1,0 +1,19 @@
+<footer class="footer">
+	<div class="container">
+		<% if get_all_pages.size > 0 %>
+			| <% for o_row in get_all_pages %>
+				<%= link_to o_row.name, "/other/#{o_row.page_route}" %> |
+			<% end %>
+		<% end %><%=raw t("general.footer_msg") %>
+	</div>	
+</footer>   
+
+<div id="spinner" style="margin: 0px; left: 0px; display: none;" class="loaderimgText">
+  <%= image_tag "loader.gif" %><br><div class="backTransparant"></div>
+</div>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("input:text").eq(0).focus();
+		$("#spinner").hide();
+	});
+</script>

@@ -1,0 +1,67 @@
+<div class="page-header">
+	<h4>
+		<%= t("general.profile") %>
+	</h4>
+</div>
+<%= form_for @o_single, :url => profile_path, :html => { :class => 'form-horizontal' } do |f| %>
+    <div class="control-group">
+      <%= f.label :first_name, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :first_name, :class => 'input-xlarge' %>
+      </div>
+    </div>		
+		
+    <div class="control-group">
+      <%= f.label :last_name, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :last_name, :class => 'input-xlarge' %>
+      </div>
+    </div>
+    
+    <div class="control-group">
+      <%= f.label :email, :class => 'control-label' %><span class="redStart">*</span>
+      <div class="controls">
+        <%= f.text_field :email, :class => 'input-xlarge' %>
+       	<% if @o_single.errors[:email].any? %>
+        	<span class="text-error text-message"><%= @o_single.errors[:email].first %></span>
+      	<% end %>        
+      </div>
+    </div>
+    
+    <div class="control-group">
+      <%= f.label :birth_date, :class => 'control-label' %>
+      <div id="user_birth_date" class="controls">
+		<%= f.text_field :birth_date, :class => 'input-xlarge' %>
+        <span class="add-on">
+            <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+        </span> 				
+	  </div>	   
+    </div>
+		 
+    <div class="control-group">
+        <%= f.label :image, :class => 'control-label' %>
+        <div class="controls">
+            <%= f.file_field :image, :class => 'input-xlarge' %>
+        </div>
+    </div>
+    <% if @o_single.image? %>
+        <div class="control-group"><div class="controls"><%= image_tag @o_single.image_url(:logo) %></div></div>
+    <% end %>
+    
+	<div class="form-actions">
+        <div class="row-fluid mb10">
+            <div class="span12">
+                <%= f.submit t("general.save"), :class => 'btn btn-primary' %>
+            </div><!--/span-->
+        </div><!--/row-->
+    </div>
+<% end %>
+
+<script type="text/javascript">
+
+$('#user_birth_date').datetimepicker({
+    language: 'en',
+    format: "dd/MM/yyyy"
+  });
+
+</script>  

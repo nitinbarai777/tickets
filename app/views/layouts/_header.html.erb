@@ -1,0 +1,45 @@
+<div class="navbar navbar-fluid-top">
+  <div class="navbar-inner">
+    <div class="container-fluid">
+      <a class="brand" href="/">SupportTickets</a>
+      <div class="container-fluid nav-collapse">
+        <ul class="nav">
+        	<% if current_user %>
+          	<% if is_admin? %>
+          		<li><%= link_to t("general.users"), admin_users_path  %></li>
+          	<% end %>
+          <% end %>	
+        </ul>
+        
+        <ul class="nav pull-right">
+        	<% unless current_user %>
+        		<li><%= link_to t("general.contact_us"), "/contact_us"  %></li>
+          	<li><%= link_to t("general.sign_up"), "/signup"  %></li>
+          	<li><%= link_to t("general.login"), "/login"  %></li>
+          <% else %>        	
+          	<% if is_admin? %>
+		          <li class="dropdown dropdownHeight">
+		            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><Dropdown><%= t("general.admin_setup") %> <b class="caret"></b></a>
+		            <ul class="dropdown-menu">
+		          		<li><%= link_to t("general.footer_pages"), admin_footer_pages_path  %></li>
+		          		<li><%= link_to t("general.contacts"), admin_contacts_path  %></li>
+		          		<li><%= link_to t("general.languages"), admin_languages_path  %></li>
+		          		<li><%= link_to t("general.email_templates"), admin_email_templates_path  %></li>
+		          		<li><%= link_to t("general.settings"), admin_settings_path  %></li>
+		            </ul>
+			        </li>   
+          	<% end %> 
+	          <li class="dropdown dropdownHeight">
+	            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><Dropdown><%= t("general.welcome_user", :username => current_user.name) %> <b class="caret"></b></a>
+	            <ul class="dropdown-menu">
+		          	<li><%= link_to t("general.profile"), "/profile"  %></li>
+		          	<li><%= link_to t("general.change_password"), "/change_password"  %></li>
+		          	<li><%= link_to t("general.logout"), "/logout"  %></li>
+	            </ul>
+		        </li>            	       
+         <% end %> 	
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </div>
+</div>
