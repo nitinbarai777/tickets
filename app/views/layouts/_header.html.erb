@@ -7,6 +7,7 @@
         	<% if current_user %>
           	<% if is_admin? %>
           		<li><%= link_to t("general.users"), admin_users_path  %></li>
+        		  <li><%= link_to t("general.tickets"), admin_tickets_path  %></li>
           	<% end %>
           <% end %>	
         </ul>

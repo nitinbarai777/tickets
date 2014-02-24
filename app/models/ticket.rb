@@ -1,5 +1,5 @@
 class Ticket < ActiveRecord::Base
-  has_many :ticket_replies
+  has_many :ticket_replies, dependent: :destroy
   belongs_to :user
   
   mount_uploader :attached_file, ImageUploader

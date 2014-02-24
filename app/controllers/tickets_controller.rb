@@ -5,9 +5,8 @@ class TicketsController < ApplicationController
   # GET /tickets
   # GET /tickets.json
   def index
-    #@tickets = current_user.tickets
     @o_all = get_records(params[:page])
-    #return render text: @o_all.inspect
+    
   end
 
   # GET /tickets/1
@@ -73,7 +72,7 @@ class TicketsController < ApplicationController
     @ticket_replies = @ticket.ticket_replies
     @ticket_reply = TicketReply.new(ticket_reply_params)
     if @ticket_reply.save
-      flash[:notice] = t("Ticket reply was successfully created.")
+      flash[:notice] = "Ticket reply was successfully created."
     end
   end
   

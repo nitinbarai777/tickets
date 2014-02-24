@@ -5,7 +5,7 @@ Tickets::Application.routes.draw do
   #get '/chat', to: RealtimeChatController
 
   namespace :admin do
-    resources :users, :settings, :footer_pages, :contacts, :languages, :email_templates
+    resources :users, :tickets, :settings, :footer_pages, :contacts, :languages, :email_templates
   end
 
   resources :user_sessions
