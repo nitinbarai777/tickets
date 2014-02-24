@@ -1,0 +1,11 @@
+<h3>Ticket Reply</h3>
+
+<% if @ticket_replies.count > 0 %>
+  <% @ticket_replies.each do |t| %>
+    <div>
+      <span class="fl"><%= t.description %></span>
+      <span class="fr"><%= t.created_at.to_s(:pretty_view) %></span>
+    </div>
+    <div class="clearb">&nbsp;</div>
+  <% end %>
+<% end %>

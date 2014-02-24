@@ -69,6 +69,7 @@ en:
     successfully_registered: "Successfully registered. Confirmation email has been sent to your provided email account. Please click on link to confirm."
     user_active_successfully: "Activated successfully."
     already_activated: "Already activated"
+    show: Show
   mail:
    registration_confirmation:
      complete_this_step_to_start_using_your_account: Complete this step to start using your account

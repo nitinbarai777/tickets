@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140220132559) do
+ActiveRecord::Schema.define(version: 20140222103944) do
 
   create_table "contacts", force: true do |t|
     t.integer  "user_id"
@@ -83,7 +83,7 @@ ActiveRecord::Schema.define(version: 20140220132559) do
 
   create_table "ticket_replies", force: true do |t|
     t.integer  "ticket_id"
-    t.integer  "user_id_id"
+    t.integer  "user_id"
     t.string   "user_type"
     t.text     "description"
     t.string   "attached_file"

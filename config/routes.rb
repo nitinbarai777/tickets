@@ -23,6 +23,16 @@ Tickets::Application.routes.draw do
   match 'contact_us' => 'fronts#contact_us', :as => :contact_us, via: [:get, :post, :patch]
   get '/other/:page_id' => 'fronts#other', :as => :other
 
+  resources :tickets
+  
+  post '/reply/create' => 'tickets#reply_create', :as => 'reply_create'
+  
+  
+  
+  # staff routes
+  get '/staff/tickets' => 'staff#tickets', :as => :staff_tickets
+  get '/ticket/reply/:id' => 'staff#ticket_reply', :as => :ticket_reply
+  post '/ticket/reply/create' => 'staff#ticket_reply_create', :as => :ticket_reply_create
   # You can have the root of your site routed with "root"
   root 'fronts#dashboard'
 

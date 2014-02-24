@@ -3,9 +3,9 @@ class CreateTicketReplies < ActiveRecord::Migration
     create_table :ticket_replies do |t|
       t.references :ticket
       t.references :user_id
-      t.string       :user_type
+      t.string     :user_type
       t.text       :description
-      t.string       :attached_file
+      t.string     :attached_file
       t.timestamps
     end
   end

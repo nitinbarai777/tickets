@@ -31,14 +31,5 @@ Tickets::Application.configure do
   config.action_mailer.default_url_options = { :host => "0.0.0.0:3000" }
   
   config.action_mailer.delivery_method = :smtp
-
-  PER_PAGE = 10
-  BASE_URL = "http://localhost:3007"
-  BASE_URL_DOMAIN = "localhost:3007"
   
-  MAIL_USER_NAME = "nbarai77@gmail.com"
-  MAIL_PASSWORD = "nitin@@@777"
-  MAIL_PORT = "587"
-  MAIL_ADDRESS = "smtp.gmail.com"
-  MAIL_DOMAIN = "gmail.com"   
 end

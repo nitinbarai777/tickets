@@ -12,7 +12,7 @@ class Admin::UsersController < ApplicationController
     session[:set_pager_number] = params[:set_pager_number] if params[:set_pager_number]
 
     if session[:set_pager_number].nil?
-      session[:set_pager_number] = PER_PAGE
+      session[:set_pager_number] = Tickets::PER_PAGE
     end
 
     @o_all = User.all_users.
