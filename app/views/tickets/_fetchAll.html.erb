@@ -22,7 +22,7 @@
           <!--td><%#= o_row.role.role_type %></td-->
           <td><%= o_row.created_at.to_s(:pretty_view) if o_row.updated_at %></td>
           <td><%= o_row.status_id == 1 ?  "Open" : "Close" %></td>
-          <td><%= o_row.priority_id == 1 ?  "High" : "Normal" %></td>
+          <td><%= o_row.priority_id == 1 ?  "Normal" : "High" %></td>
           <% if o_row.is_last_reply_by_staff?(current_user.id) %>
           	<td class="redStart"><%=  "Awaiting for reply" %></td>
           <% else %>	
