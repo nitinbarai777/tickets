@@ -1,20 +1,20 @@
-<h3>New Reply</h3>
-
 <%= form_for @ticket_reply, :url => reply_create_path, :remote => true, :html => { :class => 'form-horizontal' } do |f| %>
   <%= f.hidden_field :ticket_id, :value => params[:id] %>
-  <%= f.hidden_field :user_id, :value => @ticket.user_id %>
-  <%= f.hidden_field :user_type, :value => "User" %>   
-
+  <%= f.hidden_field :user_id, :value => current_user.id %>
+  <%= f.hidden_field :user_type, :value => "User" %>
+     
+	<h3>Reply</h3>
+	<div id="flash_message" class="field"></div>
 
   <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description %>
+    <%= f.text_area :description, :class => 'input-xxlarge textArea' %>
    	<% if @ticket_reply.errors[:description].any? %>
     	<span class="text-error text-message"><%= @ticket_reply.errors[:description].first %></span>
   	<% end %>
   </div>
 
-  <div class="actions">
-    <%= f.submit %>
+  <div class="">
+    <%= f.submit nil, :class => 'btn btn-large btn-primary', :value => "Reply" %>
+    <%= f.submit nil, :class => 'btn btn-large btn-primary', :value => "Reply & Close", :name => "reply_close" %>
   </div>
 <% end %>

@@ -6,7 +6,8 @@
     <th width="20%"><%= t("name") %></th>
     <th width="20%"><%= t("subject") %></th>
     <th width="15%"><%= t("general.date")%></th>
-    <th width="5%"><%= t("general.active") %></th>
+    <th width="10%"><%= sortable "status_id", t("general.status") %></th>
+    <th width="10%"><%= sortable "priority_id", t("general.priority") %></th>
     <th width="20%"><%= t("general.actions") %></th>
   </tr>
  </thead>
@@ -19,7 +20,8 @@
           <td><%= o_row.user.name %></td>
           <td><%= o_row.subject %></td>
           <td><%= o_row.created_at.to_s(:pretty_view) if o_row.created_at %></td>
-          <td><%= o_row.is_active ? image_tag("Yes.gif") : image_tag("No.gif") %></td>
+          <td><%= o_row.status_id == 1 ?  "Open" : "Close" %></td>
+          <td><%= o_row.priority_id == 1 ?  "High" : "Normal" %></td>
           <td>
 			      <%= link_to t('general.edit'),
 			                  edit_admin_ticket_path(o_row), :class => 'btn btn-mini' %>

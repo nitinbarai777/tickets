@@ -1,6 +1,9 @@
 class TicketsController < ApplicationController
   before_action :require_user
   before_action :set_ticket, only: [:show, :edit, :update, :destroy]
+  helper_method :sort_column, :sort_direction
+  OPEN = 1
+  CLOSE = 2
 
   # GET /tickets
   # GET /tickets.json
@@ -72,7 +75,14 @@ class TicketsController < ApplicationController
     @ticket_replies = @ticket.ticket_replies
     @ticket_reply = TicketReply.new(ticket_reply_params)
     if @ticket_reply.save
-      flash[:notice] = "Ticket reply was successfully created."
+      flash[:success_reply] = "Ticket reply was successfully created."
+      if params[:reply_close]
+        @ticket.status_id = CLOSE
+        @ticket.save
+        flash[:success_reply] = "Ticket reply was successfully created and closed."
+      end
+    else  
+      flash[:notice_reply] = "Please enter reply."
     end
   end
   
@@ -92,7 +102,7 @@ class TicketsController < ApplicationController
     end
     
     def get_records(page)
-      query = current_user.tickets
+      query = current_user.tickets.open
       query.order(sort_column + " " + sort_direction).paginate(:per_page => 10, :page => page)
     end
     

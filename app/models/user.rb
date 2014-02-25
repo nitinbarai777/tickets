@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   has_many :tickets
   has_many :ticket_replies
   
-  scope :all_users, joins(:role).where(:roles => { :role_type => USER })
+  scope :all_users, joins(:role).where("roles.role_type != ?", SUPER_ADMIN)
 
   def password_required?
     @password_required

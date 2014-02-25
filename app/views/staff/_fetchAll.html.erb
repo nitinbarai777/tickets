@@ -1,10 +1,12 @@
 <table class="table table-striped">
  <thead>
   <tr>
-    <th width="20%"><%= t("name") %></th>
+    <th width="15%"><%= sortable "user_id", t("name") %></th>
     <th width="20%"><%= t("ticket subject") %></th>
-    <th width="15%"><%= t("general.date")%></th>
-    <th width="10%"><%= t("general.active") %></th>
+    <th width="15%"><%= sortable "updated_date", t("general.last_updated")%></th>
+    <th width="10%"><%= sortable "status_id", t("general.status") %></th>
+    <th width="10%"><%= sortable "priority_id", t("general.priority") %></th>
+    <th width="15%">&nbsp;</th>
     <th width="15%"><%= t("general.actions") %></th>
   </tr>
  </thead>
@@ -15,31 +17,22 @@
         <tr>
           <td><%= o_row.user.name %></td>
           <td><%= o_row.subject %></td>
-          <td><%= o_row.created_at.to_s(:pretty_view) if o_row.created_at %></td>
-          <td><%= o_row.is_active ? image_tag("Yes.gif") : image_tag("No.gif") %></td>
+          <td><%= o_row.created_at.to_s(:default_date_time) if o_row.updated_at %></td>
+          <td><%= o_row.status_id == 1 ?  "Open" : "Close" %></td>
+          <td><%= o_row.priority_id == 1 ?  "High" : "Normal" %></td>
+          <% if o_row.is_last_reply_by_staff?(current_user.id) %>
+          	<td class="redStart"><%=  "Awaiting for reply" %></td>
+          <% else %>	
+          	<td class="">&nbsp;</td>
+          <% end %>          
           <td>
             <%= link_to t('general.reply'), ticket_reply_path(o_row.id), :class => 'btn btn-mini' %>
           </td>
         </tr>
       <% end %>
     <% else %>
-      <tr><th colspan="6"><%= t("general.record_not_found") %></th></tr>
+      <tr><th colspan="7"><%= t("general.record_not_found") %></th></tr>
     <% end %>
   </tbody>
 </table>
-<div class="fr">
-	<table>
-		<tr>
-            <td><%#= render 'layouts/common_pager' %></td>
-			<td>
-				<%#= select_tag "set_pager_number", options_for_select(get_pager_numbers, session[:set_pager_number]),
-																	:data => { :remote => true, :url => url_for(:action => "index") },
-																	:class => ""  %>
-			</td>
-			<td>&nbsp;</td>
-			<td>
-				<%#= will_paginate @tickets %>
-			</td>
-		</tr>
-	</table>
-</div>
+<div class="fr"><%= will_paginate @tickets %></div>

@@ -1,10 +1,27 @@
 class Admin::TicketsController < ApplicationController
   before_action :set_admin_ticket, only: [:show, :edit, :update, :destroy]
+  helper_method :sort_column, :sort_direction
+  before_action :require_admin  
 
   # GET /admin/tickets
   # GET /admin/tickets.json
   def index
-    @o_all = Ticket.all
+    session[:search_params] = params[:user] ? params[:user] : nil
+
+    session[:set_pager_number] = params[:set_pager_number] if params[:set_pager_number]
+
+    if session[:set_pager_number].nil?
+      session[:set_pager_number] = 10
+    end
+
+    @o_all = Ticket.
+                  search(session[:search_params]).
+                  order(sort_column + " " + sort_direction).
+                  paginate(:per_page => session[:set_pager_number], :page => params[:page])
+
+    @params_arr = { :subject => { "type" => 'text' }, :status_id => { "type" => 'integer' } }
+
+    @o_single = controller_name.classify.constantize.new
   end
 
   # GET /admin/tickets/1
@@ -32,8 +49,8 @@ class Admin::TicketsController < ApplicationController
 
     respond_to do |format|
       if @ticket.save
-        format.html { redirect_to admin_ticket_url(@ticket.id), notice: 'Ticket was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @ticket }
+        format.html { redirect_to admin_tickets_url, notice: 'Ticket was successfully created.' }
+        format.json { render action: 'index', status: :created, location: @ticket }
       else
         format.html { render action: 'new' }
         format.json { render json: @ticket.errors, status: :unprocessable_entity }
@@ -46,7 +63,7 @@ class Admin::TicketsController < ApplicationController
   def update
     respond_to do |format|
       if @ticket.update(admin_ticket_params)
-        format.html { redirect_to @ticket, notice: 'Ticket was successfully updated.' }
+        format.html { redirect_to admin_tickets_url, notice: 'Ticket was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -75,4 +92,12 @@ class Admin::TicketsController < ApplicationController
     def admin_ticket_params
       params.require(:ticket).permit!
     end
+    
+    def sort_column
+      User.column_names.include?(params[:sort]) ? params[:sort] : "id"
+    end
+
+    def sort_direction
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
+    end    
 end

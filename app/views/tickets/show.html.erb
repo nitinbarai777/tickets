@@ -1,13 +1,15 @@
-<div>
-  <h2><%= @ticket.subject %></h2>
-  <p><%= @ticket.description %></p>
-  
-  <div id="ticket-replies-list">
-    <%= render partial: 'ticket_reply_list' %>
-  </div>
-  <div class='clearb'></div>
-  <%= render partial: 'ticket_reply_form' %> 
-  
+<div class="row-fluid show-grid">
+  <div class="span12">
+	  <h2><%= @ticket.subject %></h2>
+	  <p><%= @ticket.description %></p>
+	  <hr />
+	  
+	  <div id="ticket-replies-list">
+	    <%= render partial: 'ticket_reply_list' %>
+	  </div>
+	  <div class='clearb'></div>
+	  <%= render partial: 'ticket_reply_form' %> 
+ 	</div> 
 </div>
 
 

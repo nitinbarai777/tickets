@@ -1,41 +1,47 @@
 <%= form_for ["admin", @ticket], :html => { :class => 'form-horizontal' } do |f| %>
-  <%= f.hidden_field :user_id, :value => current_user.id %>
+  <%= f.hidden_field :user_id, :value => @ticket.user.id %>
+
 
   <div class="field">
-    <%= f.label :subject %><br>
-    <%= f.text_field :subject, :class => 'input-xlarge' %>
+    <%= f.label :subject %>
+    <%= f.text_field :subject, :class => 'input-xxlarge' %>
    	<% if @ticket.errors[:subject].any? %>
     	<span class="text-error text-message"><%= @ticket.errors[:subject].first %></span>
   	<% end %>    
   </div>
 
   <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description, :class => 'input-xlarge' %>
+    <%= f.label :description %>
+    <%= f.text_area :description, :class => 'input-xxlarge textArea' %>
    	<% if @ticket.errors[:description].any? %>
     	<span class="text-error text-message"><%= @ticket.errors[:description].first %></span>
   	<% end %>
   </div>
   
+  
+	<%= f.hidden_field :status_id, :value => 1 %>
+  <!--<div class="field">
+    <%#= f.label :status_id %>
+    <%#= f.select :status_id, options_for_select(get_ticket_status, :selected => @ticket.status_id), {}, { :class => 'input-xlarge'} %>
+  </div>-->
+  
   <div class="field">
-    <%= f.label :priority_id %><br>
+    <%= f.label :attached_file %>
+    <%= f.file_field :attached_file %>
+  </div>  
+  
+
+  
+  <div class="field">
+    <%= f.label :priority_id %>
     <%= f.select :priority_id, options_for_select(get_ticket_priority, :selected => @ticket.priority_id), {}, { :class => 'input-xlarge'} %>
    	<% if @ticket.errors[:priority_id].any? %>
     	<span class="text-error text-message"><%= @ticket.errors[:priority_id].first %></span>
   	<% end %>
   </div>
 
-  <div class="field">
-    <%= f.label :status_id %><br>
-    <%= f.select :status_id, options_for_select(get_ticket_status, :selected => @ticket.status_id), {}, { :class => 'input-xlarge'} %>
-  </div>
-  
-  <div class="field">
-    <%= f.label :attached_file %>
-    <%= f.file_field :attached_file %>
-  </div>
         
-  <div class="actions">
-    <%= f.submit %>
+  <div class="">
+    <%= f.submit nil, :class => 'btn btn-large btn-primary', :value => "Submit" %>
   </div>
 <% end %>
