@@ -79,8 +79,8 @@ Tickets::Application.configure do
   config.log_formatter = ::Logger::Formatter.new
   
   PER_PAGE = 10
-  BASE_URL = "http://localhost:3007"
-  BASE_URL_DOMAIN = "localhost:3007"
+  BASE_URL = "http://supportengine.herokuapp.com"
+  BASE_URL_DOMAIN = "supportengine.herokuapp.com"
   
   MAIL_USER_NAME = "nbarai77@gmail.com"
   MAIL_PASSWORD = "nitin@@@777"
