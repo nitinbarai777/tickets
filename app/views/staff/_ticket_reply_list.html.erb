@@ -5,7 +5,7 @@
 	    <% @ticket_replies.each do |t| %>
 			  <tr>
 				  <td>
-	        	<div class="fr"><%= t.user.name.humanize %> - <%= t.created_at.to_s(:pretty_view) %></div>
+	        	<div class="fr"><%= t.user.name.humanize %> - <%= t.created_at.to_s(:default_date_time) %></div>
 	        	<div class="cl">&nbsp;</div>
 	        	<p><%= t.description %></p>
 	        </td>

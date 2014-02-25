@@ -15,7 +15,7 @@ class StaffController < ApplicationController
     end
         
     @tickets = Ticket.active.order(sort_column + " " + sort_direction).
-                  paginate(:per_page => 10, :page => params[:page])  
+                  paginate(:per_page => 20, :page => params[:page])  
   end
   
   def ticket_reply
@@ -61,10 +61,10 @@ class StaffController < ApplicationController
     end
     
     def sort_column
-      User.column_names.include?(params[:sort]) ? params[:sort] : "id"
+      Ticket.column_names.include?(params[:sort]) ? params[:sort] : "status_id"
     end
 
     def sort_direction
-      %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
     end    
 end

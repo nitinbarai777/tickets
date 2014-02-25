@@ -51,14 +51,31 @@
         <div class="span3">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
-              <li class="nav-header">Support Engine</li>
-              <% if is_staff? %>
-              <li><%= link_to "Tickets", staff_tickets_path  %></li>
-              <% elsif is_user? %>
-              <li><%= link_to "Submit a ticket", new_ticket_path %></li>
-              <li><%= link_to "Check your existing tickets", tickets_path %></li>
-              <% end %>
+            	
+            	<% unless current_user %>
+            	
+	              <li class="nav-header">
+	              	Support Engine
+	              </li>
+	              <li>
+	              	<p>Customer Support Software, Help Desk Software</p>
+	              	<hr />
+	              </li>
+	              
+	            <% else %>   
+              
+	              <% if is_staff? %>
+	              	<li><%= link_to "Tickets", staff_tickets_path  %></li>
+	              <% elsif is_user? %>
+	              	<li><%= link_to "Submit a ticket", new_ticket_path %></li>
+	              	<li><%= link_to "Check your existing tickets", tickets_path %></li>
+	              <% end %>
+	             
+	           <% end %>   
+              
+              
             </ul>
+            
           </div><!--/.well -->
         </div><!--/span-->
         <div class="span9">

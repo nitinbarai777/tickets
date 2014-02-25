@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= f.label :description %>
-    <%= f.text_area :description, :class => 'input-xxlarge textArea' %>
+    <%= f.text_area :description, :class => 'input-xxlarge textArea wysihtml5' %>
    	<% if @ticket.errors[:description].any? %>
     	<span class="text-error text-message"><%= @ticket.errors[:description].first %></span>
   	<% end %>
@@ -43,6 +43,19 @@
 
         
   <div class="">
-    <%= f.submit nil, :class => 'btn btn-large btn-primary', :value => "Submit" %>
+    <%= f.submit nil, :class => 'btn btn-primary', :value => "Submit" %>
   </div>
 <% end %>
+
+<script type="text/javascript">
+	$(document).on('page:load', function(){
+	  window['rangy'].initialized = false
+	})
+  $(document).ready(function(){
+
+    $('.wysihtml5').each(function(i, elem) {
+      $(elem).wysihtml5();
+    });
+
+  })
+</script>

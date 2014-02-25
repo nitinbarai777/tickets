@@ -24,6 +24,7 @@ en:
   username: "Username"
   email: "Email"
   general:
+    successfully_sent_inquiry: "Successfully sent inquiry"
     send: "Send"
     admin_setup: "Admin Setup"
     welcome_user: "Welcome %{username}"
@@ -40,8 +41,8 @@ en:
     record_not_found: "Record(s) not found."
     add: "Add"
     search: "Search"
-    title: "Support Tickets"
-    footer_msg: "Copyright © 2013. All rights reserved."
+    title: "Support Engine"
+    footer_msg: "Copyright © 2014. All rights reserved."
     login: Login
     logout: Logout
     reset_password: Reset Password

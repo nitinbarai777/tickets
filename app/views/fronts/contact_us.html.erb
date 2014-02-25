@@ -8,9 +8,8 @@
 
 
     <div class="control-group">
-      <label class = 'control-label'><%= t("general.your_name") %></label><span class="redStart">*</span>
       <div class="controls">
-        <%= f.text_field :name, :class => 'input-xlarge' %>
+        <%= f.text_field :name, :class => 'input-xlarge', :placeholder => 'Your Name' %>
        	<% if @o_single.errors[:name].any? %>
         	<span class="text-error text-message"><%= @o_single.errors[:name].first %></span>
       	<% end %>        
@@ -18,9 +17,8 @@
     </div>
     
     <div class="control-group">
-      <label class = 'control-label'><%= t("general.your_email") %></label><span class="redStart">*</span>
       <div class="controls">
-        <%= f.text_field :email, :class => 'input-xlarge' %>
+        <%= f.text_field :email, :class => 'input-xlarge', :placeholder => 'Your Email' %>
        	<% if @o_single.errors[:email].any? %>
         	<span class="text-error text-message"><%= @o_single.errors[:email].first %></span>
       	<% end %>                

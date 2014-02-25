@@ -3,7 +3,7 @@ class FrontsController < ApplicationController
 
   def dashboard
     unless current_user
-      redirect_to signup_url
+      redirect_to login_url
     end
   end
   

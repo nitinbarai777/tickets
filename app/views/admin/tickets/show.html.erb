@@ -1,6 +1,8 @@
 <div>
-  <h2><%= @ticket.subject %></h2>
-  <p><%= @ticket.description %></p>
+	<div class="page-header">
+  	<h2><%= @ticket.subject %></h2>
+  	<p><%= @ticket.description %></p>
+  </div>	
   
   <div id="ticket-replies-list">
     <%= render partial: 'ticket_reply_list' %>
