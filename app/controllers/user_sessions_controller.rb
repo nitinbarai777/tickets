@@ -26,7 +26,7 @@ class UserSessionsController < ApplicationController
           session[:user_id] = current_user.id
           session[:user_role] = current_user.role.role_type
           notice = t("general.login_successful")
-          format.html { redirect_to(is_admin? ? admin_users_url : new_ticket_url, :notice => notice) }
+          format.html { redirect_to(is_admin? ? admin_users_url : (is_staff? ? dashboard_url : new_ticket_url), :notice => notice) }
           format.xml { render :xml => @user_session, :status => :created, :location => @user_session }
         else
           reset_session

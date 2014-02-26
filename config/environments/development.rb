@@ -32,4 +32,14 @@ Tickets::Application.configure do
   
   config.action_mailer.delivery_method = :smtp
   
+  PER_PAGE = 10
+  BASE_URL = "http://supportengine.herokuapp.com"
+  BASE_URL_DOMAIN = "supportengine.herokuapp.com"
+  
+  MAIL_USER_NAME = "nbarai77@gmail.com"
+  MAIL_PASSWORD = "nitin@@@777"
+  MAIL_PORT = "587"
+  MAIL_ADDRESS = "smtp.gmail.com"
+  MAIL_DOMAIN = "gmail.com"    
+  
 end
