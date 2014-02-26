@@ -1,7 +1,7 @@
 <div>
 	<div class="page-header">
   	<h2><%= @ticket.subject %></h2>
-  	<p><%= @ticket.description %></p>
+  	<p><%= @ticket.description.html_safe if @ticket.description %></p>
   </div>	
   
   <div id="ticket-replies-list">

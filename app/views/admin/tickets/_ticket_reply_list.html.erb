@@ -9,7 +9,7 @@
 					
 	      	<div class="fr"><%= t.user.name.humanize %> - <%= t.created_at.to_s(:pretty_view) %></div>
 	      	<div class="cl">&nbsp;</div>
-	      	<p><%= t.description %></p>
+	      	<p><%= t.description.html_safe if t.description %></p>
 	      </td>
 	   </tr>
 	    
