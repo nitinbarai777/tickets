@@ -65,7 +65,7 @@ gem "will_paginate"
 gem "carrierwave"
 gem "rmagick"
 gem "mini_magick"
-
+gem 'httparty'
 #random key generate
 gem 'webget_ruby_secure_random'
 

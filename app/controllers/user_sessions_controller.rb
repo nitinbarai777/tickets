@@ -1,4 +1,6 @@
 class UserSessionsController < ApplicationController
+    #require 'net/http'
+    #require 'json'
 
   # GET /user_sessions
   def index
@@ -7,6 +9,15 @@ class UserSessionsController < ApplicationController
 
   # GET login
   def new
+=begin    
+    uri = URI.escape('http://api.veriagent.com/User.php?method=GetMyDetail[874815c76c4f6a144b941d83f1d0a116|dev_nitin]')
+    uri.gsub!('|', '%7C')
+    resp = Net::HTTP.get_response(URI.parse(uri))
+    buffer = resp.body
+    buffer = buffer.gsub('(', '').gsub(')', '')
+    @result = JSON.parse(buffer)
+    render text: @result[0]["userid"]
+=end        
     if current_user
       redirect_to root_path
     else   
