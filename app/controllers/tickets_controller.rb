@@ -1,5 +1,4 @@
 class TicketsController < ApplicationController
-  before_action :require_user
   before_action :set_ticket, only: [:show, :edit, :update, :destroy]
   helper_method :sort_column, :sort_direction
   OPEN = 1
@@ -16,7 +15,7 @@ class TicketsController < ApplicationController
   # GET /tickets/1.json
   def show
     if @ticket.present?
-      @ticket_replies = @ticket.ticket_replies
+      @ticket_replies = @ticket.ticket_replies.order(id: :desc)
       @ticket_reply = TicketReply.new
     end
   end
@@ -33,8 +32,16 @@ class TicketsController < ApplicationController
   # POST /tickets
   # POST /tickets.json
   def create
+    #return render text: params
+    
+    unless current_user.present?
+      @user = User.new(user_params)
+      @user.save
+      params[:ticket][:user_id] = @user.id
+    end
+    
     @ticket = Ticket.new(ticket_params)
-
+    
     respond_to do |format|
       if @ticket.save
         format.html { redirect_to tickets_url, notice: 'Ticket was successfully created.' }
@@ -72,7 +79,7 @@ class TicketsController < ApplicationController
 
   def reply_create
     @ticket = Ticket.find(params[:ticket_reply][:ticket_id])
-    @ticket_replies = @ticket.ticket_replies
+    @ticket_replies = @ticket.ticket_replies.order(id: :desc)
     @ticket_reply = TicketReply.new(ticket_reply_params)
     if @ticket_reply.save
       flash[:success_reply] = "Ticket reply was successfully created."
@@ -112,6 +119,10 @@ class TicketsController < ApplicationController
 
     def sort_direction
       %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
+    end
+    
+    def user_params
+      params.require(:user).permit!
     end
 
 end

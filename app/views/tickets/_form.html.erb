@@ -1,6 +1,11 @@
-<%= form_for @ticket, :html => { :class => 'form-horizontal' } do |f| %>
-  <%= f.hidden_field :user_id, :value => current_user.id %>
+<%= form_for @ticket, :html => { :onload => "getCaptcha();", :class => 'form-horizontal' } do |f| %>
+  <% if current_user.present? %>
+    <%= f.hidden_field :user_id, :value => current_user.id %>
+  <% end %>
 
+  <% unless current_user.present? %>
+    <%= render :partial => 'userInfo', :locals => { :f => f } %>
+  <% end %>
 
 <% if @ticket.new_record? %>
   <div class="field">
@@ -21,10 +26,6 @@
   
   
 	<%= f.hidden_field :status_id, :value => 1 %>
-  <!--<div class="field">
-    <%#= f.label :status_id %>
-    <%#= f.select :status_id, options_for_select(get_ticket_status, :selected => @ticket.status_id), {}, { :class => 'input-xlarge'} %>
-  </div>-->
   
   <div class="field">
     <%= f.label :attached_file %>
@@ -41,6 +42,23 @@
   	<% end %>
   </div>
 
+  <% unless current_user.present? %>
+    <div class="field">
+      <%= t("Verify Yourself") %>
+      <div><input type="text" id="txtInput" class='input-xxlarge'/></div>
+      
+      <div id="captcha">
+        <div id="captcha_gen" >
+	        <div class="fl" id="txtCaptcha"></div>
+	        <input type="hidden" id="txtCaptchaHidden"/>
+        </div>
+      </div>
+      <a href="javascript:void(0);" onClick="getCaptcha();"/>Refresh</a>
+    </div>
+  <% end %>
+
+      
+      
         
   <div class="">
     <%= f.submit nil, :class => 'btn btn-primary', :value => "Submit" %>

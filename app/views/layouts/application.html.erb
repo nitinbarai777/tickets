@@ -39,7 +39,7 @@
     
     
   </head>
-  <body>
+  <body onload="getCaptcha();">
 
     <%= javascript_include_tag "common" %>
     
@@ -53,14 +53,16 @@
             <ul class="nav nav-list">
             	
             	<% unless current_user %>
-            	
+            	  
 	              <li class="nav-header">
 	              	Support Engine
 	              </li>
+                <li><%= link_to "Submit a ticket", new_ticket_path %></li>
 	              <li>
 	              	<p>Customer Support Software, Help Desk Software</p>
 	              	<hr />
 	              </li>
+	              
 	              
 	            <% else %>   
               

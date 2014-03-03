@@ -1,0 +1,17 @@
+<%= fields_for :user do |user_fields| %>
+
+  <div class="field">
+    <%= user_fields.label :first_name %>
+    <%= user_fields.text_field :first_name, :class => 'input-xxlarge' %>
+  </div>
+  
+  <div class="field">
+    <%= user_fields.label :last_name %>
+    <%= user_fields.text_field :last_name, :class => 'input-xxlarge' %>
+  </div>
+
+  <div class="field">
+    <%= user_fields.label :email %>
+    <%= user_fields.text_field :email, :class => 'input-xxlarge' %>
+  </div>
+<% end %>
