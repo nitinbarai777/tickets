@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
 
   attr_writer :password_required
 
-  validates :email, :presence => true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
+  validates :email, :presence => true, uniqueness: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
   validates_presence_of :password, :if => :password_required?
 
   has_one :user_role, :dependent => :destroy

@@ -3,6 +3,7 @@ class TicketsController < ApplicationController
   helper_method :sort_column, :sort_direction
   OPEN = 1
   CLOSE = 2
+  USER = "User"
 
   # GET /tickets
   # GET /tickets.json
@@ -35,16 +36,27 @@ class TicketsController < ApplicationController
     #return render text: params
     
     unless current_user.present?
+      params[:user][:password] = SecureRandom.hex(8)
+      
       @user = User.new(user_params)
-      @user.save
+      
+      @user.save(:validate => false)
+        
+      @user.role = Role.find_by(:role_type => USER)
+      
       params[:ticket][:user_id] = @user.id
+      
     end
     
     @ticket = Ticket.new(ticket_params)
     
     respond_to do |format|
       if @ticket.save
-        format.html { redirect_to tickets_url, notice: 'Ticket was successfully created.' }
+        unless current_user.present?
+          format.html { redirect_to login_url, notice: 'Ticket was successfully created.' }
+        else
+          format.html { redirect_to tickets_url, notice: 'Ticket was successfully created.' }
+        end
         format.json { render action: 'show', status: :created, location: @ticket }
       else
         format.html { render action: 'new' }
