@@ -2,6 +2,8 @@ class Ticket < ActiveRecord::Base
   has_many :ticket_replies, dependent: :destroy
   belongs_to :user
   
+  acts_as_taggable
+  
   mount_uploader :attached_file, ImageUploader
   
   include SearchHandler

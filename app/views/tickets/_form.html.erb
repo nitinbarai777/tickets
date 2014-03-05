@@ -24,7 +24,6 @@
   	<% end %>
   </div>
   
-  
 	<%= f.hidden_field :status_id, :value => 1 %>
   
   <div class="field">
@@ -41,6 +40,13 @@
     	<span class="text-error text-message"><%= @ticket.errors[:priority_id].first %></span>
   	<% end %>
   </div>
+  
+  <!-- Ticket tag start -->
+  <div class="field">
+    <%= f.label :tag_list, "Tags (separated by comma)" %>
+    <%= f.text_field :tag_list, :class => 'input-xlarge' %>
+  </div>
+  <!-- Ticket tag end -->
 
   <% unless current_user.present? %>
     <div class="field">

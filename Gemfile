@@ -86,3 +86,7 @@ gem "bootstrap-wysihtml5-rails"
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+# tagging
+gem 'acts-as-taggable-on'
+
