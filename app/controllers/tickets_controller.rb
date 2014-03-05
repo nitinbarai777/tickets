@@ -33,35 +33,32 @@ class TicketsController < ApplicationController
   # POST /tickets
   # POST /tickets.json
   def create
-    #return render text: params
-    
     unless current_user.present?
       # check user exsist
       if @user = User.find_by(:email => params[:user][:email])
-        # send mail to exsisting user
+        params[:ticket][:user_id] = @user.id
       else
-        params[:user][:password] = SecureRandom.hex(8)
-        params[:user][:registration_key] = SecureRandom.hex(25)
-        params[:user][:term] = 1
-        
-        @user = User.new(user_params)
-        
-        @user.save(:validate => false)
-        
-        # send mail to newly created user
-        opts = {
-          :username => @user.email, 
-          :email => @user.email, 
-          :password => params[:user][:password], 
-          :registration_key => @user.registration_key
-        }
-        UserMailer.registration_confirmation(@user.email, opts).deliver
-        
+        if params[:user][:email].present? 
+          params[:user][:password] = SecureRandom.hex(8)
+          params[:user][:registration_key] = SecureRandom.hex(25)
+          params[:user][:term] = 1
+          
+          @user = User.new(user_params)
+          
+          if @user.save(:validate => false)
+            # send mail to newly created user
+            opts = {
+              :username => @user.email, 
+              :email => @user.email, 
+              :password => params[:user][:password], 
+              :registration_key => @user.registration_key
+            }
+            UserMailer.registration_confirmation(@user.email, opts).deliver
+            @user.role = Role.find_by(:role_type => USER)
+            params[:ticket][:user_id] = @user.id
+          end
+        end        
       end
-        
-      @user.role = Role.find_by(:role_type => USER)
-      
-      params[:ticket][:user_id] = @user.id
     else
       @user = User.find_by(:email => current_user.email)
     end
@@ -70,13 +67,15 @@ class TicketsController < ApplicationController
     
     respond_to do |format|
       if @ticket.save
-        # send mail to user with ticket link
-        opts = {
-          :id => @ticket.id, 
-          :ticket_subject => @ticket.subject
-        }
-        TicketMailer.new_ticket_email(@user.email, opts).deliver
-        
+        if @user.present?
+          
+          # send mail to user with ticket link
+          opts = {
+            :id => @ticket.id, 
+            :ticket_subject => @ticket.subject
+          }
+          TicketMailer.new_ticket_email(@user.email, opts).deliver
+        end        
         unless current_user.present?
           format.html { redirect_to login_url, notice: 'Ticket was successfully created.' }
         else
