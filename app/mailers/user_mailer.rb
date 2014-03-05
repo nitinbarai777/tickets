@@ -1,5 +1,4 @@
 class UserMailer < ActionMailer::Base
-  #default from: ProjectApp::DEFAULT_MAIL_FROM
   default :from => "noreply@projectapp.com"
 
   # new user registration 

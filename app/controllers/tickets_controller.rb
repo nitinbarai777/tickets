@@ -36,22 +36,47 @@ class TicketsController < ApplicationController
     #return render text: params
     
     unless current_user.present?
-      params[:user][:password] = SecureRandom.hex(8)
-      
-      @user = User.new(user_params)
-      
-      @user.save(:validate => false)
+      # check user exsist
+      if @user = User.find_by(:email => params[:user][:email])
+        # send mail to exsisting user
+      else
+        params[:user][:password] = SecureRandom.hex(8)
+        params[:user][:registration_key] = SecureRandom.hex(25)
+        params[:user][:term] = 1
+        
+        @user = User.new(user_params)
+        
+        @user.save(:validate => false)
+        
+        # send mail to newly created user
+        opts = {
+          :username => @user.email, 
+          :email => @user.email, 
+          :password => params[:user][:password], 
+          :registration_key => @user.registration_key
+        }
+        UserMailer.registration_confirmation(@user.email, opts).deliver
+        
+      end
         
       @user.role = Role.find_by(:role_type => USER)
       
       params[:ticket][:user_id] = @user.id
-      
+    else
+      @user = User.find_by(:email => current_user.email)
     end
     
     @ticket = Ticket.new(ticket_params)
     
     respond_to do |format|
       if @ticket.save
+        # send mail to user with ticket link
+        opts = {
+          :id => @ticket.id, 
+          :ticket_subject => @ticket.subject
+        }
+        TicketMailer.new_ticket_email(@user.email, opts).deliver
+        
         unless current_user.present?
           format.html { redirect_to login_url, notice: 'Ticket was successfully created.' }
         else
