@@ -7,11 +7,17 @@
 <body>
   <div class='email-body'>
     <p>
-      <b>Ticket ID:</b><%= @ticket_id %><br/>
-      <b>Subject:</b><%= @ticket_subject %><br/>
+    	Hello <%= @email %>,
+    </p>	 
+    <h3><strong></strong><%= @ticket_subject %></h3>
+    <p>
+    	<%= @ticket_description.html_safe if @ticket_description %>
     </p>
-    <br/><br/>
-    You can check the status of or update this ticket online at: <a href="<%= ticket_url(@ticket_id) %>"><%= ticket_url(@ticket_id) %></a>
+    <br />
+    You could verify updates here regarding this ticket: <a href="<%= ticket_url(@ticket_id) %>"><%= ticket_url(@ticket_id) %></a>
+    
+    Thanks,<br />
+    SupportEngine
   </div>
 </body>
 </html>

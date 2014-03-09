@@ -72,7 +72,9 @@ class TicketsController < ApplicationController
           # send mail to user with ticket link
           opts = {
             :id => @ticket.id, 
-            :ticket_subject => @ticket.subject
+            :ticket_subject => @ticket.subject,
+            :ticket_description => @ticket.description,
+            :ticket_email => @user.email
           }
           TicketMailer.new_ticket_email(@user.email, opts).deliver
         end        
