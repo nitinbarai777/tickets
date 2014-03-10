@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140305193915) do
+ActiveRecord::Schema.define(version: 20140310183644) do
 
   create_table "contacts", force: true do |t|
     t.integer  "user_id"
@@ -119,6 +119,7 @@ ActiveRecord::Schema.define(version: 20140305193915) do
     t.boolean  "is_active",     default: true
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "ticket_type"
   end
 
   create_table "user_roles", force: true do |t|

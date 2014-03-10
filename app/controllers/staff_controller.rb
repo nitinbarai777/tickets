@@ -6,7 +6,7 @@ class StaffController < ApplicationController
   
   
   def tickets
-    session[:search_params] = params[:user] ? params[:user] : nil
+    session[:search_params] = params[:ticket] ? params[:ticket] : nil
 
     session[:set_pager_number] = params[:set_pager_number] if params[:set_pager_number]
 
@@ -15,7 +15,12 @@ class StaffController < ApplicationController
     end
         
     @tickets = Ticket.active.order(sort_column + " " + sort_direction).
-                  paginate(:per_page => 20, :page => params[:page])  
+                  paginate(:per_page => 20, :page => params[:page])
+    
+    @params_arr = { :subject => { "type" => 'text' } }
+
+    @o_single = Ticket.new
+    
   end
   
   def ticket_reply

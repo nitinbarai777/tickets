@@ -29,7 +29,7 @@ module ApplicationHelper
   end
   
   def get_ticket_priority
-    [["Select", ""]] + [["Normal", "1"]] + [["High", "2"]] 
+    [["Normal", "1"]] + [["High", "2"]] 
   end
   
   def get_pager_numbers
