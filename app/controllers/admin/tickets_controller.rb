@@ -6,7 +6,7 @@ class Admin::TicketsController < ApplicationController
   # GET /admin/tickets
   # GET /admin/tickets.json
   def index
-    session[:search_params] = params[:user] ? params[:user] : nil
+    session[:search_params] = params[:ticket] ? params[:ticket] : nil
 
     session[:set_pager_number] = params[:set_pager_number] if params[:set_pager_number]
 
@@ -19,7 +19,7 @@ class Admin::TicketsController < ApplicationController
                   order(sort_column + " " + sort_direction).
                   paginate(:per_page => session[:set_pager_number], :page => params[:page])
 
-    @params_arr = { :subject => { "type" => 'text' }, :status_id => { "type" => 'integer' } }
+    @params_arr = { :subject => { "type" => 'text' } }
 
     @o_single = controller_name.classify.constantize.new
   end

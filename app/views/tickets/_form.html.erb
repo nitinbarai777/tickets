@@ -41,6 +41,15 @@
   	<% end %>
   </div>
   
+  <div class="field">
+    <%= f.radio_button :ticket_type, "technical" %>
+    <%= label :ticket_type_technical, "Technical" %>
+    <%= f.radio_button :ticket_type, "general", :checked => true %>
+    <%= label :ticket_type_general, "General" %>
+    <%= f.radio_button :ticket_type, "sell" %>
+    <%= label :ticket_type_sell, "Sell" %>
+  </div> 
+  
   <!-- Ticket tag start -->
   <div class="field">
     <%= f.label :tag_list, "Tags (separated by comma)" %>
