@@ -1,13 +1,26 @@
 <h3>Ticket Replies</h3>
 
+<% if flash[:notice_reply] %>
+  <div class="alert fade in alert-error" id="notice"><%= flash[:notice_reply] %></div>
+  <% flash[:notice_reply] = nil %>
+<% end %>  
+
+<% if flash[:success_reply] %>
+  <div class="alert fade in alert-success"><%= flash[:success_reply] %></div>
+  <% flash[:success_reply] = nil %>
+<% end %>  
+
 <table class="table table-striped">
   <% if @ticket_replies.count > 0 %>
 	    <% @ticket_replies.each do |t| %>
 			  <tr>
 				  <td>
-	        	<div class="fr"><%= t.user.name.humanize %> - <%= t.created_at.to_s(:default_date_time) %></div>
+	        	<div class="fr"><strong><%= t.user.name.humanize %> - <%= t.created_at.to_s(:default_date_time) %></strong></div>
 	        	<div class="cl">&nbsp;</div>
 	        	<p><%= t.description.html_safe if t.description %></p>
+	        	<% if t.attached_file.present? %>
+	        		<p><%= link_to t.attached_file.path.split("/").last, download_path(t.id, 'ticket_reply'), :style => "text-decoration: underline;" %></p>
+	        	<% end %>	
 	        </td>
 	     </tr>
 	    <% end %>

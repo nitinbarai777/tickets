@@ -1,4 +1,4 @@
-<%= form_for @ticket_reply, :url => reply_create_path, :remote => true, :html => { :class => 'form-horizontal' } do |f| %>
+<%= form_for @ticket_reply, :url => reply_create_path, :html => { :multipart => true, :class => 'form-horizontal', :id => 'ticket_reply_form_id' } do |f| %>
   <%= f.hidden_field :ticket_id, :value => params[:id] %>
   <%= f.hidden_field :user_id, :value => current_user.id %>
   <%= f.hidden_field :user_type, :value => "User" %>
@@ -12,10 +12,15 @@
     	<span class="text-error text-message"><%= @ticket_reply.errors[:description].first %></span>
   	<% end %>
   </div>
+  
+  <div class="field">
+    <%= f.label :attached_file %>
+    <%= f.file_field :attached_file %>
+  </div>   
 
   <div class="">
-    <%= f.submit nil, :class => 'btn btn-primary', :value => "Reply" %>
-    <%= f.submit nil, :class => 'btn btn-primary', :value => "Reply & Close", :name => "reply_close" %>
+    <%= f.button "Reply", :class => 'btn btn-primary', :id => "reply" %>
+    <%= f.button "Reply & Close", :class => 'btn btn-primary', :id => "reply_close", :type => "button" %>
   </div>
 <% end %>
 
@@ -23,11 +28,25 @@
 	$(document).on('page:load', function(){
 	  window['rangy'].initialized = false
 	})
+	
   $(document).ready(function(){
 
+		$("#reply").submit(function() {
+		    /* Do Something */
+		    return false;
+		});
+
+	  $("#reply_close").click(function(){
+	    if (!confirm("Do you want to close ticket?")){
+	      return false;
+	    }else {
+	    	$("#ticket_reply_form_id").submit();
+	    }
+	  });
+	  
     $('.wysihtml5').each(function(i, elem) {
       $(elem).wysihtml5();
     });
 
-  })
+  });
 </script>

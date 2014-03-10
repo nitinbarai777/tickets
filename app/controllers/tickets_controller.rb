@@ -129,6 +129,7 @@ class TicketsController < ApplicationController
     else  
       flash[:notice_reply] = "Please enter reply."
     end
+    redirect_to ticket_url(@ticket.id)
   end
   
   private

@@ -4,5 +4,5 @@ class TicketReply < ActiveRecord::Base
   
   validates :description, :presence => true
   
-  mount_uploader :attached_file, ImageUploader
+  mount_uploader :attached_file, TicketReplyUploader
 end
