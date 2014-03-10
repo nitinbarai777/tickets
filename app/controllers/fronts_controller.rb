@@ -120,7 +120,26 @@ class FrontsController < ApplicationController
   #footer and other static pages
   def other
     @o_single = FooterPage.where(page_route: params[:page_id]).first
-  end  
+  end
+  
+  def download
+    if params[:model] == 'ticket'
+      file = Ticket.find(params[:id])
+    else
+      file = TicketReply.find(params[:id])
+    end
+      
+    if file
+      data = open(file.attached_file.path.to_s)
+      send_data  data.read,
+                  :filename => file.attached_file.path.split("/").last,
+                  :type => "application/force-download",
+                  :disposition => 'attachment'
+    else
+      flash[:notice] = t("general.file_does_not_exist")
+      redirect_to ticket_url(@ticket.id)
+    end                
+  end    
 
   private
 

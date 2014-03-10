@@ -2,7 +2,7 @@
 require 'carrierwave/processing/mime_types'
 include CarrierWave::MimeTypes
 require 'mime/types'
-class ImageUploader < CarrierWave::Uploader::Base
+class TicketUploader < CarrierWave::Uploader::Base
   include CarrierWave::RMagick
 
   # Include RMagick or MiniMagick support:
