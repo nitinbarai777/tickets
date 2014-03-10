@@ -1,4 +1,5 @@
 Tickets::Application.routes.draw do
+  
   resources :posts
 
   #faye_server '/faye', timeout: 25
@@ -6,6 +7,7 @@ Tickets::Application.routes.draw do
 
   namespace :admin do
     resources :users, :tickets, :settings, :footer_pages, :contacts, :languages, :email_templates
+    match 'dashboard' => 'dashboard#index', :as => :dashboard, via: [:get, :post]
   end
 
   resources :user_sessions
