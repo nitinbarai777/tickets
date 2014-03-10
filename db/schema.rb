@@ -117,9 +117,9 @@ ActiveRecord::Schema.define(version: 20140310183644) do
     t.integer  "status_id"
     t.string   "attached_file"
     t.boolean  "is_active",     default: true
+    t.string   "ticket_type"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "ticket_type"
   end
 
   create_table "user_roles", force: true do |t|
