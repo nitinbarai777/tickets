@@ -39,11 +39,7 @@ class TicketsController < ApplicationController
       # check user exsist
       if @user = User.find_by(:email => params[:user][:email])
         params[:ticket][:user_id] = @user.id
-        #user session
-        params[:user_session] = {}
-        params[:user_session][:email] = params[:user][:email]
-        params[:user_session][:password] = @user.password
-        @user_session = UserSession.new(params[:user_session])            
+        @user_session = UserSession.new(@user, true)            
         if @user_session.save
           session[:user_id] = @user.id
           session[:user_role] = @user.role.role_type     
