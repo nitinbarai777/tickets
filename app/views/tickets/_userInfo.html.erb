@@ -1,12 +1,23 @@
-<%= fields_for :user do |user_fields| %>
-
-  <div class="field">
-    <%= user_fields.label t("general.name") %>
-    <%= user_fields.text_field :first_name, :class => 'input-xxlarge' %>
-  </div>
-
-  <div class="field">
-    <%= user_fields.label :email %>
-    <%= user_fields.text_field :email, :class => 'input-xxlarge' %>
-  </div>
-<% end %>
+<fieldset class="scheduler-border">
+    <legend class="scheduler-border">User Detail</legend>
+		<%= fields_for :user do |user_fields| %>
+		
+		  <div class="field">
+		    <%= user_fields.label t("general.name") %>
+		    <%= user_fields.text_field :first_name, :class => 'input-xxlarge' %>
+		  </div>
+		
+		  <div class="field">
+		    <%= user_fields.label :email %>
+		    <%= user_fields.text_field :email, :class => 'input-xxlarge' %>
+		    <span id="email_error" class=""></span>
+		  </div>
+		<% end %>
+	  <div class="field">
+	    <%= f.label :priority_id %>
+	    <%= f.select :priority_id, options_for_select(get_ticket_priority, :selected => @ticket.priority_id), {}, { :class => 'input-xlarge'} %>
+	   	<% if @ticket.errors[:priority_id].any? %>
+	    	<span class="text-error text-message"><%= @ticket.errors[:priority_id].first %></span>
+	  	<% end %>
+	  </div>		
+</fieldset>
