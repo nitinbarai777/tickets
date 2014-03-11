@@ -7,7 +7,7 @@
 	<div id="flash_message" class="field"></div>
 
   <div class="field">
-    <%= f.text_area :description, :class => 'input-xxlarge textArea wysihtml5' %>
+    <%= f.text_area :description, :class => 'input-xxlarge textArea' %>
    	<% if @ticket_reply.errors[:description].any? %>
     	<span class="text-error text-message"><%= @ticket_reply.errors[:description].first %></span>
   	<% end %>
@@ -44,9 +44,9 @@
 	    }
 	  });
 	  
-    $('.wysihtml5').each(function(i, elem) {
-      $(elem).wysihtml5();
-    });
+    //$('.wysihtml5').each(function(i, elem) {
+      //$(elem).wysihtml5();
+    //});
 
   });
 </script>

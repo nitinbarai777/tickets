@@ -25,11 +25,19 @@ module ApplicationHelper
   end
   
   def get_ticket_status
-    [["Select", ""]] + [["Open", "1"]] + [["Close", "2"]] 
+    [["Open", "1"]] + [["On Hold", "2"]] + [["Close", "3"]] 
   end
   
+  def ticket_status_hash
+    {"1" => "Open", "2" => "On Hold", "3" => "Close"}
+  end
+  
+  def ticket_priority_hash
+    {"1" => "Low", "2" => "Medium", "3" => "High", "4" => "Urgent", "5" => "Emergency", "6" => "Critical"}
+  end  
+  
   def get_ticket_priority
-    [["Normal", "1"]] + [["High", "2"]] 
+    [["Low", "1"]] + [["Medium", "2"]] + [["High", "3"]] + [["Urgent", "4"]] + [["Emergency", "5"]] + [["Critical", "6"]] 
   end
   
   def get_pager_numbers

@@ -20,7 +20,7 @@
 		
 		  <div class="field">
 		    <%= f.label :description %>
-		    <%= f.text_area :description, :class => 'input-xxlarge textArea wysihtml5' %>
+		    <%= f.text_area :description, :class => 'input-xxlarge textArea' %>
 		   	<% if @ticket.errors[:description].any? %>
 		    	<span class="text-error text-message"><%= @ticket.errors[:description].first %></span>
 		  	<% end %>
@@ -85,8 +85,12 @@
         
   <div class="">
     <center>
-    	<%= f.button "Submit", :class => 'btn btn-primary', :id => "sub_btn" %>
-    	<%= link_to 'Cancel', root_path, :class => 'btn' %>
+    	<% unless current_user.present? %>
+    		<%= f.button "Submit", :class => 'btn btn-primary', :id => "sub_btn" %>
+    	<% else %>
+    		<%= f.submit "Submit", :class => 'btn btn-primary' %>
+    	<% end %>
+    	<%= link_to 'Cancel', root_path, :class => 'btn' %>	
     </center>
   </div>
 <% end %>
@@ -99,9 +103,9 @@
 	
   $(document).ready(function(){
 
-    $('.wysihtml5').each(function(i, elem) {
-      $(elem).wysihtml5();
-    });
+    //$('.wysihtml5').each(function(i, elem) {
+      //$(elem).wysihtml5();
+    //});
     
 	  $('#sub_btn').click (function() {
 	  	if(ValidCaptcha() == false) {

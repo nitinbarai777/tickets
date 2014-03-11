@@ -1,8 +1,9 @@
 class TicketsController < ApplicationController
-  before_action :set_ticket, only: [:show, :edit, :update, :destroy]
+  before_action :set_ticket, only: [:edit, :update, :destroy]
   helper_method :sort_column, :sort_direction
   OPEN = 1
-  CLOSE = 2
+  ON_HOLD = 2
+  CLOSE = 3
   USER = "User"
 
   # GET /tickets
@@ -15,6 +16,7 @@ class TicketsController < ApplicationController
   # GET /tickets/1
   # GET /tickets/1.json
   def show
+    @ticket = Ticket.find_by_ticket_secret(params[:ticket_secret])
     if @ticket.present?
       @ticket_replies = @ticket.ticket_replies.order(id: :desc)
       @ticket_reply = TicketReply.new
@@ -37,46 +39,69 @@ class TicketsController < ApplicationController
       # check user exsist
       if @user = User.find_by(:email => params[:user][:email])
         params[:ticket][:user_id] = @user.id
+        #user session
+        params[:user_session] = {}
+        params[:user_session][:email] = params[:user][:email]
+        params[:user_session][:password] = @user.password
+        @user_session = UserSession.new(params[:user_session])            
+        if @user_session.save
+          session[:user_id] = @user.id
+          session[:user_role] = @user.role.role_type     
+        end        
       else
         if params[:user][:email].present? 
-          params[:user][:password] = SecureRandom.hex(8)
+          params[:user][:password] = params[:user][:password_confirmation] = SecureRandom.hex(8)
           params[:user][:registration_key] = SecureRandom.hex(25)
-          params[:user][:term] = 1
+          params[:user][:term] = params[:user][:is_active] = 1
           
           @user = User.new(user_params)
           
+          #user save
           if @user.save(:validate => false)
-            # send mail to newly created user
-            opts = {
-              :username => @user.email, 
-              :email => @user.email, 
-              :password => params[:user][:password], 
-              :registration_key => @user.registration_key
-            }
-            UserMailer.registration_confirmation(@user.email, opts).deliver
             @user.role = Role.find_by(:role_type => USER)
-            params[:ticket][:user_id] = @user.id
+            #user session
+            params[:user_session] = {}
+            params[:user_session][:email] = params[:user][:email]
+            params[:user_session][:password] = params[:user][:password]
+            @user_session = UserSession.new(params[:user_session])            
+            if @user_session.save
+              session[:user_id] = @user.id
+              session[:user_role] = @user.role.role_type     
+            end
           end
         end        
       end
+      @user_exist = false
     else
-      @user = User.find_by(:email => current_user.email)
+      @user = current_user
+      @user_exist = true 
     end
+    
+     
     
     @ticket = Ticket.new(ticket_params)
     
     respond_to do |format|
       if @ticket.save
-        if @user.present?
-          
+        @ticket.ticket_secret = SecureRandom.hex(5).to_s + @ticket.id.to_s
+        @ticket.user_id = @user.id
+        @ticket.save
+        if @user_exist
           # send mail to user with ticket link
-          opts = {
-            :id => @ticket.id, 
-            :ticket_subject => @ticket.subject,
-            :ticket_description => @ticket.description,
-            :ticket_email => @user.email
+          opts = { 
+            :ticket => @ticket,
+            :email => @user.email, 
+            :password => params[:user][:password]            
           }
-          TicketMailer.new_ticket_email(@user.email, opts).deliver
+          TicketMailer.new_ticket_email_with_user(@user.email, opts).deliver
+        else
+          # send mail to user with ticket link
+          opts = { 
+            :ticket => @ticket,
+            :email => @user.email, 
+            :password => params[:user][:password]            
+          }
+          TicketMailer.new_ticket_email_without_user(@user.email, opts).deliver            
         end        
         unless current_user.present?
           format.html { redirect_to login_url, notice: 'Ticket was successfully created.' }

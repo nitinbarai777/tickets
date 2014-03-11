@@ -46,7 +46,7 @@ class User < ActiveRecord::Base
   end  
 
   def name(shorten=true)
-    unless first_name.nil? && last_name.nil? or first_name.empty? && last_name.empty?
+    if first_name && last_name
       [first_name, last_name].join(" ")
     else
       email

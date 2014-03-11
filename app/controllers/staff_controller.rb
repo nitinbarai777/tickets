@@ -2,7 +2,8 @@ class StaffController < ApplicationController
   before_action :require_staff
   helper_method :sort_column, :sort_direction
   OPEN = 1
-  CLOSE = 2  
+  ON_HOLD = 2
+  CLOSE = 3
   
   
   def tickets

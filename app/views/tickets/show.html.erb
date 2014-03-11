@@ -1,24 +1,46 @@
 <div class="row-fluid show-grid">
   <div class="span12">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4>New Account</h4>
-        </div>
-        <div class="panel-body">
-				  <h2><%= @ticket.subject %></h2>
+
+<fieldset class="scheduler-border">
+    <legend class="scheduler-border">Ticket Information</legend>
+    		<table class="table">
+    			<tr><td>Ticket ID:</td><td><h2><%= @ticket.id %></h2></td><td>Ticket Type:</td><td><%= @ticket.type %></td></tr>
+    			<tr><td>Priority:</td><td><h2><%= ticket_priority_hash[priority_id] %></h2></td><td>Status:</td><td><%= ticket_status_hash[status_id] %></td></tr>
+    		</table>	  
+</fieldset>    	
+			  
+			  
+<% if current_user %>
+	<%= render partial: 'edit_form' %>
+<% end %>				  
+			  
+			  
+<fieldset class="scheduler-border">
+    <legend class="scheduler-border"><%= @ticket.subject %></legend>
 				  <p><%= @ticket.description.html_safe if @ticket.description %></p>
 	      	<% if @ticket.attached_file.present? %>
-	      		<br />
-	      		<p><%= link_to @ticket.attached_file.path.split("/").last, download_path(@ticket.id, 'ticket'), :style => 'text-decoration: underline; color:#000;' %></p>
-	      	<% end %>				  
-				</div>	  	
-			</div>	
+						<fieldset class="scheduler-border">
+						    <legend class="scheduler-border">Attachments</legend>	      	
+	      				<%= link_to @ticket.attached_file.path.split("/").last, download_path(@ticket.id, 'ticket'), :style => 'text-decoration: underline; color:#000;' %>
+	      		</fieldset>		
+	      	<% end %>    
+</fieldset>    
+
 	  
-	  <div id="ticket-replies-list">
-	    <%= render partial: 'ticket_reply_list' %>
-	  </div>
-	  <div class='clearb'></div>
+<fieldset class="scheduler-border">
+    <legend class="scheduler-border">Conversation</legend>	  
+		  <div id="ticket-replies-list">
+		    <%= render partial: 'ticket_reply_list' %>
+		  </div>
+</fieldset>
+
+<% if current_user %>
+	<fieldset class="scheduler-border">
+	  <legend class="scheduler-border">Reply</legend>
 	  <%= render partial: 'ticket_reply_form' %> 
+	</fieldset>
+<% end %>	
+	  
  	</div> 
 </div>
 
