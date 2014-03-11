@@ -20,8 +20,8 @@
           <td><%= o_row.user.name %></td>
           <td><%= o_row.subject %></td>
           <td><%= o_row.created_at.to_s(:pretty_view) if o_row.created_at %></td>
-          <td><%= ticket_status_hash[status_id] %></td>
-          <td><%= ticket_priority_hash[priority_id] %></td>
+          <td><%= ticket_status_hash[o_row.status_id.to_s] %></td>
+          <td><%= ticket_priority_hash[o_row.priority_id.to_s] %></td>
           <td>
 			      <%= link_to t('general.edit'),
 			                  edit_admin_ticket_path(o_row), :class => 'btn btn-mini' %>

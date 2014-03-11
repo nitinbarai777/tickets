@@ -18,8 +18,8 @@
           <td><%= o_row.user.name %></td>
           <td><%= o_row.subject %></td>
           <td><%= o_row.created_at.to_s(:default_date_time) if o_row.updated_at %></td>
-          <td><%= ticket_status_hash[status_id] %></td>
-          <td><%= ticket_priority_hash[priority_id] %></td>
+          <td><%= ticket_status_hash[o_row.status_id.to_s] %></td>
+          <td><%= ticket_priority_hash[o_row.priority_id.to_s] %></td>
           <% if (o_row.is_last_reply_by_staff?(current_user.id) and o_row.status_id == 1) %>
           	<td class="redStart"><%=  "Awaiting for reply" %></td>
           <% else %>	

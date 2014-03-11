@@ -4,8 +4,8 @@
 <fieldset class="scheduler-border">
     <legend class="scheduler-border">Ticket Information</legend>
     		<table class="table">
-    			<tr><td>Ticket ID:</td><td><h2><%= @ticket.id %></h2></td><td>Ticket Type:</td><td><%= @ticket.type %></td></tr>
-    			<tr><td>Priority:</td><td><h2><%= ticket_priority_hash[priority_id] %></h2></td><td>Status:</td><td><%= ticket_status_hash[status_id] %></td></tr>
+    			<tr><td>Ticket ID:</td><td><h2><%= @ticket.id %></h2></td><td>Ticket Type:</td><td><h2><%= @ticket.ticket_type %></h2></td></tr>
+    			<tr><td>Priority:</td><td><h2><%= ticket_priority_hash[@ticket.priority_id.to_s] %></h2></td><td>Status:</td><td><h2><%= ticket_status_hash[@ticket.status_id.to_s] %></h2></td></tr>
     		</table>	  
 </fieldset>    	
 			  
