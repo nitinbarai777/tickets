@@ -16,7 +16,7 @@ class TicketsController < ApplicationController
   # GET /tickets/1
   # GET /tickets/1.json
   def show
-    @ticket = Ticket.find_by_ticket_secret(params[:ticket_secret])
+    @ticket = Ticket.where(:ticket_secret => params[:id].to_s).first
     if @ticket.present?
       @ticket_replies = @ticket.ticket_replies.order(id: :desc)
       @ticket_reply = TicketReply.new
@@ -150,7 +150,7 @@ class TicketsController < ApplicationController
     else  
       flash[:notice_reply] = "Please enter reply."
     end
-    redirect_to ticket_url(@ticket.id)
+    redirect_to ticket_url(@ticket.ticket_secret)
   end
   
   private
