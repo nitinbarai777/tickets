@@ -16,6 +16,7 @@ class TicketMailer < ActionMailer::Base
     @ticket_status = opts[:ticket_status]
     @ticket_priority = opts[:ticket_priority]    
     @email = opts[:email]
+    @password = opts[:password]
     mail(:to => "#{email}", :subject => "SupportEngine - Ticket##{@ticket.ticket_secret} #{@ticket.subject}")
   end  
   

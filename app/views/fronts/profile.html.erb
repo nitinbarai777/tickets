@@ -45,14 +45,20 @@
         </div>
     </div>
     <% if @o_single.image? %>
-        <div class="control-group"><div class="controls"><%= image_tag @o_single.image_url(:logo) %></div></div>
+        <div class="control-group">
+          <div class="controls">
+            <%= image_tag @o_single.image, { width: 100, height: 100} %>
+          </div>
+        </div>
     <% end %>
     
 	<div class="form-actions">
         <div class="row-fluid mb10">
             <div class="span12">
                 <%= f.submit t("general.save"), :class => 'btn btn-primary' %>
+                <%= link_to t("general.cancel"), dashboard_url, :class => 'btn' %>
             </div><!--/span-->
+            
         </div><!--/row-->
     </div>
 <% end %>

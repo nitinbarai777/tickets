@@ -43,5 +43,8 @@
         
   <div class="">
     <%= f.submit nil, :class => 'btn btn-primary', :value => "Submit" %>
+    <span data-no-turbolink>
+      <%= link_to 'Cancel', admin_tickets_path, :class => 'btn' %>
+    </span>
   </div>
 <% end %>

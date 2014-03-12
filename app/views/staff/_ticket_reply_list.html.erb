@@ -8,6 +8,9 @@
 	        	<div class="fr"><%= t.user.name.humanize %> - <%= t.created_at.to_s(:default_date_time) %></div>
 	        	<div class="cl">&nbsp;</div>
 	        	<p><%= t.description.html_safe if t.description %></p>
+	        	<% if t.attached_file.present? %>
+	        		<p><%= link_to t.attached_file.path.split("/").last, download_path(t.id, 'ticket_reply'), :style => "text-decoration: underline;" %></p>
+	        	<% end %>
 	        </td>
 	     </tr>
 	    <% end %>
