@@ -2,6 +2,8 @@
   <%= f.hidden_field :ticket_id, :value => @ticket.id %>
   <%= f.hidden_field :user_id, :value => current_user.id %>
   <%= f.hidden_field :user_type, :value => "User" %>
+  
+  <%= hidden_field_tag "reply_close", "", :id => 'input_reply_close' %>
      
 	<div id="flash_message" class="field"></div>
 
@@ -37,8 +39,10 @@
 
 	  $("#reply_close").click(function(){
 	    if (!confirm("Do you want to close ticket?")){
+	    	
 	      return false;
 	    }else {
+	    	$("#input_reply_close").val(true);
 	    	$("#ticket_reply_form_id").submit();
 	    }
 	  });

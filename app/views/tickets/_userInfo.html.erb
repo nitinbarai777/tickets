@@ -13,11 +13,4 @@
 		    <span id="email_error" class=""></span>
 		  </div>
 		<% end %>
-	  <div class="field">
-	    <%= f.label :priority_id %>
-	    <%= f.select :priority_id, options_for_select(get_ticket_priority, :selected => @ticket.priority_id), {}, { :class => 'input-xlarge'} %>
-	   	<% if @ticket.errors[:priority_id].any? %>
-	    	<span class="text-error text-message"><%= @ticket.errors[:priority_id].first %></span>
-	  	<% end %>
-	  </div>		
 </fieldset>
