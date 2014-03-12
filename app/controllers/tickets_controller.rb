@@ -1,5 +1,5 @@
 class TicketsController < ApplicationController
-  before_action :set_ticket, only: [:edit, :update, :destroy]
+  before_action :set_ticket, only: [:edit, :update, :destroy, :update_ticket]
   helper_method :sort_column, :sort_direction
   OPEN = 1
   ON_HOLD = 2
@@ -72,8 +72,6 @@ class TicketsController < ApplicationController
       @user = current_user
       @user_exist = true 
     end
-    
-     
     
     @ticket = Ticket.new(ticket_params)
     
@@ -151,6 +149,11 @@ class TicketsController < ApplicationController
       flash[:notice_reply] = "Please enter reply."
     end
     redirect_to ticket_url(@ticket.ticket_secret)
+  end
+  
+  def update_ticket
+    @ticket.update(ticket_params)
+    render nothing: true
   end
   
   private

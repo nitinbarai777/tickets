@@ -29,6 +29,8 @@ Tickets::Application.routes.draw do
   
   post '/reply/create' => 'tickets#reply_create', :as => 'reply_create'
   
+  post '/update/ticket' => 'tickets#update_ticket', :as => 'update_ticket'
+  
   get '/SupportTicket/:id/:model' => 'fronts#download', :as => :download
   
   

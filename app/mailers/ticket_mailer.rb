@@ -6,14 +6,14 @@ class TicketMailer < ActionMailer::Base
     @ticket = opts[:ticket]
     @email = opts[:email]
     @password = opts[:password]
-    mail(:to => "#{email}", :subject => "SupportEngine - Ticket##{@ticket.id} #{@ticket.subject}")
+    mail(:to => "#{email}", :subject => "SupportEngine - Ticket##{@ticket.ticket_secret} #{@ticket.subject}")
   end
   
   def new_ticket_email_with_user(email, opts)
     @ticket = opts[:ticket]
     @email = opts[:email]
     @password = opts[:password]
-    mail(:to => "#{email}", :subject => "SupportEngine - Ticket##{@ticket.id} #{@ticket.subject}")
+    mail(:to => "#{email}", :subject => "SupportEngine - Ticket##{@ticket.ticket_secret} #{@ticket.subject}")
   end  
   
 end

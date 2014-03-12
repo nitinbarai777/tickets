@@ -4,7 +4,7 @@
     <legend class="scheduler-border">Edit Properties</legend>
 	  <div class="field">
 	    <%= f.label :priority_id %>
-	    <%= f.select :priority_id, options_for_select(get_ticket_priority, :selected => @ticket.priority_id), {}, { :class => 'input-xlarge'} %>
+	    <%= f.select :priority_id, options_for_select(get_ticket_priority, :selected => @ticket.priority_id), {}, { :class => 'input-xlarge', :onchange => "updateTicketPriority('#{@ticket.id}', this.value)" } %>
 	   	<% if @ticket.errors[:priority_id].any? %>
 	    	<span class="text-error text-message"><%= @ticket.errors[:priority_id].first %></span>
 	  	<% end %>
@@ -12,7 +12,7 @@
 	  
 	  <div class="field">
 	    <%= f.label :status_id %>
-	    <%= f.select :status_id, options_for_select(get_ticket_status, :selected => @ticket.status_id), {}, { :class => 'input-xlarge'} %>
+	    <%= f.select :status_id, options_for_select(get_ticket_status, :selected => @ticket.status_id), {}, { :class => 'input-xlarge', :onchange => "updateTicketStatus('#{@ticket.id}', this.value)"} %>
 	   	<% if @ticket.errors[:status_id].any? %>
 	    	<span class="text-error text-message"><%= @ticket.errors[:status_id].first %></span>
 	  	<% end %>
@@ -21,3 +21,13 @@
 </fieldset>
   
 <% end %>
+
+<script type="text/javascript">
+  function updateTicketPriority(tid, pid) {
+    $.post( "/update/ticket", { id: tid, "ticket": { priority_id: pid } } );
+  }
+  
+  function updateTicketStatus(tid, sid) {
+    $.post( "/update/ticket", { id: tid, "ticket": { status_id: sid } } );
+  }
+</script>

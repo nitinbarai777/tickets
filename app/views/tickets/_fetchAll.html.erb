@@ -21,8 +21,8 @@
           <td><%= o_row.subject %></td>
           <!--td><%#= o_row.role.role_type %></td-->
           <td><%= o_row.created_at.to_s(:pretty_view) if o_row.updated_at %></td>
-          <td><%= o_row.status_id == 1 ?  "Open" : "Close" %></td>
-          <td><%= o_row.priority_id == 1 ?  "Normal" : "High" %></td>
+          <td><%= ticket_status_hash[o_row.status_id.to_s] %></td>
+          <td><%= ticket_priority_hash[o_row.priority_id.to_s] %></td>
           <% if o_row.is_last_reply_by_staff?(current_user.id) %>
           	<td class="redStart"><%=  "Awaiting for reply" %></td>
           <% else %>	
