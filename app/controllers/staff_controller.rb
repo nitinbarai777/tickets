@@ -15,7 +15,7 @@ class StaffController < ApplicationController
       session[:set_pager_number] = 10
     end
         
-    @tickets = Ticket.active.order(sort_column + " " + sort_direction).
+    @tickets = Ticket.active.order(sort_column + " " + sort_direction).search(session[:search_params]).
                   paginate(:per_page => 20, :page => params[:page])
     
     @params_arr = { :subject => { "type" => 'text' } }

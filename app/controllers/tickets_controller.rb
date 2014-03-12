@@ -180,7 +180,7 @@ class TicketsController < ApplicationController
     end
     
     def get_records(page)
-      query = current_user.tickets.open
+      query = current_user.tickets.open_and_on_hold
       query.order(sort_column + " " + sort_direction).paginate(:per_page => 10, :page => page)
     end
     

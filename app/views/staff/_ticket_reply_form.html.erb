@@ -5,12 +5,12 @@
   <%= f.hidden_field :user_id, :value => current_user.id %>
   <%= f.hidden_field :user_type, :value => "Staff" %>  
   
-  <h3>Reply</h3>
+  
   <div id="flash_message" class="field"></div>
 
 
   <div class="field">
-    <%= f.text_area :description, :class => 'input-xxlarge textArea wysihtml5' %>
+    <%= f.text_area :description, :class => 'input-xxlarge textArea' %>
    	<% if @ticket_reply.errors[:description].any? %>
     	<span class="text-error text-message"><%= @ticket_reply.errors[:description].first %></span>
   	<% end %>
@@ -19,7 +19,7 @@
         
   <div class="">
     <%= f.submit nil, :class => 'btn btn-primary', :value => "Reply" %>
-    <%= f.submit nil, :class => 'btn btn-primary', :value => "Reply & Close", :name => "reply_close" %>
+    <%#= f.submit nil, :class => 'btn btn-primary', :value => "Reply & Close", :name => "reply_close" %>
   </div>
 <% end %>
 
@@ -30,9 +30,9 @@
 	})
   $(document).ready(function(){
 
-    $('.wysihtml5').each(function(i, elem) {
-      $(elem).wysihtml5();
-    });
+    //$('.wysihtml5').each(function(i, elem) {
+      //$(elem).wysihtml5();
+    //});
 
   })
 </script>

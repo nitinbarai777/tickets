@@ -12,6 +12,9 @@ class Ticket < ActiveRecord::Base
   
   scope :active, -> { where(:is_active => true) }
   scope :open, -> { where(:status_id => 1) }
+  
+  scope :open_and_on_hold, -> { where(:status_id => [1, 2]) }
+  
   scope :close, -> { where(:status_id => 2) }
   
   def is_last_reply_by_staff?(current_user_id)

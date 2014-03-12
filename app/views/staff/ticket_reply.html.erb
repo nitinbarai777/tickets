@@ -1,16 +1,25 @@
 <div class="row-fluid show-grid">
   <div class="span12">
-		<div class="page-header">  	
-	  	<h2><%= @ticket.subject %></h2>
-	  	<p><%= @ticket.description.html_safe if @ticket.description %></p>
-	  </div>	
-	  <hr />
+
+<fieldset class="scheduler-border">
+    <legend class="scheduler-border"><%= @ticket.subject %></legend>
+	  	<p><%= @ticket.description.html_safe if @ticket.description %></p>    
+</fieldset>  	
+
+	  	
+	
+<fieldset class="scheduler-border">
+    <legend class="scheduler-border">Conversation</legend>
 	  <div id="ticket-replies-list">
 	    <%= render partial: 'ticket_reply_list' %>
 	  </div>
-	  <div class='clearb'></div>
-	  <%= render partial: 'ticket_reply_form' %> 
+</fieldset>
 
+
+<fieldset class="scheduler-border">
+    <legend class="scheduler-border">Reply</legend>
+	  <%= render partial: 'ticket_reply_form' %> 
+</fieldset>
 	</div>  
 </div>
 
