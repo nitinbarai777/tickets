@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
   has_one :user_role, :dependent => :destroy
   has_one :role, :through => :user_role
   
-  has_many :tickets
+  has_many :tickets, :dependent => :destroy
   has_many :ticket_replies
   
   scope :all_users, joins(:role).where("roles.role_type != ?", SUPER_ADMIN)

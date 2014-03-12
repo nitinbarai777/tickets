@@ -1,9 +1,0 @@
-<div>
-  <h2><%= @ticket.subject %></h2>
-  <p><%= @ticket.description %></p>
-  
-  <%= render partial 'ticket_reply_form' %> 
-  
-</div>
-
-

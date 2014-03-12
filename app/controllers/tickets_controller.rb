@@ -86,8 +86,8 @@ class TicketsController < ApplicationController
           # send mail to user with ticket link
           opts = { 
             :ticket => @ticket,
-            :ticket_status => ticket_status_hash[@ticket.status_id],
-            :ticket_priority => ticket_status_hash[@ticket.priority_id],
+            :ticket_status => ticket_status_hash[@ticket.status_id.to_s],
+            :ticket_priority => ticket_priority_hash[@ticket.priority_id.to_s],
             :email => @user.email            
           }
           TicketMailer.new_ticket_email_with_user(@user.email, opts).deliver
@@ -95,8 +95,8 @@ class TicketsController < ApplicationController
           # send mail to user with ticket link
           opts = { 
             :ticket => @ticket,
-            :ticket_status => ticket_status_hash[@ticket.status_id],
-            :ticket_priority => ticket_status_hash[@ticket.priority_id],           
+            :ticket_status => ticket_status_hash[@ticket.status_id.to_s],
+            :ticket_priority => ticket_priority_hash[@ticket.priority_id.to_s],           
             :email => @user.email, 
             :password => params[:user][:password]            
           }

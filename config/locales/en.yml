@@ -72,6 +72,13 @@ en:
     user_active_successfully: "Activated successfully."
     already_activated: "Already activated"
     show: Show
+    dashboard: Dashboard
+    users: Users
+    tickets: Tickets
+    footer_pages: Footer pages
+    contacts: Contacts
+    profile: Profile
+    cancel: Cancel
   mail:
    registration_confirmation:
      complete_this_step_to_start_using_your_account: Complete this step to start using your account

@@ -1,2 +1,0 @@
-$("#ticket-replies-list").html("<%= escape_javascript(render("ticket_reply_list")) %>");
-$('#new_ticket_reply')[0].reset();
