@@ -38,6 +38,7 @@ class TicketsController < ApplicationController
     unless current_user.present?
       # check user exsist
       if @user = User.find_by(:email => params[:user][:email])
+        @user_exist = true
         params[:ticket][:user_id] = @user.id
         @user_session = UserSession.new(@user, true)            
         if @user_session.save
@@ -45,6 +46,7 @@ class TicketsController < ApplicationController
           session[:user_role] = @user.role.role_type     
         end        
       else
+        @user_exist = false
         if params[:user][:email].present? 
           params[:user][:password] = params[:user][:password_confirmation] = SecureRandom.hex(8)
           params[:user][:registration_key] = SecureRandom.hex(25)
@@ -67,10 +69,10 @@ class TicketsController < ApplicationController
           end
         end        
       end
-      @user_exist = false
+      
     else
       @user = current_user
-      @user_exist = true 
+      @user_exist = true
     end
     
     @ticket = Ticket.new(ticket_params)
@@ -84,14 +86,17 @@ class TicketsController < ApplicationController
           # send mail to user with ticket link
           opts = { 
             :ticket => @ticket,
-            :email => @user.email, 
-            :password => params[:user][:password]            
+            :ticket_status => ticket_status_hash[@ticket.status_id],
+            :ticket_priority => ticket_status_hash[@ticket.priority_id],
+            :email => @user.email            
           }
           TicketMailer.new_ticket_email_with_user(@user.email, opts).deliver
         else
           # send mail to user with ticket link
           opts = { 
             :ticket => @ticket,
+            :ticket_status => ticket_status_hash[@ticket.status_id],
+            :ticket_priority => ticket_status_hash[@ticket.priority_id],           
             :email => @user.email, 
             :password => params[:user][:password]            
           }
@@ -140,15 +145,18 @@ class TicketsController < ApplicationController
     @ticket_reply = TicketReply.new(ticket_reply_params)
     if @ticket_reply.save
       flash[:success_reply] = "Ticket reply was successfully created."
-      if params[:reply_close]
+      if params[:reply_close].present?
         @ticket.status_id = CLOSE
         @ticket.save
         flash[:success_reply] = "Ticket reply was successfully created and closed."
+        redirect_to tickets_url
+      else
+        redirect_to ticket_url(@ticket.ticket_secret)  
       end
     else  
       flash[:notice_reply] = "Please enter reply."
+      redirect_to ticket_url(@ticket.ticket_secret)
     end
-    redirect_to ticket_url(@ticket.ticket_secret)
   end
   
   def update_ticket
