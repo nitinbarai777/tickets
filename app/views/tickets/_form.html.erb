@@ -94,9 +94,9 @@
   <div class="">
     <center>
     	<% unless current_user.present? %>
-    		<%= f.button "Submit", :class => 'btn btn-primary', :id => "sub_btn" %>
+    		<%= f.button "Submit", :class => 'btn ', :id => "sub_btn" %>
     	<% else %>
-    		<%= f.submit "Submit", :class => 'btn btn-primary' %>
+    		<%= f.submit "Submit", :class => 'btn ' %>
     	<% end %>
     	<%= link_to 'Cancel', root_path, :class => 'btn' %>	
     </center>

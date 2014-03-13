@@ -18,7 +18,7 @@
       <% end %>
     <%# model_name = params[:model].downcase %>
       <div class="controls">
-        <%= f.submit t("general.search"), :class => 'btn btn-primary', :id => 'search_button_id' %>
+        <%= f.submit t("general.search"), :class => 'btn ', :id => 'search_button_id' %>
         <span data-no-turbolink>
         <%= link_to 'Cancel', 'javascript:void(0)', :onclick => '$(this).closest("form").closest("div").hide()', :class => 'btn' %></span>
       </div>
