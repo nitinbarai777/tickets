@@ -38,18 +38,19 @@ class StaffController < ApplicationController
     @ticket = Ticket.find(params[:ticket_reply][:ticket_id])
     @ticket_replies = @ticket.ticket_replies.order(id: :desc)
     @ticket_reply = TicketReply.new(ticket_reply_params)
-    if @ticket_reply.save
-      flash[:success_reply] = "Ticket reply was successfully created."
-      if params[:reply_close]
-        @ticket.status_id = CLOSE
-        @ticket.save
-        flash[:success_reply] = "Ticket reply was successfully created and closed."
-      end      
-      
-    else  
-      flash[:notice_reply] = "Please enter reply."
+    respond_to do |format|
+      if @ticket_reply.save
+        flash[:success_reply] = "Ticket reply was successfully created."
+        if params[:reply_close]
+          @ticket.status_id = CLOSE
+          @ticket.save
+          flash[:success_reply] = "Ticket reply was successfully created and closed."
+        end   
+      else  
+        flash[:notice_reply] = "Please enter reply."
+      end
+      format.js
     end
-
   end
   
   private

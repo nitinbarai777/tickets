@@ -22,7 +22,11 @@ class User < ActiveRecord::Base
   has_many :tickets, :dependent => :destroy
   has_many :ticket_replies
   
-  scope :all_users, joins(:role).where("roles.role_type != ?", SUPER_ADMIN)
+  scope :all_users, joins(:role).where(:roles => { :role_type => USER })
+  
+  scope :all_users_and_staffs, joins(:role).where(:roles => { :role_type => [USER, STAFF] })
+  
+  
 
   def password_required?
     @password_required

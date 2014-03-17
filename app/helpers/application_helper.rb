@@ -20,6 +20,10 @@ module ApplicationHelper
     end    
   end
   
+  def get_users
+    [["Select User", ""]] + User.all_users.collect {|r| [r.name, r.id]}
+  end  
+  
   def get_all_pages
     FooterPage.footer 
   end

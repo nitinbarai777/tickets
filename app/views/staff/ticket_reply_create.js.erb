@@ -9,5 +9,5 @@ $('#new_ticket_reply')[0].reset();
 <% if flash[:success_reply] %>
 	$("#flash_message").html("<%= flash[:success_reply] %>");
 	$("#flash_message").removeClass("alert fade in alert-error");
-	$("#flash_message").addClass("alert-success");
+	$("#flash_message").addClass("alert alert-success");
 <% end %>		

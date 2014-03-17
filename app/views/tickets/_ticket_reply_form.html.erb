@@ -1,3 +1,13 @@
+<% if flash[:notice_reply] %>
+  <div class="alert alert-error"><%= flash[:notice_reply] %></div>
+  <% flash[:notice_reply] = nil %>
+<% end %>  
+
+<% if flash[:success_reply] %>
+  <div class="alert alert-success"><%= flash[:success_reply] %></div>
+  <% flash[:success_reply] = nil %>
+<% end %>
+
 <%= form_for @ticket_reply, :url => reply_create_path, :html => { :multipart => true, :class => 'form-horizontal', :id => 'ticket_reply_form_id' } do |f| %>
   <%= f.hidden_field :ticket_id, :value => @ticket.id %>
   <%= f.hidden_field :user_id, :value => current_user.id %>
@@ -20,8 +30,9 @@
   </div>   
 
   <div class="">
-    <%= f.button "Reply", :class => 'btn ', :id => "reply" %>
-    <%= f.button "Reply & Close", :class => 'btn ', :id => "reply_close", :type => "button" %>
+    <%= f.button "Reply", :class => 'btn', :id => "reply" %>
+    <%= f.button "Reply & Close", :class => 'btn', :id => "reply_close", :type => "button" %>
+    <%= link_to "Cancel", tickets_path, :class => 'btn' %>
   </div>
 <% end %>
 

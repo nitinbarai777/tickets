@@ -8,14 +8,14 @@
 	<div class="searchRight fr">
 		<%= link_to t("general.search"), "javascript:void(0)", :class => 'btn btn-primary btn-small', 'id' => 'search_button' %>&nbsp;
 
-    <%= link_to t('general.destroy'), "#destroy_all", :id => "destroy_all", :class => 'btn btn-primary btn-small btn-danger' %>
+    <%#= link_to t('general.destroy'), "#destroy_all", :id => "destroy_all", :class => 'btn btn-primary btn-small' %>
 	</div>
 	</h4>
 </div>
 
 <div id="div_update_search">
   <% params[:model] = controller_name.classify %>
-  <%= render "fronts/search" %>
+  <%= render "search" %>
 </div>
 
 <div id="div_update">

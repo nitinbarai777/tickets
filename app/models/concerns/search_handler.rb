@@ -8,7 +8,7 @@ module SearchHandler
         search_keys = ''
         search.each do |k, v|
           unless v.blank?
-            search_keys = "#{search_keys} #{k} LIKE '%#{v}%' OR"
+            search_keys = "#{search_keys} #{k} LIKE '%#{v}%' AND"
           end  
         end
         

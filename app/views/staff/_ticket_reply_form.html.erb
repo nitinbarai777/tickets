@@ -1,10 +1,10 @@
 
 
-<%= form_for @ticket_reply, :url => ticket_reply_create_path, :remote => true, :html => { :class => 'form-horizontal' } do |f| %>
+<%= form_for @ticket_reply, :url => ticket_reply_create_path, :remote => true, :html => { :multipart => true, :class => 'form-horizontal' } do |f| %>
   <%= f.hidden_field :ticket_id, :value => params[:id] %>
   <%= f.hidden_field :user_id, :value => current_user.id %>
   <%= f.hidden_field :user_type, :value => "Staff" %>  
-  
+  <%= csrf_meta_tag %> 
   
   <div id="flash_message" class="field"></div>
 
@@ -15,10 +15,16 @@
     	<span class="text-error text-message"><%= @ticket_reply.errors[:description].first %></span>
   	<% end %>
   </div>
+  
+  <div class="field">
+    <%= f.label :attached_file %>
+    <%= f.file_field :attached_file %>
+  </div>     
 
         
   <div class="">
     <%= f.submit nil, :class => 'btn ', :value => "Reply" %>
+    <%= link_to "Cancel", "/staff/tickets", :class => 'btn' %>
     <%#= f.submit nil, :class => 'btn ', :value => "Reply & Close", :name => "reply_close" %>
   </div>
 <% end %>

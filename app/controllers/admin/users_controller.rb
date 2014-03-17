@@ -15,7 +15,7 @@ class Admin::UsersController < ApplicationController
       session[:set_pager_number] = 10
     end
 
-    @o_all = User.all_users.
+    @o_all = User.all_users_and_staffs.
                   search(session[:search_params]).
                   order(sort_column + " " + sort_direction).
                   paginate(:per_page => session[:set_pager_number], :page => params[:page])

@@ -75,6 +75,8 @@ gem 'bootstrap-datetimepicker-rails'
 #textarea editor
 gem "bootstrap-wysihtml5-rails"
 
+gem 'remotipart', '~> 1.2'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 

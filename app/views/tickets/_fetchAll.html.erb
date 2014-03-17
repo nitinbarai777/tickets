@@ -1,51 +1,26 @@
-<%#= form_for @ticket, :url => { :action => 'index' }, :html => { :id => "index_form" }, :method => "get", :remote => true do |f| %>
-<table class="table table-striped">
- <thead>
-  <tr>
-  	<!--<th width="5%"><%#= check_box_tag "check_all", "" %><%= t("general.all") %></th>-->
-    <th width="20%"><%= t("subject") %></th>
-    <!--th width="15%"><%= t("role") %></th-->
-    <th width="15%"><%= sortable "updated_date", t("general.last_updated")%></th>
-    <th width="10%"><%= sortable "status_id", t("general.status") %></th>
-    <th width="10%"><%= sortable "priority_id", t("general.priority") %></th>
-    <th width="15%">&nbsp;</th>
-    <th width="15%"><%= t("general.actions") %></th>
-  </tr>
- </thead>
-
-  <tbody>
-    <% if @o_all.size > 0 %>
-      <% @o_all.each do |o_row| %>
-        <tr>
-        	<!--<th><%#= check_box_tag "rec["+o_row.id.to_s+"]", "" %></th>-->
-          <td><%= o_row.subject %></td>
-          <!--td><%#= o_row.role.role_type %></td-->
-          <td><%= o_row.created_at.to_s(:pretty_view) if o_row.updated_at %></td>
-          <td><%= ticket_status_hash[o_row.status_id.to_s] %></td>
-          <td><%= ticket_priority_hash[o_row.priority_id.to_s] %></td>
-          <% if o_row.is_last_reply_by_staff?(current_user.id) %>
-          	<td class="redStart"><%=  "Awaiting for reply" %></td>
-          <% else %>	
-          	<td class="">&nbsp;</td>
-          <% end %>
-          <td>
-			      <%#= link_to t('general.edit'),
-			         #         edit_ticket_path(o_row), :class => 'btn btn-mini' %>
-            <%= link_to t('general.reply'), ticket_path(o_row.ticket_secret), :class => 'btn btn-mini' %>
-			      <%#= link_to t('general.destroy'),
-			                  #ticket_path(o_row),
-			                  #:method => :delete,
-			                  #:data => { :confirm => t('general.confirm') },
-			                  #:class => 'btn btn-mini btn-danger' %>
-          </td>
-        </tr>
-      <% end %>
-    <% else %>
-      <tr><th colspan="6"><%= t("general.record_not_found") %></th></tr>
-    <% end %>
-  </tbody>
-</table>
-<div class="fr">
-	<%= will_paginate @o_all %>
-</div>
-
+<% if @o_all.size > 0 %>
+  <% @o_all.each do |o_row| %>
+		<fieldset class="scheduler-border">
+		    <legend class="scheduler-border"><%= o_row.ticket_secret %></legend>
+		    		<table class="table" >
+		    			<tr><td class="brdTop0">Subject:</td><td class="brdTop0"><%= o_row.subject %></td><td width="40%" class="brdTop0">&nbsp;</td><td class="brdTop0">Ticket Type:</td><td class="brdTop0"><%= o_row.ticket_type %></td></tr>
+		    			<tr><td class="brdTop0">Priority:</td><td class="brdTop0"><%= ticket_priority_hash[o_row.priority_id.to_s] %></td><td width="40%" class="brdTop0">&nbsp;</td><td class="brdTop0">Status:</td><td class="brdTop0"><%= ticket_status_hash[o_row.status_id.to_s] %></td></tr>
+		    			<tr>
+			          <% if o_row.is_last_reply_by_staff?(current_user.id) %>
+			          	<td class="redStart brdTop0" colspan="4"><%=  "Awaiting for reply" %></td>
+			          <% else %>	
+			          	<td class="brdTop0" colspan="4">&nbsp;</td>
+			          <% end %>
+			          <td class="brdTop0 fr">
+			          	<%= link_to "Reply", ticket_path(o_row.ticket_secret), :class => 'btn' %>
+			          </td>		    				
+		    			</tr>
+		    		</table>			    		
+		</fieldset>
+				<div class="fr">
+					<%= will_paginate @o_all %>
+				</div>		    			
+  <% end %>
+<% else %>
+  <table class="table"><tr><th colspan="6"><%= t("general.record_not_found") %></th></tr></table>
+<% end %>
