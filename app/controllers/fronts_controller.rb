@@ -2,9 +2,12 @@ class FrontsController < ApplicationController
   before_filter :require_user, :only => [:change_password, :profile]
 
   def dashboard
-    unless current_user
-      redirect_to login_url
-    end
+    #unless current_user
+      #redirect_to login_url
+    #end
+    if session[:current_sub_domain]
+      redirect_to company_front_path(session[:current_sub_domain])
+    end    
   end
   
   def show_search_box
@@ -139,12 +142,56 @@ class FrontsController < ApplicationController
       flash[:notice] = t("general.file_does_not_exist")
       redirect_to ticket_url(@ticket.id)
     end                
-  end    
+  end 
+  
+  def join_us
+    if params[:company]
+      @o_company = Company.new(company_params)
+      respond_to do |format|
+        if @o_company.save
+          opts = {
+            :company => @o_company
+          }
+          UserMailer.company_registration_confirmation(SUPPORT_EMAIL, opts).deliver          
+          format.html { redirect_to company_front_path(@o_company.sub_domain), notice: t("general.successfully_sent_request_administrator") }
+          format.json { head :no_content }
+        else
+          format.html { render action: 'join_us' }
+          format.json { render json: @o_company.errors, status: :unprocessable_entity }
+        end
+      end
+    else
+      @o_company = Company.new        
+    end    
+  end
+  
+  def company_front
+    if params[:home] == "true"
+      session[:current_sub_domain] = nil
+      session[:current_company_id] = nil
+      redirect_to root_url  
+    else
+      @current_company = Company.find_by_sub_domain(params[:sub_domain])
+      if @current_company.present?
+        session[:current_sub_domain] = @current_company.sub_domain
+        session[:current_company_id] = @current_company.id
+      else
+        unless current_user
+          session[:current_sub_domain] = nil
+          session[:current_company_id] = nil          
+        end  
+      end
+    end  
+  end
 
   private
 
     def contact_params
       params.require(:contact).permit!
+    end
+    
+    def company_params
+      params.require(:company).permit!
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

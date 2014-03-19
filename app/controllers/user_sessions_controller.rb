@@ -1,7 +1,7 @@
 class UserSessionsController < ApplicationController
     #require 'net/http'
     #require 'json'
-
+  before_action :require_company, :except => [:new, :create, :destroy]
   # GET /user_sessions
   def index
     redirect_to new_user_session_path
@@ -9,15 +9,18 @@ class UserSessionsController < ApplicationController
 
   # GET login
   def new
-        
     if current_user
       redirect_to root_path
-    else   
-      @user_session = UserSession.new
-      respond_to do |format|
-        format.html # new.html.erb
-        format.xml { render :xml => @user_session }
-      end
+    else 
+      if request.path == "/login" and @current_company.nil?
+        redirect_to root_path
+      else 
+        @user_session = UserSession.new
+        respond_to do |format|
+          format.html # new.html.erb
+          format.xml { render :xml => @user_session }
+        end
+      end  
     end
   end
 
@@ -29,7 +32,7 @@ class UserSessionsController < ApplicationController
           session[:user_id] = current_user.id
           session[:user_role] = current_user.role.role_type
           notice = t("general.login_successful")
-          format.html { redirect_to(is_admin? ? admin_dashboard_url : (is_staff? ? dashboard_url : new_ticket_url), :notice => notice) }
+          format.html { redirect_to(is_admin? ? admin_dashboard_url : (is_company_admin? ? dashboard_url : (is_staff? ? dashboard_url : new_support_ticket_url)), :notice => notice) }
           format.xml { render :xml => @user_session, :status => :created, :location => @user_session }
         else
           reset_session
@@ -53,7 +56,7 @@ class UserSessionsController < ApplicationController
     reset_session
     flash[:notice] = t("general.logout_successful")
     respond_to do |format|
-      format.html { redirect_to "/" }
+      format.html { redirect_to root_url }
       format.xml { head :ok }
     end
   end
@@ -61,7 +64,6 @@ class UserSessionsController < ApplicationController
   # GET signup
   def signup
     @o_single = User.new
-
     if request.post?
       params[:user][:password_confirmation] = params[:user][:password]
       params[:user][:registration_key] = SecureRandom.hex(25)
@@ -70,9 +72,7 @@ class UserSessionsController < ApplicationController
 
       respond_to do |format|
         if @o_single.save
-
           @o_single.role = Role.find_by(:role_type => USER)
-
           opts = {
             :username => @o_single.email, 
             :email => @o_single.email, 
@@ -90,7 +90,7 @@ class UserSessionsController < ApplicationController
             session[:user_role] = current_user.role.role_type
             notice = t("general.successfully_registered")
           end
-          format.html { redirect_to new_ticket_url, notice: notice }
+          format.html { redirect_to new_support_ticket_url, notice: notice }
           format.json { render action: 'show', status: :created, location: @o_single }
         else
           format.html { render action: 'signup' }

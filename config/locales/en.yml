@@ -24,6 +24,7 @@ en:
   username: "Username"
   email: "Email"
   general:
+    successfully_sent_request_administrator: "Request sent successfully to SupportEngine."
     file_does_not_exist: "File does not exist"
     successfully_sent_inquiry: "Successfully sent inquiry"
     send: "Send"

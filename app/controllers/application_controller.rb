@@ -2,12 +2,24 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-  helper_method :current_user, :is_admin?, :is_user?, :is_staff?
+  helper_method :current_user, :is_admin?, :is_user?, :is_staff?, :is_company_admin?
+  before_filter :current_company
 	SUPER_ADMIN = "SuperAdmin"
+	COMPANY_ADMIN = "CompanyAdmin"
 	USER = "User"
   STAFF = "Staff"
   
   private
+
+    def current_company
+      return @current_company if defined?(@current_company)
+      if session[:current_sub_domain]
+        @current_company = Company.find_by(:sub_domain => session[:current_sub_domain])
+        session[:current_company_id] = @current_company.id
+      else
+        @current_company = Company.find_by(:url => request.host)
+      end
+    end 
 
     def current_user_session
       return @current_user_session if defined?(@current_user_session)
@@ -21,19 +33,37 @@ class ApplicationController < ActionController::Base
 
     def require_user
       unless current_user
-        redirect_to :controller => "user_sessions", :action => "new"
+        redirect_to root_url
       end
     end
     
     def require_admin
       unless session[:user_role] == SUPER_ADMIN
-        redirect_to :controller => "user_sessions", :action => "new"
+        redirect_to root_url
       end
+    end
+
+    def require_company_admin
+      unless session[:user_role] == COMPANY_ADMIN
+        redirect_to root_url
+      end
+    end  
+    
+    def require_admin_or_company_admin
+      unless session[:user_role] == COMPANY_ADMIN || session[:user_role] == SUPER_ADMIN
+        redirect_to root_url
+      end
+    end  
+    
+    def require_company
+      unless current_company
+        redirect_to root_url
+      end      
     end
     
     def require_staff
       unless session[:user_role] == STAFF
-        redirect_to :controller => "user_sessions", :action => "new"
+        redirect_to root_url
       end
     end    
 
@@ -64,7 +94,11 @@ class ApplicationController < ActionController::Base
     
     def is_staff?
      session[:user_role] == STAFF
-    end    
+    end
+    
+    def is_company_admin?
+     session[:user_role] == COMPANY_ADMIN
+    end        
 
     def ticket_status_hash
       {"1" => "Open", "2" => "On Hold", "3" => "Close"}

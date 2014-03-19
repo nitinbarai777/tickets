@@ -1,0 +1,86 @@
+<div class="page-header">
+	<h4><%= t("general.join_us") %></h4>
+</div>
+	<%= form_for @o_company, :url => join_us_path, :html => { :class => 'form-horizontal' } do |f| %>
+	
+	    <div class="control-group">
+	      <%= f.label :name, :class => 'control-label' %><span class="redStart">*</span>
+	      <div class="controls">
+	        <%= f.text_field :name, :class => 'input-xlarge' %>
+	       	<% if @o_company.errors[:name].any? %>
+	        	<span class="text-error text-message"><%= @o_company.errors[:name].first %></span>
+	      	<% end %>        
+	      </div>
+	    </div>
+	
+	    <div class="control-group">
+	      <%= f.label :business_type, :class => 'control-label' %>
+	      <div class="controls">
+	        <%= f.text_field :business_type, :class => 'input-xlarge' %>
+	      </div>
+	    </div>
+	
+	    <div class="control-group">
+	      <%= f.label :email, :class => 'control-label' %><span class="redStart">*</span>
+	      <div class="controls">
+	        <%= f.text_field :email, :class => 'input-xlarge' %>
+	       	<% if @o_company.errors[:email].any? %>
+	        	<span class="text-error text-message"><%= @o_company.errors[:email].first %></span>
+	      	<% end %>
+	      </div>
+	    </div>
+	
+	    <div class="control-group">
+	      <%= f.label :sub_domain, :class => 'control-label' %><span class="redStart">*</span>
+	      <div class="controls">
+	        <%= f.text_field :sub_domain, :class => 'input-xlarge' %>
+	       	<% if @o_company.errors[:sub_domain].any? %>
+	        	<span class="text-error text-message"><%= @o_company.errors[:sub_domain].first %></span>
+	      	<% end %>
+	      </div>
+	    </div>
+	    
+	    <div class="control-group">
+	      <%= f.label :url, :class => 'control-label' %><span class="redStart">*</span>
+	      <div class="controls">
+	        <%= f.text_field :url, :class => 'input-xlarge' %>
+	       	<% if @o_company.errors[:url].any? %>
+	        	<span class="text-error text-message"><%= @o_company.errors[:url].first %></span>
+	      	<% end %>
+	      </div>
+	    </div>  
+	    
+	    <div class="control-group">
+	      <%= f.label :phone, :class => 'control-label' %>
+	      <div class="controls">
+	        <%= f.text_field :phone, :class => 'input-xlarge' %>
+	      </div>
+	    </div>      
+	
+	    <div class="control-group">
+	      <%= f.label :mobile, :class => 'control-label' %>
+	      <div class="controls">
+	        <%= f.text_field :mobile, :class => 'input-xlarge' %>
+	      </div>
+	    </div>  
+	    
+	    <div class="control-group">
+	      <%= f.label :address, :class => 'control-label' %>
+	      <div class="controls">
+	        <%= f.text_field :address, :class => 'input-xlarge' %>
+	      </div>
+	    </div>     
+	
+	    <div class="control-group">
+	        <%= f.label :logo, :class => 'control-label' %>
+	        <div class="controls">
+	            <%= f.file_field :logo, :class => 'input-xlarge' %>
+	        </div>
+	    </div>
+	    
+	    <div class="form-actions">
+	      <%= f.submit nil, :class => 'btn btn-primary' %>
+	      <%= link_to 'Cancel', root_url, :class => 'btn' %>
+	    </div>
+	
+	<% end %>

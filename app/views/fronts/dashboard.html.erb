@@ -1,1 +1,1 @@
-<%= render "#{current_user.role.role_type.downcase}_dashboard" %>
+<%= render "#{current_user.role.role_type.downcase}_dashboard" if current_user %>

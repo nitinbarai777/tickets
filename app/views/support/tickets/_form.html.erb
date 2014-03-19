@@ -1,0 +1,140 @@
+<%= form_for [:support, @ticket], :html => { :onload => "getCaptcha();", :class => 'form-horizontal', :id => "ticket_form" } do |f| %>
+  <% if current_user.present? %>
+    <%= f.hidden_field :user_id, :value => current_user.id %>
+  <% end %>
+
+  <% unless current_user.present? %>
+    <%= render :partial => 'userInfo', :locals => { :f => f } %>
+  <% end %>
+  
+<% if @ticket.new_record? %>
+	<%= f.hidden_field :company_id, :value => @current_company.id %>
+	<fieldset class="scheduler-border">
+    <legend class="scheduler-border">Message Details</legend>
+		  <div class="field">
+		    <%= f.label :subject %>
+		    <%= f.text_field :subject, :class => 'input-xxlarge' %>
+		   	<% if @ticket.errors[:subject].any? %>
+		    	<span class="text-error text-message"><%= @ticket.errors[:subject].first %></span>
+		  	<% end %>    
+		  </div>
+		
+		  <div class="field">
+		    <%= f.label :description %>
+		    <%= f.text_area :description, :class => 'input-xxlarge textArea' %>
+		   	<% if @ticket.errors[:description].any? %>
+		    	<span class="text-error text-message"><%= @ticket.errors[:description].first %></span>
+		  	<% end %>
+		  </div>
+		  
+			<%= f.hidden_field :status_id, :value => 1 %>
+			
+		  <div class="field">
+		    <%= f.label :priority_id %>
+		    <%= f.select :priority_id, options_for_select(get_ticket_priority, :selected => @ticket.priority_id), {}, { :class => 'input-xlarge'} %>
+		   	<% if @ticket.errors[:priority_id].any? %>
+		    	<span class="text-error text-message"><%= @ticket.errors[:priority_id].first %></span>
+		  	<% end %>
+		  </div>
+			
+		  <div class="field">
+		    <%= f.label :attached_file %>
+		    <%= f.file_field :attached_file %>
+		  </div>
+	</fieldset>
+  
+<% end %>  
+  
+<fieldset class="scheduler-border">
+    <legend class="scheduler-border">Verify Submission</legend>
+  
+  <div class="field">
+  	<table>
+  		<tr>
+  			<td>
+	    		<%= f.radio_button :ticket_type, "technical" %>&nbsp;Technical
+	    	</td>
+	    	<td>&nbsp;</td>
+	    	<td>
+	    		<%= f.radio_button :ticket_type, "general", :checked => true %>&nbsp;General
+	    	</td>	
+	    	<td>&nbsp;</td>
+	    	<td>	
+	    		<%= f.radio_button :ticket_type, "sell" %>&nbsp;Sell
+	    	</td>	
+	    </tr>
+    </table>
+  </div> 
+  
+  <!-- Ticket tag start -->
+  <div class="field">
+    <%= f.label :tag_list, "Tags (separated by comma)" %>
+    <%= f.text_field :tag_list, :class => 'input-xlarge' %>
+  </div>
+  <!-- Ticket tag end -->
+
+  <% unless current_user.present? %>
+    <div class="field">
+      <%= t("Verify Yourself") %>
+      <p>Please enter the text you see in at the bottom. This is required to prevent automated submission of Tickets.</p>
+      <div><input type="text" id="txtInput" class='input-xlarge'/></div>
+      <span id="captcha_error" class=""></span>
+      <div id="captcha">
+        <div id="captcha_gen" >
+	        <div class="fl" id="txtCaptcha"></div>
+	        <input type="hidden" id="txtCaptchaHidden"/>
+        </div>
+      </div>
+      <a href="javascript:void(0);" onClick="getCaptcha();"/>Refresh</a>
+    </div>
+  <% end %>
+ 
+</fieldset> 
+        
+  <div class="">
+    <center>
+    	<% unless current_user.present? %>
+    		<%= f.button "Submit", :class => 'btn ', :id => "sub_btn" %>
+    	<% else %>
+    		<%= f.submit "Submit", :class => 'btn ' %>
+    	<% end %>
+    	<%= link_to 'Cancel', root_path, :class => 'btn' %>	
+    </center>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+	$(document).on('page:load', function(){
+	  window['rangy'].initialized = false
+	})
+	
+	
+  $(document).ready(function(){
+
+    //$('.wysihtml5').each(function(i, elem) {
+      //$(elem).wysihtml5();
+    //});
+    
+	  $('#sub_btn').click (function() {
+	  	if(ValidCaptcha() == false) {
+  			$("#captcha_error").html("Please enter valide value");
+  			$("#captcha_error").addClass("text-error text-message");
+  			$('#captcha_error').focus();
+	  		return false;
+	  	} else {
+	  		$("#spinner").show();
+	  		if($("#user_email").val() == "") {
+	  			$("#email_error").html("can't be blank");
+	  			$("#email_error").addClass("text-error text-message");
+	  			$("#spinner").hide();
+	  			$('#user_email').focus();
+	  			return false;
+	  		} else {
+	  			setTimeout(function(){$.post( "/tickets/create", $( "#ticket_form" ).serialize() );},2000);
+	  		}	
+	  	}	
+	  	
+	  });	    
+
+  })
+</script>

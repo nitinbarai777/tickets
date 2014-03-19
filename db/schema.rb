@@ -11,7 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140311090653) do
+ActiveRecord::Schema.define(version: 20140317175130) do
+
+  create_table "companies", force: true do |t|
+    t.string   "name"
+    t.string   "business_type"
+    t.string   "phone"
+    t.string   "mobile"
+    t.text     "address"
+    t.string   "email"
+    t.string   "logo"
+    t.string   "url"
+    t.string   "sub_domain"
+    t.boolean  "is_active",     default: false
+    t.boolean  "is_confirmed",  default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "contacts", force: true do |t|
     t.integer  "user_id"
@@ -111,6 +127,7 @@ ActiveRecord::Schema.define(version: 20140311090653) do
 
   create_table "tickets", force: true do |t|
     t.integer  "user_id"
+    t.integer  "company_id"
     t.string   "ticket_secret"
     t.string   "subject"
     t.text     "description"
@@ -131,6 +148,7 @@ ActiveRecord::Schema.define(version: 20140311090653) do
   end
 
   create_table "users", force: true do |t|
+    t.integer  "company_id"
     t.string   "first_name"
     t.string   "last_name"
     t.string   "email"

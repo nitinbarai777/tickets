@@ -44,29 +44,12 @@
 		<%= render "layouts/header" %>
     <div class="container-fluid">
       <div class="row-fluid">
-        <div class="span3">
-          <div class="well sidebar-nav">
-            <ul class="nav nav-list">
-            	<% unless current_user %>
-	              <li class="nav-header">
-	              	Support Engine
-	              </li>
-                <li data-no-turbolink><%= link_to "Submit a ticket", new_ticket_path %></li>	              
-	            <% else %>   
-	              <% if is_staff? %>
-	              	<li><%= link_to "Tickets", staff_tickets_path  %></li>
-	              <% elsif is_user? %>
-	              	<li><%= link_to "Submit a ticket", new_ticket_path %></li>
-	              	<li><%= link_to "Check your existing tickets", tickets_path %></li>
-	              <% end %>
-	           <% end %>   
-            </ul>
-          </div><!--/.well -->
-        </div><!--/span-->
-        <div class="span9">
+				<div class="span1">&nbsp;</div>
+        <div class="span10">
           <%= bootstrap_flash %>
           <%= yield %>
         </div>
+        <div class="span1">&nbsp;</div>        
       </div><!--/row-->
 			<%= render "layouts/footer" %>
     </div> <!-- /container -->

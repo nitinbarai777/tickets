@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   SUPER_ADMIN = "SuperAdmin"
+  COMPANY_ADMIN = "CompanyAdmin"
   USER = "User"
   STAFF = "Staff"
 
@@ -21,13 +22,12 @@ class User < ActiveRecord::Base
   
   has_many :tickets, :dependent => :destroy
   has_many :ticket_replies
+  belongs_to :company
   
   scope :all_users, joins(:role).where(:roles => { :role_type => USER })
   
   scope :all_users_and_staffs, joins(:role).where(:roles => { :role_type => [USER, STAFF] })
   
-  
-
   def password_required?
     @password_required
   end
@@ -45,8 +45,12 @@ class User < ActiveRecord::Base
    has_role?(USER)
   end
   
-  def is_user?
+  def is_staff?
    has_role?(STAFF)
+  end  
+  
+  def is_company_admin?
+    has_role?(COMPANY_ADMIN)
   end  
 
   def name(shorten=true)

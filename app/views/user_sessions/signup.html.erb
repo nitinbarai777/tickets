@@ -4,7 +4,7 @@
 	</h4>
 </div>
 <%= form_for @o_single, :url => signup_path, :html => { :class => 'form-horizontal' } do |f| %>
-
+	<%= f.hidden_field :company_id, :value => @current_company.id %>
 	<div class="control-group">
       <div class="controls">
         <%= f.text_field :email, :class => 'input-xlarge', :placeholder => 'Email' %>

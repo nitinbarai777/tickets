@@ -1,7 +1,7 @@
 class Admin::TicketsController < ApplicationController
   before_action :set_admin_ticket, only: [:show, :edit, :update, :destroy]
   helper_method :sort_column, :sort_direction
-  before_action :require_admin  
+  before_action :require_admin
 
   # GET /admin/tickets
   # GET /admin/tickets.json
@@ -13,8 +13,12 @@ class Admin::TicketsController < ApplicationController
     if session[:set_pager_number].nil?
       session[:set_pager_number] = 10
     end
-
-    @o_all = Ticket.
+    if current_company
+      tickets = @current_company.tickets
+    else
+      tickets = Ticket  
+    end
+    @o_all = tickets.
                   search(session[:search_params]).
                   order(sort_column + " " + sort_direction).
                   paginate(:per_page => session[:set_pager_number], :page => params[:page])

@@ -1,6 +1,7 @@
 class Ticket < ActiveRecord::Base
   has_many :ticket_replies, dependent: :destroy
   belongs_to :user
+  belongs_to :company
   
   acts_as_taggable
   

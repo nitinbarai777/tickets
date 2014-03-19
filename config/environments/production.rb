@@ -86,5 +86,7 @@ Tickets::Application.configure do
   MAIL_PASSWORD = "nitin@@@777"
   MAIL_PORT = "587"
   MAIL_ADDRESS = "smtp.gmail.com"
-  MAIL_DOMAIN = "gmail.com"    
+  MAIL_DOMAIN = "gmail.com"
+  
+  SUPPORT_EMAIL = 'nitin.barai777@gmail.com'    
 end

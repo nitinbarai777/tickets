@@ -10,6 +10,12 @@ class UserMailer < ActionMailer::Base
     @application = t("general.app_title")
     mail(:to => "#{email}", :subject => t("mail.registration_confirmation.confirm_your_email_to_start"))
   end
+  
+  # new company registration 
+  def company_registration_confirmation(email, opts)
+    @company = opts[:company]
+    mail(:to => "#{email}", :subject => "#{@company.name} has sent request to join SupportEngine")
+  end  
 
   # forgot password
   def forgot_password_confirmation(email, subject, opts)

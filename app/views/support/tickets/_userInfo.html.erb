@@ -1,0 +1,16 @@
+<fieldset class="scheduler-border">
+    <legend class="scheduler-border">User Detail</legend>
+		<%= fields_for :user do |user_fields| %>
+		
+		  <div class="field">
+		    <%= user_fields.label t("general.name") %>
+		    <%= user_fields.text_field :first_name, :class => 'input-xxlarge' %>
+		  </div>
+		
+		  <div class="field">
+		    <%= user_fields.label :email %>
+		    <%= user_fields.text_field :email, :class => 'input-xxlarge' %>
+		    <span id="email_error" class=""></span>
+		  </div>
+		<% end %>
+</fieldset>
