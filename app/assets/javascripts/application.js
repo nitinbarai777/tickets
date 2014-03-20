@@ -16,5 +16,6 @@
 //= require twitter/bootstrap
 //= require bootstrap-datetimepicker
 //= require bootstrap-wysihtml5
+//= require bootstrap.min
 //= require turbolinks
 //= require_tree .

@@ -32,10 +32,9 @@
   	
     <%= javascript_include_tag "common" %>
 		<%= render "layouts/header" %>
-		<div class="container">
-    	<%= bootstrap_flash %>
-    	<%= yield %>
-    </div>	
+		
+  	<%= bootstrap_flash %>
+  	<%= yield %>
     
     <%= render "layouts/footer" %>
     

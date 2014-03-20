@@ -2,6 +2,7 @@ class FrontsController < ApplicationController
   before_filter :require_user, :only => [:change_password, :profile]
 
   def dashboard
+    render :layout => "dashboard"
     #unless current_user
       #redirect_to login_url
     #end

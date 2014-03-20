@@ -1,70 +1,79 @@
-<div class="navbar navbar-fluid-top">
-  <div class="navbar-inner">
-    <div class="container-fluid">
-    	<% if @current_company %>
-    		<a class="brand" href="/<%= @current_company.sub_domain %>"><%= @current_company.name %></a>
-    	<% else %>
-      	<a class="brand" href="/">SupportEngine</a>
-      <% end %>	
-      <div class="container-fluid nav-collapse">
-        <ul class="nav">
-        	<% if current_user %>
-	        	<% if is_admin? || is_company_admin? %>
-	        		<% if is_admin? %>
-	        			<!--<li><%= link_to t("general.dashboard"), "/admin/dashboard"  %></li>-->
-	        			<li><%= link_to t("general.companies"), admin_companies_path  %></li>
-	        		<% end %>
-	        		<li><%= link_to t("general.users"), admin_users_path  %></li>
-	      		  <li><%= link_to t("general.tickets"), admin_tickets_path  %></li>
-	      		<% elsif is_staff? %>
-	      			<li><%= link_to "Tickets", staff_tickets_path  %></li>
-            <% elsif is_user? %>
-            	<li><%= link_to "Submit a ticket", new_support_ticket_path %></li>
-            	<li><%= link_to "Check your existing tickets", support_tickets_path %></li>	      			
-	          <% end %>
-	        <% else %>
-	        	<% if @current_company %>
-	        		<li data-no-turbolink><%= link_to "Submit a ticket", new_support_ticket_path %></li>
-	        	<% end %>		  	          
-	        <% end %>
-        </ul>
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+      	
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+		    	<% if @current_company %>
+		    		<a class="navbar-brand" href="/<%= @current_company.sub_domain %>"><%= @current_company.name %></a>
+		    	<% else %>
+		      	<a class="navbar-brand" href="/">SupportEngine</a>
+		      <% end %>	  
+	        <div class="navbar-collapse collapse">
+	          <ul class="nav navbar-nav navbar-left">
+		        	<% if current_user %>
+			        	<% if is_admin? || is_company_admin? %>
+			        		<% if is_admin? %>
+			        			<!--<li><%= link_to t("general.dashboard"), "/admin/dashboard"  %></li>-->
+			        			<li><%= link_to t("general.companies"), admin_companies_path  %></li>
+			        		<% end %>
+			        		<li><%= link_to t("general.users"), admin_users_path  %></li>
+			      		  <li><%= link_to t("general.tickets"), admin_tickets_path  %></li>
+			      		<% elsif is_staff? %>
+			      			<li><%= link_to "Tickets", staff_tickets_path  %></li>
+		            <% elsif is_user? %>
+		            	<li><%= link_to "Submit a ticket", new_support_ticket_path %></li>
+		            	<li><%= link_to "Check your existing tickets", support_tickets_path %></li>	      			
+			          <% end %>
+			        <% else %>
+			        	<% if @current_company %>
+			        		<li data-no-turbolink><%= link_to "Submit a ticket", new_support_ticket_path %></li>
+			        	<% end %>		  	          
+			        <% end %>
+	          </ul>
+	        </div><!--/.nav-collapse -->		              
+        </div>
         
-        <ul class="nav pull-right">
-        	<% if current_user %>
-	        	<% if is_admin? %>        	
-		          <li class="dropdown dropdownHeight">
-		            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><Dropdown><%= t("general.admin_setup") %> <b class="caret"></b></a>
-		            <ul class="dropdown-menu">
-		          		<li><%= link_to t("general.footer_pages"), admin_footer_pages_path  %></li>
-		          		<li><%= link_to t("general.contacts"), admin_contacts_path  %></li>
-		          		<!--<li><%= link_to t("general.languages"), admin_languages_path  %></li>
-		          		<li><%= link_to t("general.email_templates"), admin_email_templates_path  %></li>
-		          		<li><%= link_to t("general.settings"), admin_settings_path  %></li>-->
-		            </ul>
-			        </li>
-			      <% end %>  
-	          <li class="dropdown dropdownHeight">
-	            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><Dropdown><%= t("general.welcome_user", :username => current_user.name) %> <b class="caret"></b></a>
-	            <ul class="dropdown-menu">
-		          	<li><%= link_to t("general.profile"), "/profile"  %></li>
-		          	<li><%= link_to t("general.change_password"), "/change_password"  %></li>
-		          	<!--<li><%#= link_to t("general.logout"), "/logout?sub_domain="+@current_company.sub_domain %></li>-->
-		          	<li><%= link_to t("general.logout"), "/logout" %></li>
-	            </ul>
-		        </li>			      
-	        <% else %>
-	        	<% if @current_company %>
-	        		<li><%= link_to t("general.home"), "/#{@current_company.sub_domain}?home=true"  %></li>
-	          	<li><%= link_to t("general.sign_up"), "/signup"  %></li>
-	          	<li><%= link_to t("general.login"), "/login"  %></li>
-	          <% else %>	
-	        		<li><%= link_to t("general.join_us"), join_us_path  %></li>
-	        		<li><%= link_to t("general.contact_us"), "/contact_us"  %></li>	          
-	          <% end %>	
-	       	<% end %>				                  	
-	
-        </ul>
-      </div><!--/.nav-collapse -->
+        
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+		        	<% if current_user %>
+			        	<% if is_admin? %>        	
+				          <li class="dropdown dropdownHeight">
+				            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><Dropdown><%= t("general.admin_setup") %> <b class="caret"></b></a>
+				            <ul class="dropdown-menu">
+				          		<li><%= link_to t("general.footer_pages"), admin_footer_pages_path  %></li>
+				          		<li><%= link_to t("general.contacts"), admin_contacts_path  %></li>
+				          		<!--<li><%= link_to t("general.languages"), admin_languages_path  %></li>
+				          		<li><%= link_to t("general.email_templates"), admin_email_templates_path  %></li>
+				          		<li><%= link_to t("general.settings"), admin_settings_path  %></li>-->
+				            </ul>
+					        </li>
+					      <% end %>  
+			          <li class="dropdown dropdownHeight">
+			            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><Dropdown><%= t("general.welcome_user", :username => current_user.name) %> <b class="caret"></b></a>
+			            <ul class="dropdown-menu">
+				          	<li><%= link_to t("general.profile"), "/profile"  %></li>
+				          	<li><%= link_to t("general.change_password"), "/change_password"  %></li>
+				          	<!--<li><%#= link_to t("general.logout"), "/logout?sub_domain="+@current_company.sub_domain %></li>-->
+				          	<li><%= link_to t("general.logout"), "/logout" %></li>
+			            </ul>
+				        </li>			      
+			        <% else %>
+			        	<% if @current_company %>
+			        		<li><%= link_to t("general.home"), "/#{@current_company.sub_domain}?home=true"  %></li>
+			          	<li><%= link_to t("general.sign_up"), "/signup"  %></li>
+			          	<li><%= link_to t("general.login"), "/login"  %></li>
+			          <% else %>	
+			        		<li><%= link_to t("general.join_us"), join_us_path  %></li>
+			        		<li><%= link_to t("general.contact_us"), "/contact_us"  %></li>	          
+			          <% end %>	
+			       	<% end %>				   
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
     </div>
-  </div>
-</div>
