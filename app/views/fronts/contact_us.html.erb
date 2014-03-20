@@ -1,15 +1,14 @@
-<div class="page-header">
-	<h4>
-		<h4><%= t("general.contact_us") %></h4>
-	</h4>
+<div class="row mt centered">
+	<div class="col-lg-6 col-lg-offset-3">
+		<h1><%= t("general.contact_us") %></h1>
+	</div>
 </div>
-<div class="container pt60">
-<%= form_for @o_single, :url => contact_us_path, :html => { :class => 'form-horizontal' } do |f| %>
-
-
+<div class="col-lg-12">
+	
+	<%= form_for @o_single, :url => contact_us_path, :html => { :class => 'form-inline' } do |f| %>
     <div class="control-group">
-      <div class="controls">
-        <%= f.text_field :name, :class => 'input-xlarge', :placeholder => 'Your Name' %>
+      <div class="form-group">
+        <%= f.text_field :name, :class => 'form-control', :placeholder => 'Your Name' %>
        	<% if @o_single.errors[:name].any? %>
         	<span class="text-error text-message"><%= @o_single.errors[:name].first %></span>
       	<% end %>        
@@ -17,28 +16,31 @@
     </div>
     
     <div class="control-group">
-      <div class="controls">
-        <%= f.text_field :email, :class => 'input-xlarge', :placeholder => 'Your Email' %>
+      <div class="form-group">
+        <%= f.text_field :email, :class => 'form-control', :placeholder => 'Your Email' %>
        	<% if @o_single.errors[:email].any? %>
         	<span class="text-error text-message"><%= @o_single.errors[:email].first %></span>
       	<% end %>                
       </div>
     </div>
     	
-    <div class="control-group">
-    	<div class="controls">
-    	<%= t("general.type_your_msg_here") %>
-    	<div class="clearBoth"></div>    	
-    	<%= f.text_area :message, :class => 'textArea wysihtml5' %>
-    	</div>
+    	
+	    <div class="control-group">
+	      <%= f.label :type_your_message_here, :class => 'control-label' %>
+	      <div class="cl"></div>
+	      <div class="form-group">
+	        <%= f.text_area :message, :class => 'textArea form-control' %>
+	      </div>
+	    </div>    	
+
+    <div class="control-group form-action">
+    	<div class="form-group">
+      	<%= f.submit t("general.send"), :class => 'btn btn-warning btn-lg ' %>
+      	<%= link_to 'Cancel', root_url, :class => 'btn btn-warning btn-lg' %>
+      </div>	
     </div>
 
-
-    <div class="form-actions">
-      <%= f.submit t("general.send"), :class => 'btn ' %>
-    </div>
     
-
 <% end %>
 </div>
 

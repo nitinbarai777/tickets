@@ -2,15 +2,22 @@
     <legend class="scheduler-border">User Detail</legend>
 		<%= fields_for :user do |user_fields| %>
 		
-		  <div class="field">
-		    <%= user_fields.label t("general.name") %>
-		    <%= user_fields.text_field :first_name, :class => 'input-xxlarge' %>
-		  </div>
 		
-		  <div class="field">
-		    <%= user_fields.label :email %>
-		    <%= user_fields.text_field :email, :class => 'input-xxlarge' %>
-		    <span id="email_error" class=""></span>
-		  </div>
+	    <div class="control-group">
+	      <%= f.label :first_name, :class => 'control-label' %><span class="redStart">&nbsp;</span>
+	      <div class="form-group">
+	        <%= user_fields.text_field :first_name, :class => 'form-control' %>
+	      </div>
+	    </div>	 
+	    
+	    
+	    <div class="control-group">
+	      <%= f.label :email, :class => 'control-label' %><span class="redStart">&nbsp;</span>
+	      <div class="form-group">
+	        <%= user_fields.text_field :email, :class => 'form-control' %>
+	      </div>
+	    </div>	 	    		
+
+
 		<% end %>
 </fieldset>

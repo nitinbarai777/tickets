@@ -1,6 +1,4 @@
-
-
-<%= form_for @ticket_reply, :url => ticket_reply_create_path, :remote => true, :html => { :multipart => true, :class => 'form-horizontal' } do |f| %>
+<%= form_for @ticket_reply, :url => ticket_reply_create_path, :remote => true, :html => { :multipart => true, :class => 'form-inline' } do |f| %>
   <%= f.hidden_field :ticket_id, :value => params[:id] %>
   <%= f.hidden_field :user_id, :value => current_user.id %>
   <%= f.hidden_field :user_type, :value => "Staff" %>  
@@ -10,7 +8,7 @@
 
 
   <div class="field">
-    <%= f.text_area :description, :class => 'input-xxlarge textArea' %>
+    <%= f.text_area :description, :class => 'form-control textArea' %>
    	<% if @ticket_reply.errors[:description].any? %>
     	<span class="text-error text-message"><%= @ticket_reply.errors[:description].first %></span>
   	<% end %>
@@ -21,12 +19,14 @@
     <%= f.file_field :attached_file %>
   </div>     
 
+	    <div class="control-group">
+	    	<label class="control-label">&nbsp;</label>
+	    	<div class="form-group">
+			    <%= f.submit nil, :class => 'btn btn-warning btn-lg', :value => "Reply" %>
+			    <%= link_to "Cancel", "/staff/tickets", :class => 'btn btn-warning btn-lg' %>
+	      </div>	
+	    </div>  
         
-  <div class="">
-    <%= f.submit nil, :class => 'btn ', :value => "Reply" %>
-    <%= link_to "Cancel", "/staff/tickets", :class => 'btn' %>
-    <%#= f.submit nil, :class => 'btn ', :value => "Reply & Close", :name => "reply_close" %>
-  </div>
 <% end %>
 
 

@@ -33,7 +33,9 @@
     <%= javascript_include_tag "common" %>
 		<%= render "layouts/header" %>
 		<div class="container">
-    	<%= bootstrap_flash %>
+			<% if bootstrap_flash %>
+				<div style="margin-top: 50px;"><%= bootstrap_flash %></div>
+    	<% end %>
     	<%= yield %>
     </div>	
     

@@ -1,5 +1,11 @@
-<div class="row-fluid show-grid">
-  <div class="span12">
+<div class="row mt centered">
+	<div class="col-lg-6 col-lg-offset-3">
+		<h1>
+			Ticket Replies
+		</h1>
+	</div>
+</div>
+<div class="col-lg-12">
 
 <fieldset class="scheduler-border">
     <legend class="scheduler-border"><%= @ticket.subject %></legend>
@@ -21,7 +27,7 @@
 	  <%= render partial: 'ticket_reply_form' %> 
 </fieldset>
 	</div>  
-</div>
+
 
 <script type="text/javascript">
 	$(document).ready(function(){

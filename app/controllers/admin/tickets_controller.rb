@@ -1,7 +1,7 @@
 class Admin::TicketsController < ApplicationController
   before_action :set_admin_ticket, only: [:show, :edit, :update, :destroy]
   helper_method :sort_column, :sort_direction
-  before_action :require_admin
+  before_action :require_admin_or_company_admin
 
   # GET /admin/tickets
   # GET /admin/tickets.json

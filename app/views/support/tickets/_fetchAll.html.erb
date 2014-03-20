@@ -2,19 +2,21 @@
   <% @o_all.each do |o_row| %>
 		<fieldset class="scheduler-border">
 		    <legend class="scheduler-border"><%= o_row.ticket_secret %></legend>
-		    		<table class="table" >
-		    			<tr><td class="brdTop0">Subject:</td><td class="brdTop0"><%= o_row.subject %></td><td width="40%" class="brdTop0">&nbsp;</td><td class="brdTop0">Ticket Type:</td><td class="brdTop0"><%= o_row.ticket_type %></td></tr>
-		    			<tr><td class="brdTop0">Priority:</td><td class="brdTop0"><%= ticket_priority_hash[o_row.priority_id.to_s] %></td><td width="40%" class="brdTop0">&nbsp;</td><td class="brdTop0">Status:</td><td class="brdTop0"><%= ticket_status_hash[o_row.status_id.to_s] %></td></tr>
+		    		<table class="table-condensed">
+		    			<thead>
+		    			<tr><td>Subject:</td><td><%= o_row.subject %></td><td width="40%">&nbsp;</td><td>Ticket Type:</td><td><%= o_row.ticket_type %></td></tr>
+		    			<tr><td>Priority:</td><td><%= ticket_priority_hash[o_row.priority_id.to_s] %></td><td width="40%">&nbsp;</td><td>Status:</td><td><%= ticket_status_hash[o_row.status_id.to_s] %></td></tr>
 		    			<tr>
 			          <% if o_row.is_last_reply_by_staff?(current_user.id) %>
 			          	<td class="redStart brdTop0" colspan="4"><%=  "Awaiting for reply" %></td>
 			          <% else %>	
-			          	<td class="brdTop0" colspan="4">&nbsp;</td>
+			          	<td colspan="4">&nbsp;</td>
 			          <% end %>
 			          <td class="brdTop0 fr">
-			          	<%= link_to "Reply", support_ticket_path(o_row.ticket_secret), :class => 'btn' %>
+			          	<%= link_to "Reply", support_ticket_path(o_row.ticket_secret), :class => 'btn btn-warning btn-lg' %>
 			          </td>		    				
 		    			</tr>
+		    			</thead>
 		    		</table>			    		
 		</fieldset>
 				<div class="fr">
@@ -22,5 +24,5 @@
 				</div>		    			
   <% end %>
 <% else %>
-  <table class="table"><tr><th colspan="6"><%= t("general.record_not_found") %></th></tr></table>
+  <table class="table-condensed"><tr><th colspan="6"><%= t("general.record_not_found") %></th></tr></table>
 <% end %>
