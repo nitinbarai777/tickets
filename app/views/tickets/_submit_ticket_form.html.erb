@@ -1,0 +1,86 @@
+<%= form_for @ticket, :url => submit_ticket_create_path, :html => { :onload => "getCaptcha();", :class => 'form-horizontal' } do |f| %>
+
+  <% if current_user.present? %>
+    <%= f.hidden_field :user_id, :value => current_user.id %>
+  <% end %>
+
+  <% unless current_user.present? %>
+    <%= render :partial => 'userInfo', :locals => { :f => f } %>
+  <% end %>
+
+<% if @ticket.new_record? %>
+  <div class="field">
+    <%= f.label :subject %>
+    <%= f.text_field :subject, :class => 'input-xxlarge' %>
+   	<% if @ticket.errors[:subject].any? %>
+    	<span class="text-error text-message"><%= @ticket.errors[:subject].first %></span>
+  	<% end %>    
+  </div>
+
+  <div class="field">
+    <%= f.label :description %>
+    <%= f.text_area :description, :class => 'input-xxlarge textArea wysihtml5' %>
+   	<% if @ticket.errors[:description].any? %>
+    	<span class="text-error text-message"><%= @ticket.errors[:description].first %></span>
+  	<% end %>
+  </div>
+  
+	<%= f.hidden_field :status_id, :value => 1 %>
+  
+  <div class="field">
+    <%= f.label :attached_file %>
+    <%= f.file_field :attached_file %>
+  </div>  
+  
+<% end %>  
+  
+  <div class="field">
+    <%= f.label :priority_id %>
+    <%= f.select :priority_id, options_for_select(get_ticket_priority, :selected => @ticket.priority_id), {}, { :class => 'input-xlarge'} %>
+   	<% if @ticket.errors[:priority_id].any? %>
+    	<span class="text-error text-message"><%= @ticket.errors[:priority_id].first %></span>
+  	<% end %>
+  </div>
+  
+  <!-- Ticket tag start -->
+  <div class="field">
+    <%= f.label :tag_list, "Tags (separated by comma)" %>
+    <%= f.text_field :tag_list, :class => 'input-xlarge' %>
+  </div>
+  <!-- Ticket tag end -->
+
+  <% unless current_user.present? %>
+    <div class="field">
+      <%= t("Verify Yourself") %>
+      <div><input type="text" id="txtInput" class='input-xlarge'/></div>
+      
+      <div id="captcha">
+        <div id="captcha_gen" >
+	        <div class="fl" id="txtCaptcha"></div>
+	        <input type="hidden" id="txtCaptchaHidden"/>
+        </div>
+      </div>
+      <a href="javascript:void(0);" onClick="getCaptcha();"/>Refresh</a>
+    </div>
+  <% end %>
+
+      
+      
+        
+  <div class="">
+    <%= f.submit nil, :class => 'btn ', :value => "Submit" %>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+	$(document).on('page:load', function(){
+	  window['rangy'].initialized = false
+	})
+  $(document).ready(function(){
+
+    $('.wysihtml5').each(function(i, elem) {
+      $(elem).wysihtml5();
+    });
+
+  })
+</script>

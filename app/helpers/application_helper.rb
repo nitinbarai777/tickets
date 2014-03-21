@@ -50,6 +50,10 @@ module ApplicationHelper
   
   def get_user_roles
     Role.all.collect {|r| [r.role_type, r.id]} 
-  end      
-    
+  end
+  
+  def get_companies
+    [["Select Company", ""]] + Company.all.collect {|c| [c.name, c.id]}
+  end 
+  
 end
