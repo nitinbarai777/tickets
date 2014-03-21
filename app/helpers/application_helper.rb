@@ -36,6 +36,10 @@ module ApplicationHelper
     {"1" => "Open", "2" => "On Hold", "3" => "Close"}
   end
   
+  def get_admin_and_company_admin_role
+    [["SuperAdmin", "1"]] + [["CompanyAdmin", "2"]]
+  end
+  
   def ticket_priority_hash
     {"1" => "Low", "2" => "Medium", "3" => "High", "4" => "Urgent", "5" => "Emergency", "6" => "Critical"}
   end  

@@ -28,6 +28,10 @@ class User < ActiveRecord::Base
   
   scope :all_users_and_staffs, joins(:role).where(:roles => { :role_type => [USER, STAFF] })
   
+  scope :all_users_and_staffs_and_company_admins, joins(:role).where(:roles => { :role_type => [USER, STAFF, COMPANY_ADMIN] })
+  
+  
+  
   def password_required?
     @password_required
   end
