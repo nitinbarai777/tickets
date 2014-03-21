@@ -4,7 +4,7 @@
 		<% if flash[:error] %>
 		  <div class="control-group">
 		    <div class="form-group">
-				  <div class="alert fade in alert-error" id="notice"><%= flash[:error] %></div>
+				  <div class="text-error" id="notice"><%= flash[:error] %></div>
 				  <% flash[:error] = nil %>
 		    </div>
 		  </div>
@@ -14,7 +14,7 @@
 	    <div class="form-group">
 				<% @user_session.errors.full_messages.each do |msg| %>
 					<% @msg_var = "general.#{msg.gsub(' ', "_")}" %>
-					<span class="alert fade in alert-error"><%= t(@msg_var) %></span>
+					<span class="text-error"><%= t(@msg_var) %></span>
 				<% end %>
 	    </div>
 	  </div>

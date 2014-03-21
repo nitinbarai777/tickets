@@ -31,7 +31,7 @@
 	        <% else %>
 	        	<% if @current_company %>
 	        		<% if @current_company.is_confirmed_and_active? %>
-	        			<span data-no-turbolink><%= link_to "Submit a ticket", new_support_ticket_path, :class => "navbar-brand" %></span>
+	        			<%= link_to "Submit a ticket", new_support_ticket_path, :class => "navbar-brand", :data => { :no_turbolink => true } %>
 	        		<% end %>	
 	        	<% end %>		  	          
 	        <% end %>

@@ -3,12 +3,14 @@
 	    <% @ticket_replies.each do |t| %>
 			  <tr>
 				  <td>
-	        	<div class="fr"><strong><%= t.user.name.humanize %> - <%= t.created_at.to_s(:default_date_time) %></strong></div>
-	        	<div class="cl">&nbsp;</div>
-	        	<p><%= t.description.html_safe if t.description %></p>
-	        	<% if t.attached_file.present? %>
-	        		<p><%= link_to t.attached_file.path.split("/").last, download_path(t.id, 'ticket_reply'), :style => "text-decoration: underline;" %></p>
-	        	<% end %>	
+	        	<p>
+	        		<%= t.description.html_safe if t.description %><br />
+		        	<% if t.attached_file.present? %>
+		        		<%= link_to t.attached_file.path.split("/").last, download_path(t.id, 'ticket_reply'), :style => "text-decoration: underline;" %>
+		        	<% end %>
+	        	</p>
+	        	<strong style="font-size: 12px;"><i>Posted by <%= t.user.name.humanize %> On <%= t.created_at.to_s(:default_date_time) %></i></strong>				  	
+				  		
 	        </td>
 	     </tr>
 	    <% end %>
@@ -18,4 +20,4 @@
     </tr>
   <% end %>
 </table>
-<%= link_to "Cancel", admin_tickets_path, :class => 'btn' %>
+<%= link_to "Cancel", admin_tickets_path, :class => 'btn btn-warning btn-lg' %>

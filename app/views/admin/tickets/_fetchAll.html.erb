@@ -24,13 +24,13 @@
           <td><%= ticket_priority_hash[o_row.priority_id.to_s] %></td>
           <td>
 			      <%= link_to t('general.edit'),
-			                  edit_admin_ticket_path(o_row), :class => 'btn btn-mini' %>
-            <%= link_to 'Ticket reply', admin_ticket_path(o_row), :class => 'btn btn-mini' %>
+			                  edit_admin_ticket_path(o_row), :class => 'btn btn-warning btn-small' %>
+            <%= link_to 'Reply', admin_ticket_path(o_row), :class => 'btn btn-warning btn-small' %>
 			      <%= link_to t('general.destroy'),
 			                  admin_ticket_path(o_row),
 			                  :method => :delete,
 			                  :data => { :confirm => t('general.confirm') },
-			                  :class => 'btn btn-mini' %>
+			                  :class => 'btn btn-danger btn-small' %>
           </td>
         </tr>
       <% end %>

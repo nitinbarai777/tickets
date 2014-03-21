@@ -2,7 +2,6 @@
   <%= form_for [:staff, @o_single], :method => "get", :remote => true, :html => { :class => 'form-inline' } do |f| %>
     <fieldset>
       <legend></legend>
-
       <% @params_arr.each do |fields, field| %>
         <% field_name = fields.to_s %>
         <% field.each do |settings, field_type| %>
@@ -35,10 +34,11 @@
 		    </div>	
 		  </div>			        
     <%# model_name = params[:model].downcase %>
-      <div class="form-group">
-        <%= f.submit t("general.search"), :class => 'btn ', :id => 'search_button_id' %>
+      <div class="form-group form-action">
+      <label class="control-label">&nbsp;</label>
+        <%= f.submit t("general.search"), :class => 'btn btn-warning btn-lg', :id => 'search_button_id' %>
         <span data-no-turbolink>
-        <%= link_to 'Cancel', 'javascript:void(0)', :onclick => '$(this).closest("form").closest("div").hide()', :class => 'btn' %></span>
+        <%= link_to 'Cancel', 'javascript:void(0)', :onclick => '$(this).closest("form").closest("div").hide()', :class => 'btn btn-warning btn-lg' %></span>
       </div>
 
     </fieldset>

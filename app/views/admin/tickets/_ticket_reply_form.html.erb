@@ -1,20 +1,44 @@
-<h3>New Reply</h3>
+<% if flash[:notice_reply] %>
+  <div class="alert alert-warning"><%= flash[:notice_reply] %></div>
+  <% flash[:notice_reply] = nil %>
+<% end %>  
 
-<%= form_for ["admin", @ticket_reply], :url => reply_create_path, :remote => true, :html => { :class => 'form-horizontal' } do |f| %>
+<% if flash[:success_reply] %>
+  <div class="alert alert-success"><%= flash[:success_reply] %></div>
+  <% flash[:success_reply] = nil %>
+<% end %>
+
+<%= form_for ["admin", @ticket_reply], :url => reply_create_path, :remote => true, :html => { :class => 'form-inline' } do |f| %>
   <%= f.hidden_field :ticket_id, :value => params[:id] %>
   <%= f.hidden_field :user_id, :value => @ticket.user_id %>
   <%= f.hidden_field :user_type, :value => "User" %>   
 
+<div id="flash_message" class="field"></div>
 
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description, :class => 'input-xlarge' %>
-   	<% if @ticket_reply.errors[:description].any? %>
-    	<span class="text-error text-message"><%= @ticket_reply.errors[:description].first %></span>
-  	<% end %>
-  </div>
+	    <div class="control-group">
+	      <%= f.label :description, :class => 'control-label' %><span class="redStart">*</span>
+	      <div class="form-group">
+	        <%= f.text_area :description, :class => 'form-control textAreaBig' %>
+	       	<% if @ticket_reply.errors[:description].any? %>
+	        	<span class="text-error text-message"><%= @ticket_reply.errors[:description].first %></span>
+	      	<% end %>        	        
+	      </div>
+	    </div>
+  
+	    <div class="control-group">
+	      <%= f.label :attached_file, :class => 'control-label' %><span class="redStart">&nbsp;</span>
+	      <div class="form-group">
+			    <%= f.file_field :attached_file, :class => 'form-control' %>
+	      </div>
+	    </div>	 <br />
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+	    <div class="control-group">
+	    	<label class="control-label">&nbsp;</label>
+	    	<div class="form-group">
+			    <%= f.button "Reply", :class => 'btn btn-warning btn-lg', :id => "reply" %>
+			    <%= f.button "Reply & Close", :class => 'btn btn-warning btn-lg', :id => "reply_close", :type => "button" %>
+			    <%= link_to "Cancel", admin_tickets_path, :class => 'btn btn-warning btn-lg' %>
+	      </div>	
+	    </div>
+	    
 <% end %>

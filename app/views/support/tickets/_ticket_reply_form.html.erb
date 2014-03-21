@@ -20,7 +20,7 @@
 	    <div class="control-group">
 	      <%= f.label :description, :class => 'control-label' %><span class="redStart">*</span>
 	      <div class="form-group">
-	        <%= f.text_area :description, :class => 'textAreaBig' %>
+	        <%= f.text_area :description, :class => 'form-control textAreaBig' %>
 	       	<% if @ticket_reply.errors[:description].any? %>
 	        	<span class="text-error text-message"><%= @ticket_reply.errors[:description].first %></span>
 	      	<% end %>        	        

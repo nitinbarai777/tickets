@@ -27,7 +27,7 @@
           <% end %>
           <% if (o_row.status_id == 1 or o_row.status_id == 2) %>
             <td>
-              <%= link_to t('general.reply'), ticket_reply_path(o_row.id), :class => 'btn btn-mini' %>
+              <%= link_to t('general.reply'), ticket_reply_path(o_row.id), :class => 'btn btn-warning btn-lg' %>
             </td>
           <% else %>
             <td class="">&nbsp;</td>

@@ -429,3 +429,12 @@ legend.scheduler-border {
   background-color: #fcf8e3;
   border-color: #8a6d3b;	
 }
+.fr {
+	float: right;
+}
+.fl {
+	float: left;
+}
+.redStart {
+	color: red;
+}
