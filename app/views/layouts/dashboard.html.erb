@@ -28,7 +28,9 @@
     <%= javascript_include_tag "common" %>
 		<%= render "layouts/header" %>
 		
-  	<%= bootstrap_flash %>
+  	<div style="margin-top: 50px;">
+  		<%= bootstrap_flash %>
+  	</div>	
   	<%= yield %>
     
     <%= render "layouts/footer" %>

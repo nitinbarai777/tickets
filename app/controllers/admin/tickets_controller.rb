@@ -3,6 +3,8 @@ class Admin::TicketsController < ApplicationController
   helper_method :sort_column, :sort_direction
   before_action :require_admin_or_company_admin
 
+  layout "admin"
+
   # GET /admin/tickets
   # GET /admin/tickets.json
   def index

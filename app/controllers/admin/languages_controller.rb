@@ -4,7 +4,7 @@ class Admin::LanguagesController < ApplicationController
   helper_method :sort_column, :sort_direction
   before_action :require_admin
   before_action :create_default_language, only: [:index]
-
+layout "admin"
   # GET /languages
   # GET /languages.json
   def index

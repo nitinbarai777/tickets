@@ -3,7 +3,7 @@ class Admin::SettingsController < ApplicationController
   before_action :destroy_all_selected, only: [:index]
   helper_method :sort_column, :sort_direction
   before_action :require_admin
-
+layout "admin"
   # GET /settings
   # GET /settings.json
   def index

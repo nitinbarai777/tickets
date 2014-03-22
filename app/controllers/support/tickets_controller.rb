@@ -1,6 +1,7 @@
 class Support::TicketsController < ApplicationController
   before_action :set_ticket, only: [:edit, :update, :destroy, :update_ticket]
   helper_method :sort_column, :sort_direction
+  skip_before_filter :verify_authenticity_token, only: [:update_ticket]
   OPEN = 1
   ON_HOLD = 2
   CLOSE = 3

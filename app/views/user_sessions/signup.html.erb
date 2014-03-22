@@ -9,7 +9,7 @@
 	
 	<%= form_for @o_single, :url => signup_path, :html => { :class => 'form-inline' } do |f| %>
 		<%= f.hidden_field :company_id, :value => @current_company.id %>
-		<div class="control-group">
+	    <div class="control-group">
 	      <div class="form-group">
 	        <%= f.text_field :email, :class => 'form-control', :placeholder => 'Email' %>
 	       	<% if @o_single.errors[:email].any? %>

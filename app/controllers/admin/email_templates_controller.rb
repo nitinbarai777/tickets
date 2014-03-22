@@ -3,7 +3,7 @@ class Admin::EmailTemplatesController < ApplicationController
   before_action :destroy_all_selected, only: [:index]
   helper_method :sort_column, :sort_direction
   before_action :require_admin
-
+layout "admin"
   # GET /email_templates
   # GET /email_templates.json
   def index

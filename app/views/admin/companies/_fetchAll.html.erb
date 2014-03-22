@@ -4,8 +4,8 @@
   <tr>
   	<th width="5%"><%= check_box_tag "check_all", "" %><%= t("general.all") %></th>
     <th width="15%"><%=raw sortable "name", t("name") %></th>
+    <th width="10%"><%=raw sortable "mobile", t("mobile") %></th>
     <th width="15%"><%= sortable "email", t("email") %></th>
-    <th width="15%"><%= t("url") %></th>
     <th width="15%"><%= sortable "created_at", t("general.date")%></th>
     <th width="10%"><%= sortable "is_active", t("general.active") %></th>
     <th width="10%"><%= sortable "is_confirmed", t("general.confirmed") %></th>
@@ -19,8 +19,8 @@
         <tr>
         	<th><%= check_box_tag "rec["+o_row.id.to_s+"]", "" %></th>
           <td><%= o_row.name %></td>
+          <td><%= o_row.mobile %></td>
           <td><%= o_row.email %></td>
-          <td><%= o_row.url %></td>
           <td><%= o_row.created_at.to_s(:pretty_view) if o_row.created_at %></td>
           <td><%= o_row.is_active ? image_tag("Yes.gif") : image_tag("No.gif") %></td>
           <td><%= o_row.is_confirmed ? image_tag("Yes.gif") : image_tag("No.gif") %></td>

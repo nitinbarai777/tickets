@@ -48,7 +48,7 @@ p {
 }
 
 .centered {
-    text-align: center;
+    text-align: left;
 }
 
 /* Links */
@@ -125,7 +125,7 @@ i {
 	/* background: url(../img/bg01.jpg) no-repeat center top; */
 	background-color: #3498db;
 	margin-top: -20px;
-	padding-top:200px;
+	padding-top:100px;
 	background-attachment: relative;
 	background-position: center center;
 	min-height: 650px;
@@ -177,8 +177,8 @@ legend.scheduler-border {
 }
 
 .textAreaBig {
-	width: 380px;
-	height: 200px;	
+	width: 700px;
+	height: 150px !important;	
 }
 
 .cl {
@@ -437,4 +437,16 @@ legend.scheduler-border {
 }
 .redStart {
 	color: red;
+}
+.greenStart {
+	color: green;
+}
+
+.admin_container {
+	width: 100%;
+}
+
+.nav-brand-logo {
+	font-family: "Helvetica";
+	font-size: 25px;
 }

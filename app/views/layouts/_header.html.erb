@@ -9,9 +9,14 @@
             <span class="icon-bar"></span>
           </button>
 		    	<% if @current_company %>
-		    		<a class="navbar-brand" href="/<%= @current_company.sub_domain %>"><%= @current_company.name %></a>
+		    		<% if @current_company.logo? %>
+		    			<a class="navbar-brand nav-brand-logo" href="/<%= @current_company.sub_domain %>"><%= image_tag @current_company.logo_url(:logo) %></a>
+			    	<% else %>
+			      	<a class="navbar-brand nav-brand-logo" href="/<%= @current_company.sub_domain %>"><%= @current_company.name %></a>
+			      <% end %>			    		
+		    		
 		    	<% else %>
-		      	<a class="navbar-brand" href="/">SupportEngine</a>
+		      	<a class="navbar-brand nav-brand-logo" href="/">SupportEngine</a>
 		      <% end %>	  
 
         	<% if current_user %>
