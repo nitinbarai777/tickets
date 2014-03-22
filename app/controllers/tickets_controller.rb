@@ -1,4 +1,4 @@
-class Support::TicketsController < ApplicationController
+class TicketsController < ApplicationController
   before_action :set_ticket, only: [:edit, :update, :destroy, :update_ticket]
   helper_method :sort_column, :sort_direction
   skip_before_filter :verify_authenticity_token, only: [:update_ticket]
@@ -110,7 +110,7 @@ class Support::TicketsController < ApplicationController
         unless current_user.present?
           format.html { redirect_to login_url, notice: 'Ticket was successfully created.' }
         else
-          format.html { redirect_to support_tickets_url, notice: 'Ticket was successfully created.' }
+          format.html { redirect_to tickets_url, notice: 'Ticket was successfully created.' }
         end
         format.json { render action: 'show', status: :created, location: @ticket }
       else
@@ -125,7 +125,7 @@ class Support::TicketsController < ApplicationController
   def update
     respond_to do |format|
       if @ticket.update(ticket_params)
-        format.html { redirect_to support_tickets_url, notice: 'Ticket was successfully updated.' }
+        format.html { redirect_to tickets_url, notice: 'Ticket was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -139,7 +139,7 @@ class Support::TicketsController < ApplicationController
   def destroy
     @ticket.destroy
     respond_to do |format|
-      format.html { redirect_to support_tickets_url }
+      format.html { redirect_to tickets_url }
       format.json { head :no_content }
     end
   end
@@ -154,13 +154,13 @@ class Support::TicketsController < ApplicationController
         @ticket.status_id = CLOSE
         @ticket.save
         flash[:success_reply] = "Ticket reply was successfully created and closed."
-        redirect_to support_tickets_url
+        redirect_to tickets_url
       else
-        redirect_to support_ticket_url(@ticket.ticket_secret)  
+        redirect_to ticket_url(@current_company.sub_domain, @ticket.ticket_secret)  
       end
     else  
       flash[:notice_reply] = "Please enter reply."
-      redirect_to support_ticket_url(@ticket.ticket_secret)
+      redirect_to ticket_url(@current_company.sub_domain, @ticket.ticket_secret)
     end
   end
   

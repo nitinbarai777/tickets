@@ -34,7 +34,7 @@
 	    <div class="control-group form-action">
 	    	<div class="form-group">
 					<%= f.submit t("general.login"), :class => 'btn btn-warning btn-lg' %>
-					<%= link_to t("general.click_here_to_recover_your_account"), forgot_password_path, :class => 'btn btn-warning btn-lg' %>
+					<%= link_to t("general.click_here_to_recover_your_account"), forgot_password_path(@current_company.sub_domain), :class => 'btn btn-warning btn-lg' %>
 	      </div>	
 	    </div>
 	

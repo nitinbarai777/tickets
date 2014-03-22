@@ -37,7 +37,7 @@
 	    	<label class="control-label">&nbsp;</label>
 	    	<div class="form-group">
 			    <%= f.submit nil, :class => 'btn btn-warning btn-lg', :value => "Reply" %>
-			    <%= link_to "Cancel", "/staff/tickets", :class => 'btn btn-warning btn-lg' %>
+			    <%= link_to "Cancel", staff_tickets_path(@current_company.sub_domain), :class => 'btn btn-warning btn-lg' %>
 	      </div>	
 	    </div>  
         
