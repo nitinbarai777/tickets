@@ -43,16 +43,12 @@
           <ul class="nav navbar-nav navbar-right pull-right">
 		        	<% if current_user %>
 			        	<% if is_admin? %>        	
-				          <li class="dropdown dropdownHeight">
-				            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><Dropdown><%= t("general.admin_setup") %> <b class="caret"></b></a>
-				            <ul class="dropdown-menu">
+
 				          		<li><%= link_to t("general.footer_pages"), admin_footer_pages_path  %></li>
 				          		<li><%= link_to t("general.contacts"), admin_contacts_path  %></li>
 				          		<!--<li><%= link_to t("general.languages"), admin_languages_path  %></li>
 				          		<li><%= link_to t("general.email_templates"), admin_email_templates_path  %></li>
 				          		<li><%= link_to t("general.settings"), admin_settings_path  %></li>-->
-				            </ul>
-					        </li>
 					      <% end %>  
 
 				          	<li><%= link_to t("general.profile"), "/profile"  %></li>

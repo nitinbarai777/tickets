@@ -7,12 +7,11 @@
 <div class="row mt centered">
 	<div class="col-lg-6 col-lg-offset-3">
 		<h1>
-		  <h4><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %> (<span id="count_records"><%= @o_all.count %></span>)
+		  <%=t '.title', :default => model_class.model_name.human.pluralize.titleize %> (<span id="count_records"><%= @o_all.count %></span>)
 			<div class="searchRight fr">
 				<%= link_to t("general.search"), "javascript:void(0)", :class => 'btn btn-primary btn-small', 'id' => 'search_button' %>&nbsp;
 		    <%= link_to t('general.destroy'), "#destroy_all", :id => "destroy_all", :class => 'btn btn-danger btn-small' %>
 			</div>
-			</h4>
 		</h1>
 	</div>
 </div>

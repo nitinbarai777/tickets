@@ -18,7 +18,7 @@ class Admin::UsersController < ApplicationController
     if current_company
       users = @current_company.users.all_users_and_staffs
     else
-      users = User.all_users_and_staffs
+      users = User.all_users_and_staffs_and_company_admins
     end  
     @o_all = users.
                   search(session[:search_params]).

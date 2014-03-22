@@ -1,7 +1,7 @@
 class Company < ActiveRecord::Base
   has_many :users
   has_many :tickets
-  mount_uploader :logo, TicketUploader
+  mount_uploader :logo, ImageUploader
   
   include SearchHandler
   
