@@ -4,6 +4,8 @@ class Admin::ContactsController < ApplicationController
   helper_method :sort_column, :sort_direction
   before_action :require_admin, only: [:index, :show, :edit, :update, :destroy]
 
+  layout "admin"
+  
   # GET /contacts
   # GET /contacts.json
   def index

@@ -4,20 +4,34 @@
   <%= f.hidden_field :user_type, :value => "Staff" %>  
   <%= csrf_meta_tag %> 
   
-  <div id="flash_message" class="field"></div>
-
-
-  <div class="field">
-    <%= f.text_area :description, :class => 'form-control textArea' %>
-   	<% if @ticket_reply.errors[:description].any? %>
-    	<span class="text-error text-message"><%= @ticket_reply.errors[:description].first %></span>
-  	<% end %>
-  </div>
   
-  <div class="field">
-    <%= f.label :attached_file %>
-    <%= f.file_field :attached_file %>
-  </div>     
+  
+	    <div class="control-group">
+	      <label class="control-label">&nbsp;</label>
+	      <div class="form-group">
+					<div id="flash_message" class=""></div>
+	      </div>
+	    </div>  
+	    
+	    <div class="cl"></div>
+  
+
+	    <div class="control-group">
+	      <%= f.label :description, :class => 'control-label' %><span class="redStart">&nbsp;</span>
+	      <div class="form-group">
+	        <%= f.text_area :description, :class => 'form-control textAreaBig' %>
+	       	<% if @ticket_reply.errors[:description].any? %>
+	        	<span class="text-error text-message"><%= @ticket_reply.errors[:description].first %></span>
+	      	<% end %>        	        
+	      </div>
+	    </div>
+  
+	    <div class="control-group">
+	      <%= f.label :attached_file, :class => 'control-label' %><span class="redStart">&nbsp;</span>
+	      <div class="form-group">
+			    <%= f.file_field :attached_file, :class => 'form-control' %>
+	      </div>
+	    </div>	 <br />
 
 	    <div class="control-group">
 	    	<label class="control-label">&nbsp;</label>

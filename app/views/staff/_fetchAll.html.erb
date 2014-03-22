@@ -23,11 +23,11 @@
           <% if (o_row.is_last_reply_by_staff?(current_user.id) and o_row.status_id == 1) %>
           	<td class="redStart"><%=  "Awaiting for reply" %></td>
           <% else %>	
-          	<td class="">&nbsp;</td>
+          	<td class="greenStart"><%=  "Reply sent" %></td>
           <% end %>
           <% if (o_row.status_id == 1 or o_row.status_id == 2) %>
             <td>
-              <%= link_to t('general.reply'), ticket_reply_path(o_row.id), :class => 'btn btn-warning btn-lg' %>
+              <%= link_to t('general.reply'), ticket_reply_path(o_row.id), :class => 'btn btn-warning btn-small' %>
             </td>
           <% else %>
             <td class="">&nbsp;</td>

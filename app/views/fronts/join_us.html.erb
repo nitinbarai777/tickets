@@ -27,7 +27,7 @@
 	    <div class="control-group">
 	      <%= f.label :email, :class => 'control-label' %><span class="redStart">*</span>
 	      <div class="form-group">
-	        <%= f.text_field :email, :class => 'form-control' %>
+	        <%= f.text_field :email, :value => params[:email], :class => 'form-control' %>
 	       	<% if @o_company.errors[:email].any? %>
 	        	<span class="text-error text-message"><%= @o_company.errors[:email].first %></span>
 	      	<% end %>

@@ -5,7 +5,9 @@ class Company < ActiveRecord::Base
   
   include SearchHandler
   
-  validates :name, :sub_domain, :email, :url, :presence => true
+  validates :name, :email, :url, :presence => true
+  
+  validates :sub_domain, :presence => true, uniqueness: true
   
   def is_confirmed_and_active?
     self.is_confirmed and self.is_active

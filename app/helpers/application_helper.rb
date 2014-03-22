@@ -40,6 +40,10 @@ module ApplicationHelper
     [["SuperAdmin", "1"]] + [["CompanyAdmin", "2"]]
   end
   
+  def get_staff_and_user_role
+    [["Staff", "3"]] + [["User", "4"]]
+  end
+  
   def ticket_priority_hash
     {"1" => "Low", "2" => "Medium", "3" => "High", "4" => "Urgent", "5" => "Emergency", "6" => "Critical"}
   end  

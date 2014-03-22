@@ -4,6 +4,8 @@ class Admin::CompaniesController < ApplicationController
   helper_method :sort_column, :sort_direction
   before_action :require_admin_or_company_admin
 
+  layout "admin"
+
   # GET /companies
   # GET /companies.json
   def index
