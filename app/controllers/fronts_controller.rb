@@ -1,5 +1,5 @@
 class FrontsController < ApplicationController
-  before_filter :require_user, :only => [:change_password, :profile]
+  before_filter :require_user, :only => [:change_password, :profile, :company_profile]
   layout "dashboard", :only => [ :dashboard ]
   def dashboard
     #unless current_user
@@ -101,6 +101,21 @@ class FrontsController < ApplicationController
       end
     end
   end
+  
+  #profile company
+  def company_profile
+    if params[:company]
+      respond_to do |format|
+        if @current_company.update_attributes(company_params)
+          format.html { redirect_to company_profile_url, notice: t("general.successfully_updated") }
+          format.json { head :no_content }
+        else
+          format.html { render action: 'company_profile' }
+          format.json { render json: @current_company.errors, status: :unprocessable_entity }
+        end
+      end
+    end
+  end  
   
   #contact_us
   def contact_us

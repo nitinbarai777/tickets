@@ -19,6 +19,7 @@ Tickets::Application.routes.draw do
   get 'dashboard' => 'fronts#dashboard', :as => :dashboard
   match 'activate/:activation_key' => 'fronts#user_activation', :as => :activation_link, via: [:get]
   match '/profile' => 'fronts#profile', :as => :profile, via: [:get, :post, :patch]
+  match '/company/profile' => 'fronts#company_profile', :as => :company_profile, via: [:get, :post, :patch]
   get '/show_search_box/:toggle/:model/:pm' => 'fronts#show_search_box', :as => :show_search_box
   match 'contact_us' => 'fronts#contact_us', :as => :contact_us, via: [:get, :post, :patch]
   get '/other/:page_id' => 'fronts#other', :as => :other

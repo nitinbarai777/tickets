@@ -2,6 +2,7 @@ class Admin::TicketsController < ApplicationController
   before_action :set_admin_ticket, only: [:show, :edit, :update, :destroy]
   helper_method :sort_column, :sort_direction
   before_action :require_admin_or_company_admin
+  before_action :destroy_all_selected, only: [:index]
 
   layout "admin"
 
@@ -27,7 +28,7 @@ class Admin::TicketsController < ApplicationController
 
     @params_arr = { :subject => { "type" => 'text' } }
 
-    @o_single = controller_name.classify.constantize.new
+    @ticket = controller_name.classify.constantize.new
   end
 
   # GET /admin/tickets/1
@@ -93,6 +94,13 @@ class Admin::TicketsController < ApplicationController
     def set_admin_ticket
       @ticket = Ticket.find(params[:id])
     end
+    
+    def destroy_all_selected
+      if params[:rec]
+        id_arrs = params[:rec].collect { |k, v| k }
+        Ticket.find(id_arrs).map(&:destroy)
+      end
+    end    
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def admin_ticket_params

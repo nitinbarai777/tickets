@@ -55,7 +55,9 @@
 				          		<li><%= link_to t("general.email_templates"), admin_email_templates_path  %></li>
 				          		<li><%= link_to t("general.settings"), admin_settings_path  %></li>-->
 					      <% end %>  
-
+										<% if @current_company and is_company_admin? %>
+											<li><%= link_to t("general.company_profile"), "/company/profile"  %></li>
+										<% end %>	
 				          	<li><%= link_to t("general.profile"), "/profile"  %></li>
 				          	<li><%= link_to t("general.change_password"), "/change_password"  %></li>
 				          	<!--<li><%#= link_to t("general.logout"), "/logout?sub_domain="+@current_company.sub_domain %></li>-->
