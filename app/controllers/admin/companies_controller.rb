@@ -80,6 +80,17 @@ class Admin::CompaniesController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  # GET /companies/users/1
+  def users
+    include_blank = [["Select User", ""]]
+    if params[:company_id].present?
+      @company_users = include_blank + Company.find(params[:company_id]).users.all_users.collect {|u| [u.name, u.id]}
+    else
+      @company_users = include_blank
+    end
+    
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

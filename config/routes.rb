@@ -3,8 +3,14 @@ Tickets::Application.routes.draw do
   resources :posts
 
   namespace :admin do
-    resources :users, :tickets, :settings, :footer_pages, :contacts, :languages, :email_templates, :companies
+    resources :users, :tickets, :settings, :footer_pages, :contacts, :languages, :email_templates 
     match 'dashboard' => 'dashboard#index', :as => :dashboard, via: [:get, :post]
+
+    resources :companies do
+      collection do
+        get :users
+      end
+    end
   end
   
   resources :users, :path => "companies/:sub_domain/users/"

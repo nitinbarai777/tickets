@@ -27,31 +27,22 @@
 		    <div class="form-group">
 		    	<%= f.select :status_id, options_for_select([["Select Status", ""]] + get_ticket_status, :selected => (session[:search_params] ? session[:search_params]["status_id"] : "")), {}, { :class => 'form-control'} %>
 		    </div>	
-		  </div>		
-		  
-		  <% if is_company_admin? %>
-			  <div class="control-group">
-			    <%= f.label :user_id, :class => 'control-label' %>
-			    <div class="form-group">
-			    	<%= f.select :user_id, options_for_select(get_company_users(@current_company), :selected => (session[:search_params] ? session[:search_params]["user_id"] : "")), {}, { :class => 'form-control'} %>
-			    </div>	
-			  </div>
-			<% end %>  
-		  
-		  <% if is_admin? %>
-			  <div class="control-group">
-			    <%= f.label :company_id, :class => 'control-label' %>
-			    <div class="form-group">
-			    	<%= f.select :company_id, options_for_select(get_companies, :selected => (session[:search_params] ? session[:search_params]["company_id"] : "")), {}, { :class => 'form-control'} %>
-			    </div>	
-			  </div>
-			  <div class="control-group">
-			    <%= f.label :user_id, :class => 'control-label' %>
-			    <div class="form-group">
-			    	<%= f.select :user_id, options_for_select(get_users, :selected => (session[:search_params] ? session[:search_params]["user_id"] : "")), {}, { :class => 'form-control'} %>
-			    </div>	
-			  </div>			  
-			<% end %>  		  
+		  </div>	
+		  	
+		  <div class="control-group">
+		    <%= f.label :company_id, :class => 'control-label' %>
+		    <div class="form-group">
+		    	<%= select_tag :company_id, options_for_select(get_companies, :selected => (session[:search_params] ? session[:search_params]["company_id"] : "")), :data => { :remote => true, :url => url_for(:controller => "companies", :action => "users") }, :class => 'form-control' %>
+		    </div>	
+		  </div>
+		  <div class="control-group">
+		    <%= f.label :user_id, :class => 'control-label' %>
+		    <div class="form-group">
+		    	<%#= f.select :user_id, options_for_select(get_users, :selected => (session[:search_params] ? session[:search_params]["user_id"] : "")), {}, { :class => 'form-control'} %>
+		    	<%= f.select :user_id, options_for_select([["Select User", ""]], :selected => (session[:search_params] ? session[:search_params]["user_id"] : "")), {}, { :class => 'form-control'} %>
+		    </div>	
+		  </div>			  
+			  		  
 	    <div class="control-group form-action">
 	    	<label class="control-label">&nbsp;</label>
 	    	<div class="form-group">
@@ -61,9 +52,6 @@
 		      </span>	    		
 	      </div>	
 	    </div>		  
-		  
-		  			        
-    <%# model_name = params[:model].downcase %>
 
     </fieldset>
 
