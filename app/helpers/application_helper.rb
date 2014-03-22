@@ -22,7 +22,11 @@ module ApplicationHelper
   
   def get_users
     [["Select User", ""]] + User.all_users.collect {|r| [r.name, r.id]}
-  end  
+  end
+  
+  def get_company_users(company)
+    [["Select User", ""]] + company.users.all_users_and_staffs.collect {|r| [r.name, r.id]}
+  end      
   
   def get_all_pages
     FooterPage.footer 

@@ -8,7 +8,7 @@
   <% flash[:success_reply] = nil %>
 <% end %>
 
-<%= form_for ["admin", @ticket_reply], :url => reply_create_path, :remote => true, :html => { :class => 'form-inline' } do |f| %>
+<%= form_for ["admin", @ticket_reply], :url => reply_create_path, :html => { :class => 'form-inline' } do |f| %>
   <%= f.hidden_field :ticket_id, :value => params[:id] %>
   <%= f.hidden_field :user_id, :value => @ticket.user_id %>
   <%= f.hidden_field :user_type, :value => "User" %>   

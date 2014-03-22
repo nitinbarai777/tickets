@@ -56,10 +56,10 @@ class User < ActiveRecord::Base
   end  
 
   def name(shorten=true)
-    if first_name && last_name
+    if self.first_name.present? && self.last_name.present?
       [first_name, last_name].join(" ")
     else
-      email
+      self.email
     end
   end
 
