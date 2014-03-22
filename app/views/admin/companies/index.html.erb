@@ -3,7 +3,6 @@
 <%= hidden_field_tag :direction, params[:direction] %>
 <%= hidden_field_tag :sort, params[:sort] %>
 
-
 <div class="row mt centered">
 	<div class="col-lg-6 col-lg-offset-3">
 		<h1>
@@ -14,6 +13,11 @@
 		    <%= link_to t('general.destroy'), "#destroy_all", :id => "destroy_all", :class => 'btn btn-primary btn-small btn-danger' %>
 			</div>
 		</h1>
+		<%= link_to t('general.add'),
+		            new_admin_company_path,
+		            :class => 'btn btn-primary btn-small' %>
+
+    <%= link_to t('general.destroy'), "#destroy_all", :id => "destroy_all", :class => 'btn btn-primary btn-small btn-danger' %>
 	</div>
 </div>
 

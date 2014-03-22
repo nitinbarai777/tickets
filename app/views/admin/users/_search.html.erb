@@ -10,7 +10,7 @@
              <%= f.label field_name.capitalize, :class => 'control-label' %>
              <div class="controls">
                 <% if field_type == 'text' %>
-                  <%= f.text_field field_name, :value => (session[:search_params] ? session[:search_params][field_name] : ""), :class => 'input-xlarge' %>
+                  <%= f.text_field field_name, :value => (session[:search_params] ? session[:search_params][field_name] : ""), :class => 'form-control' %>
                 <% end %>
              </div>
            </div>

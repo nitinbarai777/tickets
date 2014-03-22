@@ -2,9 +2,6 @@ Tickets::Application.routes.draw do
   
   resources :posts
 
-  #faye_server '/faye', timeout: 25
-  #get '/chat', to: RealtimeChatController
-
   namespace :admin do
     resources :users, :tickets, :settings, :footer_pages, :contacts, :languages, :email_templates, :companies
     match 'dashboard' => 'dashboard#index', :as => :dashboard, via: [:get, :post]

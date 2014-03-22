@@ -20,6 +20,7 @@ class Admin::UsersController < ApplicationController
     else
       users = User.all_users_and_staffs_and_company_admins
     end  
+
     @o_all = users.
                   search(session[:search_params]).
                   order(sort_column + " " + sort_direction).

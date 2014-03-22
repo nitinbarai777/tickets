@@ -1,6 +1,4 @@
 class UserSessionsController < ApplicationController
-    #require 'net/http'
-    #require 'json'
   before_action :require_company, :except => [:new, :create, :destroy]
   # GET /user_sessions
   def index
