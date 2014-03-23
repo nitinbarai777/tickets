@@ -62,14 +62,19 @@
 										<% if @current_company and is_company_admin? %>
 											<li><%= link_to t("general.company_profile"), company_profile_path(@current_company.sub_domain)  %></li>
 										<% end %>	
-				          	<li><%= link_to t("general.profile"), profile_path(@current_company.sub_domain)  %></li>
-				          	<li><%= link_to t("general.change_password"), change_password_path(@current_company.sub_domain)  %></li>
+										<% if @current_company %>
+				          		<li><%= link_to t("general.profile"), profile_path(@current_company.sub_domain)  %></li>
+				          		<li><%= link_to t("general.change_password"), change_password_path(@current_company.sub_domain)  %></li>
+				          	<% else %>
+				          		<li><%= link_to t("general.profile"), admin_profile_path  %></li>
+				          		<li><%= link_to t("general.change_password"), admin_change_password_path %></li>				          	
+				          	<% end %>	
 				          	<!--<li><%#= link_to t("general.logout"), "/logout?sub_domain="+@current_company.sub_domain %></li>-->
 				          	<li data-no-turbolink><%= link_to t("general.logout"), "/logout" %></li>
 	      
 			        <% else %>
 			        	<% if @current_company %>
-			        		<li><%= link_to t("general.home"), "/#{@current_company.sub_domain}?home=true"  %></li>
+			        		<li><%= link_to t("general.home"), "/companies/#{@current_company.sub_domain}?home=true"  %></li>
 			        		<% if @current_company.is_confirmed_and_active? %>
 			          		<li><%= link_to t("general.sign_up"), signup_path(@current_company.sub_domain)  %></li>
 			          		<li><%= link_to t("general.login"), login_path(@current_company.sub_domain)  %></li>

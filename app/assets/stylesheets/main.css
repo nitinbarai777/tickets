@@ -437,6 +437,7 @@ legend.scheduler-border {
 }
 .redStart {
 	color: red;
+	float: left;
 }
 .greenStart {
 	color: green;
@@ -449,4 +450,12 @@ legend.scheduler-border {
 .nav-brand-logo {
 	font-family: "Helvetica";
 	font-size: 25px;
+}
+
+.form-control-browse {
+	padding: 0 0;
+}
+
+.mt10 {
+	margin-top: 10px;
 }

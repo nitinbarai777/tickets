@@ -13,6 +13,19 @@
 		<fieldset class="scheduler-border">
 	    <legend class="scheduler-border">Message Details</legend>
 	    
+	    
+	    <div class="control-group">
+	      <%= f.label :ticket_type, :class => 'control-label' %><span class="redStart">&nbsp;</span>
+	      <div class="form-group mt10">
+			    <%= f.radio_button :ticket_type, "technical" %>&nbsp;Technical
+			    <%= f.radio_button :ticket_type, "general", :checked => true %>&nbsp;General
+			    <%= f.radio_button :ticket_type, "sell" %>&nbsp;Sell
+	      </div>
+	    </div>	
+	    
+	    <div class="cl">&nbsp;</div>	    
+	    
+	    
 	    <div class="control-group">
 	      <%= f.label :subject, :class => 'control-label' %><span class="redStart">*</span>
 	      <div class="form-group">
@@ -47,7 +60,7 @@
 	    <div class="control-group">
 	      <%= f.label :attached_file, :class => 'control-label' %><span class="redStart">&nbsp;</span>
 	      <div class="form-group">
-			    <%= f.file_field :attached_file, :class => 'form-control' %>
+			    <%= f.file_field :attached_file, :class => 'form-control form-control-browse' %>
 	      </div>
 	    </div>	    
 
@@ -55,33 +68,16 @@
 	  
 	<% end %>  
 	  
+	  
+	<% unless current_user.present? %>  
 	<fieldset class="scheduler-border">
 	    <legend class="scheduler-border">Verify Submission</legend>
-	  
-	    <div class="control-group">
-	      <%= f.label :ticket_type, :class => 'control-label' %><span class="redStart">&nbsp;</span>
-	      <div class="form-group">
-			    <%= f.radio_button :ticket_type, "technical" %>&nbsp;Technical
-			    <%= f.radio_button :ticket_type, "general", :checked => true %>&nbsp;General
-			    <%= f.radio_button :ticket_type, "sell" %>&nbsp;Sell
-	      </div>
-	    </div>	 	  
-	  
-			<div class="cl">&nbsp;</div>
-	  
-	  
 	    <!--<div class="control-group">
 	      <%#= f.label :tag_list, :class => 'control-label' %><span class="redStart">&nbsp;</span>
 	      <div class="form-group">
 			    <%#= f.text_field :tag_list, :class => 'form-control' %>
 	      </div>
-	    </div>-->		  
-	  
-
-	
-	  <% unless current_user.present? %>
-	  
-	  
+	    </div>-->		    
 	    <div class="control-group">
 	    	<label class='control-label'>
 	      	<%= t("Verify Yourself") %>
@@ -89,6 +85,7 @@
 	    	
 	      <div class="form-group">
 	      	<input type="text" id="txtInput" class='form-control'/>
+	      	<span id="captcha_error" class=""></span>
 	      	<p>Please enter the text you see in at the bottom. This is required to prevent automated submission of Tickets.</p>
 	      </div>
 	    </div>			  
@@ -98,7 +95,7 @@
 	    	<label class='control-label'>&nbsp;</label>
 	    	
 	      <div class="form-group">
-		      <span id="captcha_error" class=""></span>
+		      
 		      <div id="captcha">
 		        <div id="captcha_gen" >
 			        <strong><div class="fl txtCaptcha" id="txtCaptcha"></div></strong>
@@ -107,12 +104,9 @@
 		      </div>
 		      <a href="javascript:void(0);" onClick="getCaptcha();"/>Refresh</a>
 	      </div>
-	    </div>	  
-	  
-
-	      
-	  <% end %>
-	</fieldset> 
+	    </div>
+	</fieldset>
+	<% end %> 
 	  
     <div class="control-group">
     	<label class="control-label">&nbsp;</label>
@@ -120,9 +114,12 @@
 	    	<% unless current_user.present? %>
 	    		<%= f.button "Submit", :class => 'btn btn-warning btn-lg', :id => "sub_btn" %>
 	    	<% else %>
-	    		<%= f.submit "Submit", :class => 'btn btn-warning btn-lg' %>
+	    		<%= f.submit "Submit", :class => 'btn btn-warning btn-lg', :id => "loader_id" %>
 	    	<% end %>
 	    	<%= link_to 'Cancel', root_path, :class => 'btn btn-warning btn-lg' %>
+				<span id="spinner" style="display: none;" class="loaderimgText">
+				  <%= image_tag "ajax-loader_wheel.gif" %>
+				</span>		      		    	
       </div>	
     </div>
 	 </div>
@@ -152,6 +149,7 @@
 	  		if($("#user_email").val() == "") {
 	  			$("#email_error").html("can't be blank");
 	  			$("#email_error").addClass("text-error text-message");
+	  			$("#captcha_error").html("");
 	  			$("#spinner").hide();
 	  			$('#user_email').focus();
 	  			return false;

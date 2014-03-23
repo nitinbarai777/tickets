@@ -1,5 +1,5 @@
 class UserSessionsController < ApplicationController
-  before_action :require_company, :except => [:new, :create, :destroy]
+  before_action :require_company, :except => [:new, :create, :destroy, :admin_login]
   # GET /user_sessions
   def index
     redirect_to new_user_session_path
@@ -21,6 +21,44 @@ class UserSessionsController < ApplicationController
       end  
     end
   end
+  
+  def admin_login
+    if current_user
+      redirect_to root_path
+    else
+      if request.post?  
+        @user_session = UserSession.new(params[:user_session])
+        
+          if @user_session.save
+            if current_user and current_user.is_active and current_user.role.role_type == "SuperAdmin"
+              session[:user_id] = current_user.id
+              session[:user_role] = current_user.role.role_type
+              notice = t("general.login_successful")
+              redirect_to admin_users_url
+            else
+              render text: current_user
+              reset_session
+              @user_session.destroy
+              @user_session = UserSession.new
+              flash[:error] = t("general.you_are_not_active_user")
+              #render :action => "admin_login"
+            end
+          else
+            reset_session
+            @user_session.destroy
+            @user_session = UserSession.new
+            render :action => "admin_login"
+          end
+              
+      else
+        @user_session = UserSession.new
+        respond_to do |format|
+          format.html # new.html.erb
+          format.xml { render :xml => @user_session }
+        end
+      end    
+    end    
+  end
 
   def create
     @user_session = UserSession.new(params[:user_session])
@@ -30,7 +68,26 @@ class UserSessionsController < ApplicationController
           session[:user_id] = current_user.id
           session[:user_role] = current_user.role.role_type
           notice = t("general.login_successful")
-          format.html { redirect_to(is_admin? ? admin_users_url : (is_company_admin? ? admin_users_url : (is_staff? ? staff_tickets_url(@current_company.sub_domain) : new_ticket_url(@current_company.sub_domain))), :notice => notice) }
+          
+          if is_admin?
+            d_path = admin_users_url
+          else 
+            if @current_company
+              if is_company_admin?
+                d_path = users_url(@current_company.sub_domain)
+              elsif is_staff?
+                d_path = staff_tickets_url(@current_company.sub_domain)
+              elsif is_user? 
+                d_path = new_ticket_url(@current_company.sub_domain)
+              else
+                d_path = root_url  
+              end
+            else
+              d_path = root_url  
+            end  
+          end
+          
+          format.html { redirect_to d_path }
           format.xml { render :xml => @user_session, :status => :created, :location => @user_session }
         else
           reset_session
@@ -47,6 +104,7 @@ class UserSessionsController < ApplicationController
 
   # GET logout
   def destroy
+    sub_domain = @current_company ? @current_company.sub_domain : ""
     @user_session = UserSession.find
     if @user_session
       @user_session.destroy
@@ -54,7 +112,7 @@ class UserSessionsController < ApplicationController
     reset_session
     flash[:notice] = t("general.logout_successful")
     respond_to do |format|
-      format.html { redirect_to root_url }
+      format.html { redirect_to (sub_domain.present? ? company_front_path(sub_domain) : root_url) }
       format.xml { head :ok }
     end
   end

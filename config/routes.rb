@@ -24,10 +24,19 @@ Tickets::Application.routes.draw do
   match '/companies/:sub_domain/signup(/:registration_key)' => 'user_sessions#signup', :as => :signup, via: [:get, :post, :patch]
 
   match '/companies/:sub_domain/forgot_password' => 'fronts#forgot_password', :as => :forgot_password, via: [:get, :post]
+  match '/forgot_password' => 'fronts#forgot_password', :as => :admin_forgot_password, via: [:get, :post]
+  
+  
   match '/companies/:sub_domain/change_password' => 'fronts#change_password', :as => :change_password, via: [:get, :post, :patch]
+  match '/change_password' => 'fronts#change_password', :as => :admin_change_password, via: [:get, :post, :patch]
+  
+  
   get 'dashboard' => 'fronts#dashboard', :as => :dashboard
   match 'activate/:activation_key' => 'fronts#user_activation', :as => :activation_link, via: [:get]
+  
   match '/companies/:sub_domain/profile' => 'fronts#profile', :as => :profile, via: [:get, :post, :patch]
+  match '/profile' => 'fronts#profile', :as => :admin_profile, via: [:get, :post, :patch]
+  
   match '/companies/:sub_domain/company/profile' => 'fronts#company_profile', :as => :company_profile, via: [:get, :post, :patch]
   get '/show_search_box/:toggle/:model/:pm' => 'fronts#show_search_box', :as => :show_search_box
   match 'contact_us' => 'fronts#contact_us', :as => :contact_us, via: [:get, :post, :patch]

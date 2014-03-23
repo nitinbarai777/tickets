@@ -37,6 +37,7 @@ class TicketsController < ApplicationController
   # POST /tickets.json
   def create
     unless current_user.present?
+      @is_user_login = false
       # check user exsist
       if @user = User.find_by(:email => params[:user][:email])
         @user_exist = true
@@ -74,6 +75,7 @@ class TicketsController < ApplicationController
     else
       @user = current_user
       @user_exist = true
+      @is_user_login = true
     end
     
     @ticket = Ticket.new(ticket_params)
@@ -95,7 +97,7 @@ class TicketsController < ApplicationController
             :ticket_priority => ticket_priority_hash[@ticket.priority_id.to_s],
             :email => @user.email            
           }
-          TicketMailer.new_ticket_email_with_user(@user.email, opts).deliver
+          TicketMailer.new_ticket_email_with_user(@user.email, @current_company.sub_domain, opts).deliver
         else
           # send mail to user with ticket link
           opts = { 
@@ -105,7 +107,7 @@ class TicketsController < ApplicationController
             :email => @user.email, 
             :password => params[:user][:password]            
           }
-          TicketMailer.new_ticket_email_without_user(@user.email, opts).deliver            
+          TicketMailer.new_ticket_email_without_user(@user.email, @current_company.sub_domain, opts).deliver            
         end        
         unless current_user.present?
           format.html { redirect_to login_url, notice: 'Ticket was successfully created.' }
@@ -114,6 +116,15 @@ class TicketsController < ApplicationController
         end
         format.json { render action: 'show', status: :created, location: @ticket }
       else
+        unless @is_user_login
+          @user_session = UserSession.find
+          if @user_session
+            @user_session.destroy
+          end
+          session[:user_id] = nil
+          session[:user_role] = nil             
+        end
+                  
         format.html { render action: 'new' }
         format.json { render json: @ticket.errors, status: :unprocessable_entity }
       end

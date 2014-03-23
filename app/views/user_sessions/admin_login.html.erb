@@ -1,5 +1,13 @@
+<div class="row mt centered">
+	<div class="col-lg-6 col-lg-offset-3">
+		<h1>
+			<%= t("general.login") %>
+		</h1>
+	</div>
+</div>
+
 <div class="col-lg-12">
-	<%= form_for @user_session, :html => { :class => 'form-inline' } do |f| %>
+	<%= form_for @user_session, :url => {:action => "admin_login"}, :html => { :class => 'form-inline' } do |f| %>
 	
 		<% if flash[:error] %>
 		  <div class="control-group">
@@ -34,8 +42,7 @@
 	    <div class="control-group form-action">
 	    	<div class="form-group">
 					<%= f.submit t("general.login"), :class => 'btn btn-warning btn-lg' %>
-					<% p_path = @current_company ? forgot_password_path(@current_company.sub_domain) : admin_forgot_password_path %>
-					<%= link_to t("general.click_here_to_recover_your_account"), p_path, :class => 'btn btn-warning btn-lg' %>
+					<%= link_to t("general.click_here_to_recover_your_account"), admin_forgot_password_path, :class => 'btn btn-warning btn-lg' %>
 	      </div>	
 	    </div>
 	

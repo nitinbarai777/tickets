@@ -7,9 +7,9 @@
 				<% end %>
 			<% end %><%=raw t("general.footer_msg") %>			
 		</p>
-		<div id="spinner" style="margin: 0px; left: 0px; display: none;" class="loaderimgText">
+		<!--<div id="spinner" style="margin: 0px; left: 0px; display: none;" class="loaderimgText">
 		  <%= image_tag "loader.gif" %><br><div class="backTransparant"></div>
-		</div>		
+		</div>-->		
 	</div><!-- /container -->
 
 
@@ -21,6 +21,8 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("input:text").eq(0).focus();
-		$("#spinner").hide();
-	});
+	  $('#loader_id').click (function() {
+	    $("#spinner").show();
+	  });		  
+	});  
 </script>

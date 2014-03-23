@@ -6,7 +6,10 @@
 	</div>
 </div>
 <div class="col-lg-12">
-	<%= form_for @o_single, :url => profile_path, :html => { :class => 'form-inline' } do |f| %>
+	
+		<% p_path = @current_company ? profile_path(@current_company.sub_domain) : admin_profile_path %>
+		<%= form_for @o_single, :url => p_path, :html => { :class => 'form-inline' } do |f| %>	
+	
 	    <div class="control-group">
 	      <%= f.label :first_name, :class => 'control-label' %><span class="redStart">&nbsp;</span>
 	      <div class="form-group">
@@ -31,16 +34,6 @@
 	      </div>
 	    </div>
 	    
-	    <div class="control-group">
-	      <%= f.label :birth_date, :class => 'control-label' %><span class="redStart">&nbsp;</span>
-	      <div id="user_birth_date" class="form-group">
-			<%= f.text_field :birth_date, :class => 'form-control' %>
-	        <span class="add-on">
-	            <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
-	        </span> 				
-		  </div>	   
-	    </div>
-			 
 	    <div class="control-group">
 	        <%= f.label :image, :class => 'control-label' %><span class="redStart">&nbsp;</span>
 	        <div class="form-group">

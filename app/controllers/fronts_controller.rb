@@ -43,7 +43,8 @@ class FrontsController < ApplicationController
         end
         session[:user_id] = nil
         flash[:notice] = t("general.password_has_been_sent_to_your_email_address")
-        redirect_to forgot_password_path
+        p_path = @current_company ? forgot_password_path(@current_company.sub_domain) : admin_forgot_password_path
+        redirect_to p_path
       else
         flash[:forgot_pass_error] = t("general.no_user_exists_for_provided_email_address")
         redirect_to :action => "forgot_password"
@@ -60,7 +61,8 @@ class FrontsController < ApplicationController
       @o_single.password_required = true
       respond_to do |format|
         if @o_single.update_attributes(user_params)
-          format.html { redirect_to change_password_url, notice: t("general.password_successfully_updated") }
+          p_path = @current_company ? change_password_path(@current_company.sub_domain) : admin_change_password_path
+          format.html { redirect_to p_path, notice: t("general.password_successfully_updated") }
           format.json { head :no_content }
         else
           format.html { render action: 'change_password' }
@@ -92,7 +94,8 @@ class FrontsController < ApplicationController
     if params[:user]
       respond_to do |format|
         if @o_single.update_attributes(user_params)
-          format.html { redirect_to profile_url, notice: t("general.successfully_updated") }
+          p_path = @current_company ? profile_path(@current_company.sub_domain) : admin_profile_path
+          format.html { redirect_to p_path, notice: t("general.successfully_updated") }
           format.json { head :no_content }
         else
           format.html { render action: 'profile' }
