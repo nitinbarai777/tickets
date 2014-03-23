@@ -20,14 +20,14 @@
           <td><%= o_row.created_at.to_s(:pretty_view) if o_row.created_at %></td>
           <td> 
 			      <%#= link_to t('general.edit'),
-			                  edit_admin_contact_path(o_row), :class => 'btn btn-mini' %>
+			                  #edit_admin_contact_path(o_row), :class => 'btn btn-warning btn-small' %>
 			      <%= link_to t('general.show'),
-			                  admin_contact_path(o_row), :class => 'btn btn-mini' %>            
+			                  admin_contact_path(o_row), :class => 'btn btn-warning btn-small' %>            
 			      <%= link_to t('general.destroy'),
 			                  admin_contact_path(o_row),
 			                  :method => :delete,
 			                  :data => { :confirm => t('general.confirm') },
-			                  :class => 'btn btn-mini btn-danger' %>
+			                  :class => 'btn btn-danger btn-small' %>
           </td>
         </tr>
       <% end %>
