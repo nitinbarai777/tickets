@@ -3,9 +3,9 @@
  <thead>
   <tr>
   	<th width="5%"><%= check_box_tag "check_all", "" %><%= t("general.all") %></th>
-    <th width="20%"><%= t("name") %></th>
-    <th width="20%"><%= t("subject") %></th>
-    <th width="15%"><%= t("general.date")%></th>
+    <th width="15%"><%= sortable "user_id", t("name") %></th>
+    <th width="20%"><%= sortable "subject", t("subject") %></th>
+    <th width="15%"><%= sortable "created_at", t("general.date")%></th>
     <th width="10%"><%= sortable "status_id", t("general.status") %></th>
     <th width="10%"><%= sortable "priority_id", t("general.priority") %></th>
     <th width="20%"><%= t("general.actions") %></th>

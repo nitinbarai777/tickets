@@ -7,6 +7,10 @@ class UserSessionsController < ApplicationController
 
   # GET login
   def new
+    if request.path == '/admin'
+      session[:current_sub_domain] = nil
+      session[:current_company_id] = nil      
+    end
     if current_user
       redirect_to root_path
     else 

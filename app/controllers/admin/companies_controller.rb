@@ -85,7 +85,7 @@ class Admin::CompaniesController < ApplicationController
   def users
     include_blank = [["Select User", ""]]
     if params[:company_id].present?
-      @company_users = include_blank + Company.find(params[:company_id]).users.all_users.collect {|u| [u.name, u.id]}
+      @company_users = include_blank + User.all_users.where(:company_id => params[:company_id]).collect {|u| [u.name, u.id]}
     else
       @company_users = include_blank
     end

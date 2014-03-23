@@ -25,7 +25,7 @@ module ApplicationHelper
   end
   
   def get_company_users(company)
-    [["Select User", ""]] + company.users.all_users_and_staffs.collect {|r| [r.name, r.id]}
+    [["Select User", ""]] + User.all_users_and_staffs.where(:company => company).collect {|r| [r.name, r.id]}
   end      
   
   def get_all_pages

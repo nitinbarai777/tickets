@@ -46,32 +46,15 @@
         </div>
     <% end %>
   
-  		<% if is_admin? %>
-	      <div class="control-group">
-	        <%= f.label :company_id, :class => 'control-label' %>
-	        <div class="form-group">
-	          <%= f.select :company_id, options_for_select([["Select Company", ""]] + Company.all.collect {|r| [r.name, r.id]}, :selected => (@o_single.company.id unless @o_single.company.nil?)), {}, {:class => "form-control"} %>
-	        </div>
-	      </div>
-	      <div class="control-group">
-	        <%= f.label :role_id, :class => 'control-label' %>
-	        <div class="form-group">
-	          <%= select_tag "role_id", options_for_select(get_admin_and_company_admin_role, (@o_single.role.id unless @o_single.role.nil?)), :class => "form-control"  %>
-	        </div>
-	      </div>	      
-	    <% end %>  
-	    
-	    <% if is_company_admin? %>
-  			<%= f.hidden_field :company_id, :value => @current_company.id %>
-	      <div class="control-group">
-	        <%= f.label :role_id, :class => 'control-label' %>
-	        <div class="form-group">
-	          <%= select_tag "role_id", options_for_select(get_staff_and_user_role, (@o_single.role.id unless @o_single.role.nil?)), :class => "form-control"  %>
-	        </div>
-	      </div>  			
-  		<% end %>  
-  
-
+    <% if is_company_admin? %>
+			<%= f.hidden_field :company_id, :value => @current_company.id %>
+      <div class="control-group">
+        <%= f.label :role_id, :class => 'control-label' %>
+        <div class="form-group">
+          <%= select_tag "role_id", options_for_select(get_staff_and_user_role, (@o_single.role.id unless @o_single.role.nil?)), :class => "form-control"  %>
+        </div>
+      </div>  			
+		<% end %>  
 
       <div class="control-group">
           <%= f.label :image, :class => 'control-label' %>
@@ -92,7 +75,7 @@
       <div class="control-group">
         <%= f.label :is_active, :class => 'control-label' %>
         <div class="form-group">
-          <%= f.check_box :is_active, :class => 'form-control' %>
+          <%= f.check_box :is_active, :class => 'mt10' %>
           <%= f.hidden_field :term, :value => true %>
         </div>
       </div>

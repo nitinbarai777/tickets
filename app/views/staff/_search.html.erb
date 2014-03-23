@@ -30,7 +30,7 @@
 		  <div class="control-group">
 		    <%= f.label :user_id, :class => 'control-label' %>
 		    <div class="form-group">
-		    	<%= f.select :user_id, options_for_select(get_users, :selected => (session[:search_params] ? session[:search_params]["user_id"] : "")), {}, { :class => 'form-control'} %>
+		    	<%= f.select :user_id, options_for_select(get_company_users(@current_company), :selected => (session[:search_params] ? session[:search_params]["user_id"] : "")), {}, { :class => 'form-control'} %>
 		    </div>	
 		  </div>			        
     <%# model_name = params[:model].downcase %>
