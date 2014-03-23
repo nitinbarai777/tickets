@@ -18,7 +18,7 @@
 		      	<% if @ticket.attached_file.present? %>
 							<fieldset class="scheduler-border">
 							    <legend class="scheduler-border">Attachments</legend>	      	
-		      				<%= link_to @ticket.attached_file.path.split("/").last, download_path(@ticket.id, 'ticket'), :style => 'text-decoration: underline; color:#000;' %>
+		      				<%= link_to @ticket.attached_file.path.split("/").last, download_path(@current_company.sub_domain, @ticket.id, 'ticket'), :style => 'text-decoration: underline; color:#000;' %>
 		      		</fieldset>		
 		      	<% end %> 		    
 		    

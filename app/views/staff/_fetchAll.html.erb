@@ -3,7 +3,7 @@
   <tr>
     <th width="15%"><%= sortable "user_id", t("name") %></th>
     <th width="20%"><%= t("ticket subject") %></th>
-    <th width="15%"><%= sortable "updated_at", t("general.last_updated")%></th>
+    <th width="15%"><%= sortable "created_at", t("general.date")%></th>
     <th width="10%"><%= sortable "status_id", t("general.status") %></th>
     <th width="10%"><%= sortable "priority_id", t("general.priority") %></th>
     <th width="15%">&nbsp;</th>
@@ -21,7 +21,7 @@
           <td><%= ticket_status_hash[o_row.status_id.to_s] %></td>
           <td><%= ticket_priority_hash[o_row.priority_id.to_s] %></td>
           <% if (o_row.is_last_reply_by_staff?(current_user.id) and o_row.status_id == 1) %>
-          	<td class="redStart"><%=  "Awaiting for reply" %></td>
+          	<td class="redDark"><%=  "Awaiting for reply" %></td>
           <% else %>	
           	<td class="greenStart"><%=  "Reply sent" %></td>
           <% end %>
